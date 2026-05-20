@@ -5,38 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Zamówienie · Catering Śląski</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
 <script>
 tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        forest: { 500: '#2D5A3D', 700: '#1A3A26', 900: '#0B2818' },
-        cream:  { 50: '#FBF8F2', 100: '#F4EFE6', 200: '#E8E0D0' },
-        gold:   { 400: '#D9BC78', 500: '#C9A961', 600: '#A88842', 700: '#7E6630' },
-        ember:  { 500: '#D97742' },
-        tomato: { 500: '#C73E1D' },
-        coal:   { 900: '#0A0908', 800: '#15110F' },
-      },
-      fontFamily: {
-        display: ['Fraunces', 'serif'],
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
-      },
-    }
-  }
+ theme: {
+ extend: {
+  colors: {
+  coal: { 900: '#0A0908', 800: '#1A1717', 700: '#2B2826' },
+  graphite:{ 500: '#585553' },
+  steel: { 400: '#8B8784' },
+  bone: { 200: '#E8E3DA' },
+  paper: { 100: '#F5F2EC' },
+  snow: { 50: '#FFFFFF' },
+  signal: { 500: '#E54B17', 600: '#C73E0F', 100: '#FFE6DC' },
+  success: { 500: '#2D5A3D', 700: '#1A3A26' },
+  },
+  fontFamily: {
+  display: ['"Inter Tight"','Inter','system-ui','sans-serif'],
+  sans: ['Inter','system-ui','sans-serif'],
+  hand: ['Caveat','cursive'],
+  },
+ }
+ }
 }
 </script>
 <style>
-body { font-family: 'Inter', sans-serif; background: #FBF8F2; color: #221C18; }
-.display { font-family: 'Fraunces', serif; }
-.btn-coal { background: #0A0908; color: #F4EFE6; transition: all .2s; font-weight: 600; }
-.btn-coal:hover { background: #221C18; transform: translateY(-1px); }
-.input-field { width: 100%; background: #fff; border: 1px solid rgba(10,9,8,0.12); border-radius: 14px; padding: .9rem 1.1rem; font-size: .95rem; color: #0A0908; transition: border-color .2s, box-shadow .2s; }
-.input-field:focus { outline: none; border-color: #0A0908; box-shadow: 0 0 0 3px rgba(201,169,97,0.2); }
+body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #0A0908; }
+.upper-tight { text-transform: uppercase; letter-spacing: -0.02em; }
+.label { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; font-size: 12px; }
+.num { font-feature-settings: "tnum" on; }
+.hand { font-family: 'Caveat', cursive; }
+.display { font-family: 'Inter Tight', sans-serif; }
+.btn-coal { background: #0A0908; color: #F5F2EC; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; border: 1.5px solid #0A0908; padding: 14px 24px; transition: all .15s; }
+.btn-coal:hover { background: #1A1717; transform: translateY(-1px); }
+.input-field { width: 100%; background: #fff; border: 1.5px solid #E8E3DA; border-radius: 0; padding: .9rem 1.1rem; font-size: .95rem; color: #0A0908; transition: border-color .2s, box-shadow .2s; }
+.input-field:focus { outline: none; border-color: #0A0908; box-shadow: 0 0 0 3px rgba(229,75,23,0.2); }
 .input-field::placeholder { color: rgba(10,9,8,0.35); }
 .pay-option { transition: all .2s; cursor: pointer; }
-.pay-option:hover { border-color: #C9A961; }
-.pay-option.active { border-color: #0A0908; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.05); }
+.pay-option:hover { border-color: #0A0908; }
+.pay-option.active { border-color: #E54B17; background: #FFE6DC; box-shadow: none; }
 .pay-option.active .check-mark { opacity: 1; transform: scale(1); }
 .check-mark { opacity: 0; transform: scale(0.6); transition: all .25s; }
 </style>
@@ -44,334 +51,334 @@ body { font-family: 'Inter', sans-serif; background: #FBF8F2; color: #221C18; }
 <body class="min-h-screen">
 
 <!-- Top progress strip -->
-<div class="bg-coal-900 text-cream-100 text-center text-xs py-2 px-4">
-  🔒 Szyfrowane SSL · Stripe Payments · Gwarancja zwrotu w 14 dni
+<div class="bg-coal-900 text-paper-100 text-center text-xs py-2 px-4">
+ 🔒 Szyfrowane SSL · Stripe Payments · Gwarancja zwrotu w 14 dni
 </div>
 
 <!-- Header -->
-<header class="bg-cream-50 border-b border-coal-900/10">
-  <div class="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
-    <a href="03-sklep-b2c.html" class="flex items-center gap-3 text-coal-900 hover:text-gold-600 transition text-sm">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      Wróć do sklepu
-    </a>
-    <a href="01-landing.html" class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center font-display font-bold text-coal-900">CŚ</div>
-      <span class="display text-lg text-coal-900 hidden md:inline">Catering Śląski</span>
-    </a>
-    <div class="flex items-center gap-1.5 text-xs text-coal-900/60">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Płatność zabezpieczona
-    </div>
-  </div>
+<header class="bg-paper-100 border-b border-coal-900/10">
+ <div class="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+ <a href="03-sklep-b2c.html" class="flex items-center gap-3 text-coal-900 hover:text-signal-500 transition text-sm">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  Wróć do sklepu
+ </a>
+ <a href="01-landing.html" class="flex items-center gap-3">
+  <div class="w-9 h-9 bg-coal-900 flex items-center justify-center font-display font-bold text-paper-100">CŚ</div>
+  <span class="display text-lg text-coal-900 hidden md:inline">Catering Śląski</span>
+ </a>
+ <div class="flex items-center gap-1.5 text-xs text-coal-900/60">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  Płatność zabezpieczona
+ </div>
+ </div>
 </header>
 
 <!-- Main -->
 <main class="max-w-6xl mx-auto px-6 lg:px-10 py-10">
-  <div class="mb-10">
-    <h1 class="display text-3xl md:text-4xl text-coal-900 mb-2">Finalizacja zamówienia</h1>
-    <p class="text-coal-900/60 text-sm">Wypełnij dane — wysłamy potwierdzenie na mail i SMS. Zajmie 60 sekund.</p>
+ <div class="mb-10">
+ <h1 class="display text-3xl md:text-4xl text-coal-900 mb-2">Finalizacja zamówienia</h1>
+ <p class="text-coal-900/60 text-sm">Wypełnij dane — wysłamy potwierdzenie na mail i SMS. Zajmie 60 sekund.</p>
+ </div>
+
+ <form class="grid lg:grid-cols-12 gap-8">
+
+ <!-- Left: form -->
+ <div class="lg:col-span-7 space-y-6">
+
+  <!-- 1. Kontakt -->
+  <section class="bg-white border border-coal-900/5 p-7 shadow-sm">
+  <div class="flex items-center gap-3 mb-5">
+   <div class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center text-sm font-semibold">1</div>
+   <h2 class="display text-xl text-coal-900">Kontakt</h2>
+   <a href="#" class="ml-auto text-xs text-signal-500 hover:text-signal-600">Mam konto — zaloguj się</a>
+  </div>
+  <div class="grid md:grid-cols-2 gap-4">
+   <input class="input-field" type="text" placeholder="Imię" value="Remigiusz" />
+   <input class="input-field" type="text" placeholder="Nazwisko" value="Psonka" />
+   <input class="input-field md:col-span-2" type="email" placeholder="Email" value="remek@ideecom.pl" />
+   <input class="input-field md:col-span-2" type="tel" placeholder="Numer telefonu" value="+48 600 100 200" />
+  </div>
+  <label class="flex items-center gap-3 mt-4 text-xs text-coal-900/70 cursor-pointer">
+   <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" checked />
+   Stwórz konto żeby śledzić zamówienie i zamawiać szybciej (jednym hasłem)
+  </label>
+  </section>
+
+  <!-- 2. Dostawa -->
+  <section class="bg-white border border-coal-900/5 p-7 shadow-sm">
+  <div class="flex items-center gap-3 mb-5">
+   <div class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center text-sm font-semibold">2</div>
+   <h2 class="display text-xl text-coal-900">Dostawa</h2>
   </div>
 
-  <form class="grid lg:grid-cols-12 gap-8">
+  <div class="grid grid-cols-2 gap-3 mb-5">
+   <label class="pay-option active border-2 border-coal-900/10 p-4 flex flex-col gap-2 relative">
+   <input type="radio" name="delivery" class="hidden" checked />
+   <div class="absolute top-3 right-3 check-mark w-5 h-5 bg-coal-900 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+   <div>
+    <div class="font-medium text-coal-900">Dostawa</div>
+    <div class="text-xs text-coal-900/60 mt-0.5">Strefa 1 · 29 zł</div>
+   </div>
+   </label>
+   <label class="pay-option border-2 border-coal-900/10 p-4 flex flex-col gap-2 relative">
+   <input type="radio" name="delivery" class="hidden" />
+   <div class="absolute top-3 right-3 check-mark w-5 h-5 bg-coal-900 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+   <div>
+    <div class="font-medium text-coal-900">Odbiór osobisty</div>
+    <div class="text-xs text-coal-900/60 mt-0.5">Dąbrowa Górnicza · 0 zł</div>
+   </div>
+   </label>
+  </div>
 
-    <!-- Left: form -->
-    <div class="lg:col-span-7 space-y-6">
+  <div class="grid md:grid-cols-2 gap-4">
+   <input class="input-field md:col-span-2" type="text" placeholder="Ulica i numer" value="ul. Mariacka 5" />
+   <input class="input-field" type="text" placeholder="Kod pocztowy" value="40-014" />
+   <input class="input-field" type="text" placeholder="Miasto" value="Katowice" />
+   <textarea class="input-field md:col-span-2" rows="2" placeholder="Uwagi dla kuriera (opcjonalnie, np. piętro, kod do bramy)"></textarea>
+  </div>
 
-      <!-- 1. Kontakt -->
-      <section class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center text-sm font-semibold">1</div>
-          <h2 class="display text-xl text-coal-900">Kontakt</h2>
-          <a href="#" class="ml-auto text-xs text-gold-600 hover:text-gold-700">Mam konto — zaloguj się</a>
-        </div>
-        <div class="grid md:grid-cols-2 gap-4">
-          <input class="input-field" type="text" placeholder="Imię" value="Remigiusz" />
-          <input class="input-field" type="text" placeholder="Nazwisko" value="Psonka" />
-          <input class="input-field md:col-span-2" type="email" placeholder="Email" value="remek@ideecom.pl" />
-          <input class="input-field md:col-span-2" type="tel" placeholder="Numer telefonu" value="+48 600 100 200" />
-        </div>
-        <label class="flex items-center gap-3 mt-4 text-xs text-coal-900/70 cursor-pointer">
-          <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" checked />
-          Stwórz konto żeby śledzić zamówienie i zamawiać szybciej (jednym hasłem)
-        </label>
-      </section>
+  <div class="mt-5 grid md:grid-cols-2 gap-4">
+   <div>
+   <label class="block text-sm text-coal-900/70 mb-2">Data dostawy</label>
+   <input class="input-field" type="date" value="2026-05-20" />
+   </div>
+   <div>
+   <label class="block text-sm text-coal-900/70 mb-2">Preferowana godzina</label>
+   <select class="input-field">
+    <option>08:00–10:00</option>
+    <option>10:00–12:00</option>
+    <option selected>12:00–14:00</option>
+    <option>14:00–16:00</option>
+    <option>16:00–17:00</option>
+   </select>
+   </div>
+  </div>
 
-      <!-- 2. Dostawa -->
-      <section class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center text-sm font-semibold">2</div>
-          <h2 class="display text-xl text-coal-900">Dostawa</h2>
-        </div>
+  <div class="mt-4 bg-success-500/10 border border-success-500/30 p-4 flex items-start gap-3">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A3A26" stroke-width="2" class="mt-0.5 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+   <div class="text-sm">
+   <div class="text-success-700 font-medium">Strefa 1 potwierdzona</div>
+   <div class="text-success-700/80 text-xs mt-0.5">Dostawa do Katowic — dostępna jutro w wybranym oknie</div>
+   </div>
+  </div>
+  </section>
 
-        <div class="grid grid-cols-2 gap-3 mb-5">
-          <label class="pay-option active rounded-2xl border-2 border-coal-900/10 p-4 flex flex-col gap-2 relative">
-            <input type="radio" name="delivery" class="hidden" checked />
-            <div class="absolute top-3 right-3 check-mark w-5 h-5 rounded-full bg-coal-900 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <div>
-              <div class="font-medium text-coal-900">Dostawa</div>
-              <div class="text-xs text-coal-900/60 mt-0.5">Strefa 1 · 29 zł</div>
-            </div>
-          </label>
-          <label class="pay-option rounded-2xl border-2 border-coal-900/10 p-4 flex flex-col gap-2 relative">
-            <input type="radio" name="delivery" class="hidden" />
-            <div class="absolute top-3 right-3 check-mark w-5 h-5 rounded-full bg-coal-900 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-            <div>
-              <div class="font-medium text-coal-900">Odbiór osobisty</div>
-              <div class="text-xs text-coal-900/60 mt-0.5">Dąbrowa Górnicza · 0 zł</div>
-            </div>
-          </label>
-        </div>
+  <!-- 3. Faktura VAT -->
+  <section class="bg-white border border-coal-900/5 p-7 shadow-sm">
+  <div class="flex items-center justify-between mb-5">
+   <div class="flex items-center gap-3">
+   <div class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center text-sm font-semibold">3</div>
+   <h2 class="display text-xl text-coal-900">Faktura VAT</h2>
+   </div>
+   <label class="flex items-center gap-2 text-sm cursor-pointer">
+   <input id="invoiceToggle" type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+   <span class="text-coal-900/70">Potrzebuję faktury VAT</span>
+   </label>
+  </div>
+  <div id="invoiceFields" class="hidden grid md:grid-cols-2 gap-4">
+   <input class="input-field md:col-span-2" type="text" placeholder="Nazwa firmy" />
+   <input class="input-field" type="text" placeholder="NIP" />
+   <input class="input-field" type="text" placeholder="Adres firmy" />
+  </div>
+  <div id="invoiceInfo" class="bg-bone-200/50 border border-coal-900/5 p-4 text-sm text-coal-900/70 flex items-start gap-3">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+   Domyślnie wystawiamy paragon. Zaznacz powyżej żeby otrzymać fakturę VAT — wyślemy ją mailem po realizacji.
+  </div>
+  </section>
 
-        <div class="grid md:grid-cols-2 gap-4">
-          <input class="input-field md:col-span-2" type="text" placeholder="Ulica i numer" value="ul. Mariacka 5" />
-          <input class="input-field" type="text" placeholder="Kod pocztowy" value="40-014" />
-          <input class="input-field" type="text" placeholder="Miasto" value="Katowice" />
-          <textarea class="input-field md:col-span-2" rows="2" placeholder="Uwagi dla kuriera (opcjonalnie, np. piętro, kod do bramy)"></textarea>
-        </div>
+  <!-- 4. Płatność -->
+  <section class="bg-white border border-coal-900/5 p-7 shadow-sm">
+  <div class="flex items-center gap-3 mb-5">
+   <div class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center text-sm font-semibold">4</div>
+   <h2 class="display text-xl text-coal-900">Płatność</h2>
+  </div>
 
-        <div class="mt-5 grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-coal-900/70 mb-2">Data dostawy</label>
-            <input class="input-field" type="date" value="2026-05-20" />
-          </div>
-          <div>
-            <label class="block text-sm text-coal-900/70 mb-2">Preferowana godzina</label>
-            <select class="input-field">
-              <option>08:00–10:00</option>
-              <option>10:00–12:00</option>
-              <option selected>12:00–14:00</option>
-              <option>14:00–16:00</option>
-              <option>16:00–17:00</option>
-            </select>
-          </div>
-        </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+   <label class="pay-option active border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="blik">
+   <input type="radio" name="pay" class="hidden" checked />
+   <div class="absolute top-2 right-2 check-mark w-5 h-5 bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+   <div class="font-display font-bold text-base text-tomato-500">BLIK</div>
+   <div class="text-[10px] text-coal-900/50">Najpopularniejsze w PL</div>
+   </label>
+   <label class="pay-option border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="card">
+   <input type="radio" name="pay" class="hidden" />
+   <div class="absolute top-2 right-2 check-mark w-5 h-5 bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+   <svg width="32" height="20" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#0A0908"/><circle cx="12" cy="10" r="6" fill="#D97742"/><circle cx="20" cy="10" r="6" fill="#C9A961"/></svg>
+   <div class="text-xs text-coal-900/70">Karta</div>
+   </label>
+   <label class="pay-option border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="apple">
+   <input type="radio" name="pay" class="hidden" />
+   <div class="absolute top-2 right-2 check-mark w-5 h-5 bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+   <div class="font-medium text-sm text-coal-900">🍎 Pay</div>
+   <div class="text-[10px] text-coal-900/50">Apple Pay</div>
+   </label>
+   <label class="pay-option border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="google">
+   <input type="radio" name="pay" class="hidden" />
+   <div class="absolute top-2 right-2 check-mark w-5 h-5 bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+   <div class="font-medium text-sm text-coal-900">G Pay</div>
+   <div class="text-[10px] text-coal-900/50">Google Pay</div>
+   </label>
+  </div>
 
-        <div class="mt-4 bg-forest-500/10 border border-forest-500/30 rounded-xl p-4 flex items-start gap-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A3A26" stroke-width="2" class="mt-0.5 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <div class="text-sm">
-            <div class="text-forest-700 font-medium">Strefa 1 potwierdzona</div>
-            <div class="text-forest-700/80 text-xs mt-0.5">Dostawa do Katowic — dostępna jutro w wybranym oknie</div>
-          </div>
-        </div>
-      </section>
+  <div id="blikField">
+   <label class="block text-sm text-coal-900/70 mb-2">Kod BLIK</label>
+   <input class="input-field text-2xl tracking-[0.5em] font-mono text-center" type="text" maxlength="6" placeholder="••••••" />
+   <p class="text-xs text-coal-900/40 mt-2">Wprowadź 6-cyfrowy kod z aplikacji Twojego banku</p>
+  </div>
+  <div id="cardField" class="hidden space-y-3">
+   <input class="input-field" type="text" placeholder="Numer karty" />
+   <div class="grid grid-cols-2 gap-3">
+   <input class="input-field" type="text" placeholder="MM/RR" />
+   <input class="input-field" type="text" placeholder="CVC" />
+   </div>
+  </div>
 
-      <!-- 3. Faktura VAT -->
-      <section class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm">
-        <div class="flex items-center justify-between mb-5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center text-sm font-semibold">3</div>
-            <h2 class="display text-xl text-coal-900">Faktura VAT</h2>
-          </div>
-          <label class="flex items-center gap-2 text-sm cursor-pointer">
-            <input id="invoiceToggle" type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
-            <span class="text-coal-900/70">Potrzebuję faktury VAT</span>
-          </label>
-        </div>
-        <div id="invoiceFields" class="hidden grid md:grid-cols-2 gap-4">
-          <input class="input-field md:col-span-2" type="text" placeholder="Nazwa firmy" />
-          <input class="input-field" type="text" placeholder="NIP" />
-          <input class="input-field" type="text" placeholder="Adres firmy" />
-        </div>
-        <div id="invoiceInfo" class="bg-cream-100/50 border border-coal-900/5 rounded-xl p-4 text-sm text-coal-900/70 flex items-start gap-3">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Domyślnie wystawiamy paragon. Zaznacz powyżej żeby otrzymać fakturę VAT — wyślemy ją mailem po realizacji.
-        </div>
-      </section>
+  <div class="mt-5 flex items-center gap-3 text-xs text-coal-900/50">
+   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+   Płatność obsługuje Stripe · 256-bit SSL · PCI DSS Level 1
+  </div>
+  </section>
 
-      <!-- 4. Płatność -->
-      <section class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center text-sm font-semibold">4</div>
-          <h2 class="display text-xl text-coal-900">Płatność</h2>
-        </div>
+  <!-- 5. Promo + Marketing -->
+  <section class="bg-white border border-coal-900/5 p-7 shadow-sm">
+  <div class="grid md:grid-cols-2 gap-4">
+   <div>
+   <label class="block text-sm text-coal-900/70 mb-2">Kod rabatowy</label>
+   <div class="flex gap-2">
+    <input class="input-field flex-1" type="text" placeholder="Wpisz kod" />
+    <button type="button" class="px-5 py-3 border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition text-sm font-medium">Użyj</button>
+   </div>
+   </div>
+   <div class="flex items-start gap-3 text-sm text-coal-900/70 md:pt-7">
+   <input type="checkbox" class="w-4 h-4 rounded accent-coal-900 mt-1" />
+   <span>Chcę otrzymywać przepisy, sezonowe oferty i przypomnienia o okazjach (mogę zrezygnować jednym kliknięciem)</span>
+   </div>
+  </div>
+  </section>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-          <label class="pay-option active rounded-2xl border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="blik">
-            <input type="radio" name="pay" class="hidden" checked />
-            <div class="absolute top-2 right-2 check-mark w-5 h-5 rounded-full bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            <div class="font-display font-bold text-base text-tomato-500">BLIK</div>
-            <div class="text-[10px] text-coal-900/50">Najpopularniejsze w PL</div>
-          </label>
-          <label class="pay-option rounded-2xl border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="card">
-            <input type="radio" name="pay" class="hidden" />
-            <div class="absolute top-2 right-2 check-mark w-5 h-5 rounded-full bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            <svg width="32" height="20" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#0A0908"/><circle cx="12" cy="10" r="6" fill="#D97742"/><circle cx="20" cy="10" r="6" fill="#C9A961"/></svg>
-            <div class="text-xs text-coal-900/70">Karta</div>
-          </label>
-          <label class="pay-option rounded-2xl border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="apple">
-            <input type="radio" name="pay" class="hidden" />
-            <div class="absolute top-2 right-2 check-mark w-5 h-5 rounded-full bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            <div class="font-medium text-sm text-coal-900">🍎 Pay</div>
-            <div class="text-[10px] text-coal-900/50">Apple Pay</div>
-          </label>
-          <label class="pay-option rounded-2xl border-2 border-coal-900/10 p-4 flex flex-col items-center gap-2 relative" data-pay="google">
-            <input type="radio" name="pay" class="hidden" />
-            <div class="absolute top-2 right-2 check-mark w-5 h-5 rounded-full bg-coal-900 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F4EFE6"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            <div class="font-medium text-sm text-coal-900">G Pay</div>
-            <div class="text-[10px] text-coal-900/50">Google Pay</div>
-          </label>
-        </div>
+ </div>
 
-        <div id="blikField">
-          <label class="block text-sm text-coal-900/70 mb-2">Kod BLIK</label>
-          <input class="input-field text-2xl tracking-[0.5em] font-mono text-center" type="text" maxlength="6" placeholder="••••••" />
-          <p class="text-xs text-coal-900/40 mt-2">Wprowadź 6-cyfrowy kod z aplikacji Twojego banku</p>
-        </div>
-        <div id="cardField" class="hidden space-y-3">
-          <input class="input-field" type="text" placeholder="Numer karty" />
-          <div class="grid grid-cols-2 gap-3">
-            <input class="input-field" type="text" placeholder="MM/RR" />
-            <input class="input-field" type="text" placeholder="CVC" />
-          </div>
-        </div>
+ <!-- Right: order summary -->
+ <aside class="lg:col-span-5">
+  <div class="bg-white border border-coal-900/5 p-7 shadow-sm lg:sticky lg:top-8">
+  <h3 class="display text-xl text-coal-900 mb-5">Twoje zamówienie</h3>
 
-        <div class="mt-5 flex items-center gap-3 text-xs text-coal-900/50">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Płatność obsługuje Stripe · 256-bit SSL · PCI DSS Level 1
-        </div>
-      </section>
+  <div class="space-y-4 mb-5 pb-5 border-b border-coal-900/5">
+   <div class="flex gap-3">
+   <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&q=80" class="w-16 h-16 object-cover" />
+   <div class="flex-1">
+    <div class="text-sm font-medium text-coal-900">BOX koktajlowy II</div>
+    <div class="text-xs text-coal-900/50">2× 340 zł</div>
+   </div>
+   <div class="display text-coal-900">680 <span class="text-xs">zł</span></div>
+   </div>
+   <div class="flex gap-3">
+   <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=200&q=80" class="w-16 h-16 object-cover" />
+   <div class="flex-1">
+    <div class="text-sm font-medium text-coal-900">BOX sałatkowy <span class="text-xs px-1.5 py-0.5 bg-success-500/10 text-success-700 rounded ml-1">Wege</span></div>
+    <div class="text-xs text-coal-900/50">1× 210 zł</div>
+   </div>
+   <div class="display text-coal-900">210 <span class="text-xs">zł</span></div>
+   </div>
+  </div>
 
-      <!-- 5. Promo + Marketing -->
-      <section class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm">
-        <div class="grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-coal-900/70 mb-2">Kod rabatowy</label>
-            <div class="flex gap-2">
-              <input class="input-field flex-1" type="text" placeholder="Wpisz kod" />
-              <button type="button" class="px-5 py-3 rounded-2xl border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition text-sm font-medium">Użyj</button>
-            </div>
-          </div>
-          <div class="flex items-start gap-3 text-sm text-coal-900/70 md:pt-7">
-            <input type="checkbox" class="w-4 h-4 rounded accent-coal-900 mt-1" />
-            <span>Chcę otrzymywać przepisy, sezonowe oferty i przypomnienia o okazjach (mogę zrezygnować jednym kliknięciem)</span>
-          </div>
-        </div>
-      </section>
+  <div class="space-y-2 mb-5 text-sm">
+   <div class="flex justify-between text-coal-900/70"><span>Suma</span><span>890 zł</span></div>
+   <div class="flex justify-between text-coal-900/70"><span>Dostawa (Strefa 1)</span><span>29 zł</span></div>
+   <div class="flex justify-between text-coal-900/70"><span>VAT 23%</span><span>w cenie</span></div>
+  </div>
 
-    </div>
+  <div class="flex items-baseline justify-between pt-4 border-t border-coal-900/5 mb-6">
+   <span class="text-coal-900 font-medium">Razem do zapłaty</span>
+   <span class="display text-3xl text-coal-900">919 <span class="text-base">zł</span></span>
+  </div>
 
-    <!-- Right: order summary -->
-    <aside class="lg:col-span-5">
-      <div class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm lg:sticky lg:top-8">
-        <h3 class="display text-xl text-coal-900 mb-5">Twoje zamówienie</h3>
+  <button type="submit" class="w-full btn-coal py-4 flex items-center justify-center gap-2.5 text-base">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+   Zapłać 919 zł teraz
+  </button>
 
-        <div class="space-y-4 mb-5 pb-5 border-b border-coal-900/5">
-          <div class="flex gap-3">
-            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&q=80" class="w-16 h-16 rounded-xl object-cover" />
-            <div class="flex-1">
-              <div class="text-sm font-medium text-coal-900">BOX koktajlowy II</div>
-              <div class="text-xs text-coal-900/50">2× 340 zł</div>
-            </div>
-            <div class="display text-coal-900">680 <span class="text-xs">zł</span></div>
-          </div>
-          <div class="flex gap-3">
-            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=200&q=80" class="w-16 h-16 rounded-xl object-cover" />
-            <div class="flex-1">
-              <div class="text-sm font-medium text-coal-900">BOX sałatkowy <span class="text-xs px-1.5 py-0.5 bg-forest-500/10 text-forest-700 rounded ml-1">Wege</span></div>
-              <div class="text-xs text-coal-900/50">1× 210 zł</div>
-            </div>
-            <div class="display text-coal-900">210 <span class="text-xs">zł</span></div>
-          </div>
-        </div>
+  <p class="text-xs text-coal-900/50 text-center mt-4 leading-relaxed">
+   Klikając "Zapłać" akceptujesz <a href="#" class="text-signal-500 hover:underline">regulamin</a> i <a href="#" class="text-signal-500 hover:underline">politykę prywatności</a>.
+  </p>
 
-        <div class="space-y-2 mb-5 text-sm">
-          <div class="flex justify-between text-coal-900/70"><span>Suma</span><span>890 zł</span></div>
-          <div class="flex justify-between text-coal-900/70"><span>Dostawa (Strefa 1)</span><span>29 zł</span></div>
-          <div class="flex justify-between text-coal-900/70"><span>VAT 23%</span><span>w cenie</span></div>
-        </div>
+  <!-- Trust badges -->
+  <div class="mt-6 pt-6 border-t border-coal-900/5 grid grid-cols-3 gap-3 text-center text-xs">
+   <div class="flex flex-col items-center gap-1.5 text-coal-900/60">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+   <span>Zwrot 14 dni</span>
+   </div>
+   <div class="flex flex-col items-center gap-1.5 text-coal-900/60">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+   <span>Dostawa jutro</span>
+   </div>
+   <div class="flex flex-col items-center gap-1.5 text-coal-900/60">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+   <span>Pomoc 7/7</span>
+   </div>
+  </div>
+  </div>
 
-        <div class="flex items-baseline justify-between pt-4 border-t border-coal-900/5 mb-6">
-          <span class="text-coal-900 font-medium">Razem do zapłaty</span>
-          <span class="display text-3xl text-coal-900">919 <span class="text-base">zł</span></span>
-        </div>
-
-        <button type="submit" class="w-full btn-coal rounded-2xl py-4 flex items-center justify-center gap-2.5 text-base">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Zapłać 919 zł teraz
-        </button>
-
-        <p class="text-xs text-coal-900/50 text-center mt-4 leading-relaxed">
-          Klikając "Zapłać" akceptujesz <a href="#" class="text-gold-600 hover:underline">regulamin</a> i <a href="#" class="text-gold-600 hover:underline">politykę prywatności</a>.
-        </p>
-
-        <!-- Trust badges -->
-        <div class="mt-6 pt-6 border-t border-coal-900/5 grid grid-cols-3 gap-3 text-center text-xs">
-          <div class="flex flex-col items-center gap-1.5 text-coal-900/60">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Zwrot 14 dni</span>
-          </div>
-          <div class="flex flex-col items-center gap-1.5 text-coal-900/60">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>Dostawa jutro</span>
-          </div>
-          <div class="flex flex-col items-center gap-1.5 text-coal-900/60">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            <span>Pomoc 7/7</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Customer support card -->
-      <div class="mt-6 bg-coal-900 text-cream-100 rounded-3xl p-7">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-xl bg-gold-500 flex items-center justify-center flex-shrink-0">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0908" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <div class="flex-1">
-            <div class="text-cream-100 font-medium mb-1">Coś nie tak?</div>
-            <div class="text-cream-100/60 text-sm mb-3">Zadzwoń lub napisz — pomożemy w 60 sekund.</div>
-            <div class="flex flex-col gap-2 text-sm">
-              <a href="tel:+48793001900" class="text-gold-400 hover:text-gold-300 transition flex items-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-                +48 793 001 900
-              </a>
-              <a href="#" class="text-gold-400 hover:text-gold-300 transition flex items-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                Czat na żywo
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-  </form>
+  <!-- Customer support card -->
+  <div class="mt-6 bg-coal-900 text-paper-100 p-7">
+  <div class="flex items-start gap-4">
+   <div class="w-12 h-12 bg-signal-500 flex items-center justify-center flex-shrink-0">
+   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0908" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+   </div>
+   <div class="flex-1">
+   <div class="text-paper-100 font-medium mb-1">Coś nie tak?</div>
+   <div class="text-paper-100/60 text-sm mb-3">Zadzwoń lub napisz — pomożemy w 60 sekund.</div>
+   <div class="flex flex-col gap-2 text-sm">
+    <a href="tel:+48793001900" class="text-signal-500 hover:text-gold-300 transition flex items-center gap-2">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+    +48 793 001 900
+    </a>
+    <a href="#" class="text-signal-500 hover:text-gold-300 transition flex items-center gap-2">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Czat na żywo
+    </a>
+   </div>
+   </div>
+  </div>
+  </div>
+ </aside>
+ </form>
 </main>
 
 <script>
 // Invoice toggle
 document.getElementById('invoiceToggle').addEventListener('change', e => {
-  document.getElementById('invoiceFields').classList.toggle('hidden', !e.target.checked);
-  document.getElementById('invoiceFields').classList.toggle('grid', e.target.checked);
-  document.getElementById('invoiceInfo').classList.toggle('hidden', e.target.checked);
+ document.getElementById('invoiceFields').classList.toggle('hidden', !e.target.checked);
+ document.getElementById('invoiceFields').classList.toggle('grid', e.target.checked);
+ document.getElementById('invoiceInfo').classList.toggle('hidden', e.target.checked);
 });
 
 // Pay option toggle
 document.querySelectorAll('.pay-option[data-pay]').forEach(opt => {
-  opt.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelectorAll('.pay-option[data-pay]').forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    opt.querySelector('input').checked = true;
-    const blik = document.getElementById('blikField');
-    const card = document.getElementById('cardField');
-    if (opt.dataset.pay === 'blik') { blik.classList.remove('hidden'); card.classList.add('hidden'); }
-    else if (opt.dataset.pay === 'card') { card.classList.remove('hidden'); blik.classList.add('hidden'); }
-    else { blik.classList.add('hidden'); card.classList.add('hidden'); }
-  });
+ opt.addEventListener('click', (e) => {
+ e.preventDefault();
+ document.querySelectorAll('.pay-option[data-pay]').forEach(o => o.classList.remove('active'));
+ opt.classList.add('active');
+ opt.querySelector('input').checked = true;
+ const blik = document.getElementById('blikField');
+ const card = document.getElementById('cardField');
+ if (opt.dataset.pay === 'blik') { blik.classList.remove('hidden'); card.classList.add('hidden'); }
+ else if (opt.dataset.pay === 'card') { card.classList.remove('hidden'); blik.classList.add('hidden'); }
+ else { blik.classList.add('hidden'); card.classList.add('hidden'); }
+ });
 });
 
 // Delivery toggle (visual only)
 document.querySelectorAll('.pay-option').forEach(opt => {
-  if (!opt.dataset.pay) {
-    opt.addEventListener('click', e => {
-      e.preventDefault();
-      opt.parentElement.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
-      opt.classList.add('active');
-    });
-  }
+ if (!opt.dataset.pay) {
+ opt.addEventListener('click', e => {
+  e.preventDefault();
+  opt.parentElement.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
+  opt.classList.add('active');
+ });
+ }
 });
 </script>
 

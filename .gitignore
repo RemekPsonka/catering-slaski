@@ -72,3 +72,6 @@ ssh-keys/
 .docker-data/
 .secrets/
 infra/ssh/
+
+# Backup files
+*.bak

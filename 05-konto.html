@@ -5,267 +5,272 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Moje konto · Catering Śląski</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
 <script>
 tailwind.config = { theme: { extend: {
-  colors: {
-    forest: { 500: '#2D5A3D', 700: '#1A3A26', 900: '#0B2818' },
-    cream:  { 50: '#FBF8F2', 100: '#F4EFE6', 200: '#E8E0D0' },
-    gold:   { 400: '#D9BC78', 500: '#C9A961', 600: '#A88842', 700: '#7E6630' },
-    ember:  { 500: '#D97742' },
-    tomato: { 500: '#C73E1D' },
-    coal:   { 900: '#0A0908', 800: '#15110F' },
-  },
-  fontFamily: { display: ['Fraunces','serif'], sans: ['Inter','system-ui','sans-serif'] }
+ colors: {
+ coal: { 900: '#0A0908', 800: '#1A1717', 700: '#2B2826' },
+ graphite:{ 500: '#585553' },
+ bone: { 200: '#E8E3DA' },
+ paper: { 100: '#F5F2EC' },
+ snow: { 50: '#FFFFFF' },
+ signal: { 500: '#E54B17', 600: '#C73E0F', 100: '#FFE6DC' },
+ success: { 500: '#2D5A3D', 700: '#1A3A26' },
+ },
+ fontFamily: { display: ['"Inter Tight"','Inter','sans-serif'], sans: ['Inter','sans-serif'], hand: ['Caveat','cursive'] }
 }}}
 </script>
 <style>
-body { font-family: 'Inter', sans-serif; background: #FBF8F2; color: #221C18; }
-.display { font-family: 'Fraunces', serif; }
-.btn-coal { background: #0A0908; color: #F4EFE6; font-weight: 600; transition: all .2s; }
-.btn-coal:hover { background: #221C18; }
-.btn-gold { background: linear-gradient(135deg,#C9A961,#A88842); color: #061812; font-weight:600; }
-.menu-item.active { background: #0A0908; color: #F4EFE6; }
+body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #0A0908; }
+.upper-tight { text-transform: uppercase; letter-spacing: -0.02em; }
+.label { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; font-size: 12px; }
+.num { font-feature-settings: "tnum" on; }
+.hand { font-family: 'Caveat', cursive; }
+.display { font-family: 'Inter Tight', sans-serif; }
+.btn-coal { background: #0A0908; color: #F5F2EC; font-weight: 600; transition: all .2s; }
+.btn-coal:hover { background: #1A1717; transform: translateY(-1px); }
+.btn-signal { background: #E54B17; color: #FFFFFF; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; border: 1.5px solid #E54B17; padding: 14px 24px; transition: all .15s; }
+.menu-item.active { background: #0A0908; color: #F5F2EC; }
 </style>
 </head>
 <body>
 
 <!-- Header -->
-<header class="bg-cream-50 border-b border-coal-900/10">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
-    <a href="01-landing.html" class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center font-display font-bold text-coal-900">CŚ</div>
-      <span class="display text-lg text-coal-900">Catering Śląski</span>
-    </a>
-    <div class="flex items-center gap-2">
-      <a href="03-sklep-b2c.html" class="text-sm text-coal-900/70 hover:text-coal-900 transition px-3 py-2">Sklep</a>
-      <a href="02-konfigurator-b2b.html" class="text-sm text-coal-900/70 hover:text-coal-900 transition px-3 py-2">Konfigurator AI</a>
-      <button class="text-sm text-coal-900/70 hover:text-coal-900 transition px-3 py-2">Wyloguj się</button>
-    </div>
-  </div>
+<header class="bg-paper-100 border-b border-coal-900/10">
+ <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+ <a href="01-landing.html" class="flex items-center gap-3">
+  <div class="w-9 h-9 bg-coal-900 text-paper-100 flex items-center justify-center font-display font-bold text-coal-900">CŚ</div>
+  <span class="display text-lg text-coal-900">Catering Śląski</span>
+ </a>
+ <div class="flex items-center gap-2">
+  <a href="03-sklep-b2c.html" class="text-sm text-coal-900/70 hover:text-coal-900 transition px-3 py-2">Sklep</a>
+  <a href="02-konfigurator-b2b.html" class="text-sm text-coal-900/70 hover:text-coal-900 transition px-3 py-2">Konfigurator AI</a>
+  <button class="text-sm text-coal-900/70 hover:text-coal-900 transition px-3 py-2">Wyloguj się</button>
+ </div>
+ </div>
 </header>
 
 <main class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
-  <div class="grid lg:grid-cols-12 gap-8">
+ <div class="grid lg:grid-cols-12 gap-8">
 
-    <!-- Sidebar -->
-    <aside class="lg:col-span-3">
-      <div class="bg-white rounded-3xl border border-coal-900/5 p-6 lg:sticky lg:top-6 shadow-sm">
-        <div class="flex items-center gap-4 pb-5 border-b border-coal-900/5 mb-5">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-coal-900 font-display font-bold text-xl">R</div>
-          <div>
-            <div class="display text-coal-900 text-lg">Remigiusz</div>
-            <div class="text-xs text-coal-900/50">remek@ideecom.pl</div>
-            <div class="text-xs text-gold-600 mt-1">★ Stały klient · 7 zamówień</div>
-          </div>
-        </div>
-
-        <nav class="space-y-1">
-          <a href="#" class="menu-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M9 9h6v6H9z"/></svg>
-            Dashboard
-          </a>
-          <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-coal-900/70 hover:bg-cream-100 transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-            Moje zamówienia
-          </a>
-          <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-coal-900/70 hover:bg-cream-100 transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            Ulubione
-          </a>
-          <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-coal-900/70 hover:bg-cream-100 transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Adresy
-          </a>
-          <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-coal-900/70 hover:bg-cream-100 transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Płatności i karty
-          </a>
-          <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-coal-900/70 hover:bg-cream-100 transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-            Faktury
-          </a>
-          <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-coal-900/70 hover:bg-cream-100 transition">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            Ustawienia
-          </a>
-        </nav>
-      </div>
-    </aside>
-
-    <!-- Main content -->
-    <div class="lg:col-span-9 space-y-6">
-      <!-- Welcome -->
-      <div class="bg-gradient-to-br from-coal-900 to-coal-800 rounded-3xl p-8 lg:p-10 text-cream-100 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="relative">
-          <div class="text-xs uppercase tracking-widest text-gold-400 mb-3">Wtorek, 19 maja 2026</div>
-          <h1 class="display text-3xl md:text-4xl mb-3">Witaj z powrotem, Remigiusz 👋</h1>
-          <p class="text-cream-100/70 mb-6 max-w-xl">
-            Twoje ostatnie zamówienie (Komunia syna, 17 maja) zakończone z oceną 5★ — dziękujemy.
-            Następna okazja w kalendarzu: <strong class="text-cream-100">Urodziny syna, 8 czerwca</strong>.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="03-sklep-b2c.html" class="btn-gold rounded-full px-6 py-3 text-sm flex items-center gap-2">
-              Zamów ponownie ostatnie
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-            <a href="02-konfigurator-b2b.html" class="bg-cream-100/10 backdrop-blur border border-cream-100/15 hover:bg-cream-100/15 rounded-full px-6 py-3 text-sm transition flex items-center gap-2">
-              Nowe zamówienie z AI
-              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse"></span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stats -->
-      <div class="grid md:grid-cols-4 gap-4">
-        <div class="bg-white rounded-2xl border border-coal-900/5 p-5">
-          <div class="text-xs text-coal-900/50">Zamówienia łącznie</div>
-          <div class="display text-3xl text-coal-900 mt-1">7</div>
-          <div class="text-xs text-forest-700 mt-1">+2 w tym roku</div>
-        </div>
-        <div class="bg-white rounded-2xl border border-coal-900/5 p-5">
-          <div class="text-xs text-coal-900/50">Wydane łącznie</div>
-          <div class="display text-3xl text-coal-900 mt-1">4 280 <span class="text-base">zł</span></div>
-          <div class="text-xs text-coal-900/40 mt-1">średnio 611 zł / zamówienie</div>
-        </div>
-        <div class="bg-white rounded-2xl border border-coal-900/5 p-5">
-          <div class="text-xs text-coal-900/50">Twoja oszczędność</div>
-          <div class="display text-3xl text-gold-600 mt-1">+15%</div>
-          <div class="text-xs text-coal-900/40 mt-1">rabat stałego klienta</div>
-        </div>
-        <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 rounded-2xl border border-gold-500/20 p-5">
-          <div class="text-xs text-gold-700">Status klienta</div>
-          <div class="display text-2xl text-coal-900 mt-1">★ VIP Gold</div>
-          <div class="text-xs text-gold-700 mt-1">3 zamówienia do "Platinum"</div>
-        </div>
-      </div>
-
-      <!-- Recent orders -->
-      <div class="bg-white rounded-3xl border border-coal-900/5 p-7 shadow-sm">
-        <div class="flex items-center justify-between mb-5">
-          <h2 class="display text-2xl text-coal-900">Ostatnie zamówienia</h2>
-          <a href="#" class="text-sm text-gold-600 hover:text-gold-700">Zobacz wszystkie</a>
-        </div>
-
-        <div class="space-y-3">
-          <!-- Order 1 -->
-          <div class="bg-cream-50 rounded-2xl p-5 flex items-center gap-5">
-            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=80" class="w-16 h-16 rounded-xl object-cover" />
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-coal-900 font-medium">Komunia BOX rodzinny</span>
-                <span class="text-xs px-2 py-0.5 bg-forest-500/15 text-forest-700 rounded-full">Zrealizowane</span>
-              </div>
-              <div class="text-xs text-coal-900/50">17 maja 2026 · Strefa 1 · ★★★★★ 5.0</div>
-            </div>
-            <div class="text-right">
-              <div class="display text-lg text-coal-900">1 480 zł</div>
-              <button class="text-xs text-gold-600 hover:text-gold-700 transition mt-1">Zamów ponownie</button>
-            </div>
-          </div>
-          <!-- Order 2 -->
-          <div class="bg-cream-50 rounded-2xl p-5 flex items-center gap-5">
-            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&q=80" class="w-16 h-16 rounded-xl object-cover" />
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-coal-900 font-medium">BOX koktajlowy II × 2 + BOX sałatkowy</span>
-                <span class="text-xs px-2 py-0.5 bg-gold-500/15 text-gold-700 rounded-full">W przygotowaniu</span>
-              </div>
-              <div class="text-xs text-coal-900/50">jutro, 20 maja · 12:00–14:00 · Katowice</div>
-            </div>
-            <div class="text-right">
-              <div class="display text-lg text-coal-900">890 zł</div>
-              <button class="text-xs text-coal-900/60 hover:text-coal-900 transition mt-1">Śledź dostawę</button>
-            </div>
-          </div>
-          <!-- Order 3 -->
-          <div class="bg-cream-50 rounded-2xl p-5 flex items-center gap-5">
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" class="w-16 h-16 rounded-xl object-cover" />
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-coal-900 font-medium">Zimna płyta klasyczna</span>
-                <span class="text-xs px-2 py-0.5 bg-coal-900/10 text-coal-900/70 rounded-full">Zrealizowane</span>
-              </div>
-              <div class="text-xs text-coal-900/50">2 maja 2026 · Strefa 1 · ★★★★★ 5.0</div>
-            </div>
-            <div class="text-right">
-              <div class="display text-lg text-coal-900">390 zł</div>
-              <button class="text-xs text-gold-600 hover:text-gold-700 transition mt-1">Zamów ponownie</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI suggestions -->
-      <div class="bg-gradient-to-br from-gold-500/10 via-cream-50 to-cream-50 rounded-3xl border border-gold-500/20 p-7">
-        <div class="flex items-start gap-4 mb-5">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#061812" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
-          </div>
-          <div>
-            <div class="text-xs uppercase tracking-widest text-gold-700 mb-1">Spersonalizowane przez AI</div>
-            <h3 class="display text-2xl text-coal-900">Może spodobać Ci się…</h3>
-            <p class="text-sm text-coal-900/60 mt-1">Na podstawie Twoich poprzednich 7 zamówień i sezonowości</p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white rounded-2xl border border-coal-900/5 overflow-hidden hover:shadow-lg transition">
-            <img src="https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=85" class="w-full aspect-square object-cover" />
-            <div class="p-4">
-              <div class="text-coal-900 font-medium text-sm">BOX finger food premium</div>
-              <div class="text-xs text-coal-900/50 mt-0.5">Pasuje do urodzin</div>
-              <div class="flex items-center justify-between mt-3">
-                <span class="display text-lg text-coal-900">370 zł</span>
-                <button class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl border border-coal-900/5 overflow-hidden hover:shadow-lg transition">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=85" class="w-full aspect-square object-cover" />
-            <div class="p-4">
-              <div class="text-coal-900 font-medium text-sm">BOX z mini burgerami</div>
-              <div class="text-xs text-coal-900/50 mt-0.5">Hit lata u Twoich gości</div>
-              <div class="flex items-center justify-between mt-3">
-                <span class="display text-lg text-coal-900">290 zł</span>
-                <button class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl border border-coal-900/5 overflow-hidden hover:shadow-lg transition">
-            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=85" class="w-full aspect-square object-cover" />
-            <div class="p-4">
-              <div class="text-coal-900 font-medium text-sm">BOX deserowy II</div>
-              <div class="text-xs text-coal-900/50 mt-0.5">Bezglutenowy — dla Twojej mamy</div>
-              <div class="flex items-center justify-between mt-3">
-                <span class="display text-lg text-coal-900">260 zł</span>
-                <button class="w-8 h-8 rounded-full bg-coal-900 text-cream-100 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Subscription card -->
-      <div class="bg-coal-900 text-cream-100 rounded-3xl p-7">
-        <div class="flex flex-col md:flex-row md:items-center gap-6">
-          <div class="flex-1">
-            <div class="text-xs uppercase tracking-widest text-gold-400 mb-2">Nowość · Tylko dla VIP Gold</div>
-            <h3 class="display text-2xl mb-2">Subskrypcja lunch dla biura</h3>
-            <p class="text-cream-100/70 text-sm">
-              Lunch BOX dla Twojego zespołu co tydzień. AI rotuje menu — bez monotoni.
-              Faktura VAT automatycznie. Anulujesz kiedy chcesz.
-            </p>
-          </div>
-          <button class="btn-gold rounded-full px-6 py-3 text-sm flex items-center gap-2 flex-shrink-0">
-            Zobacz plany <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
+ <!-- Sidebar -->
+ <aside class="lg:col-span-3">
+  <div class="bg-white border border-coal-900/5 p-6 lg:sticky lg:top-6 shadow-sm">
+  <div class="flex items-center gap-4 pb-5 border-b border-coal-900/5 mb-5">
+   <div class="w-14 h-14 bg-coal-900 text-paper-100 flex items-center justify-center text-coal-900 font-display font-bold text-xl">R</div>
+   <div>
+   <div class="display text-coal-900 text-lg">Remigiusz</div>
+   <div class="text-xs text-coal-900/50">remek@ideecom.pl</div>
+   <div class="text-xs text-signal-500 mt-1">★ Stały klient · 7 zamówień</div>
+   </div>
   </div>
+
+  <nav class="space-y-1">
+   <a href="#" class="menu-item active flex items-center gap-3 px-4 py-3 text-sm font-medium transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M9 9h6v6H9z"/></svg>
+   Dashboard
+   </a>
+   <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm text-coal-900/70 hover:bg-bone-200 transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+   Moje zamówienia
+   </a>
+   <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm text-coal-900/70 hover:bg-bone-200 transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+   Ulubione
+   </a>
+   <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm text-coal-900/70 hover:bg-bone-200 transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+   Adresy
+   </a>
+   <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm text-coal-900/70 hover:bg-bone-200 transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+   Płatności i karty
+   </a>
+   <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm text-coal-900/70 hover:bg-bone-200 transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+   Faktury
+   </a>
+   <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm text-coal-900/70 hover:bg-bone-200 transition">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+   Ustawienia
+   </a>
+  </nav>
+  </div>
+ </aside>
+
+ <!-- Main content -->
+ <div class="lg:col-span-9 space-y-6">
+  <!-- Welcome -->
+  <div class=" bg-coal-900 p-8 lg:p-10 text-paper-100 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-64 h-64 bg-signal-500/10 blur-3xl pointer-events-none"></div>
+  <div class="relative">
+   <div class="text-xs uppercase tracking-widest text-signal-500 mb-3">Wtorek, 19 maja 2026</div>
+   <h1 class="display text-3xl md:text-4xl mb-3">Witaj z powrotem, Remigiusz 👋</h1>
+   <p class="text-paper-100/70 mb-6 max-w-xl">
+   Twoje ostatnie zamówienie (Komunia syna, 17 maja) zakończone z oceną 5★ — dziękujemy.
+   Następna okazja w kalendarzu: <strong class="text-paper-100">Urodziny syna, 8 czerwca</strong>.
+   </p>
+   <div class="flex flex-wrap gap-3">
+   <a href="03-sklep-b2c.html" class="btn-signal px-6 py-3 text-sm flex items-center gap-2">
+    Zamów ponownie ostatnie
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+   </a>
+   <a href="02-konfigurator-b2b.html" class="bg-bone-200/10 backdrop-blur border border-paper-100/15 hover:bg-bone-200/15 px-6 py-3 text-sm transition flex items-center gap-2">
+    Nowe zamówienie z AI
+    <span class="w-1.5 h-1.5 bg-signal-500 animate-pulse"></span>
+   </a>
+   </div>
+  </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid md:grid-cols-4 gap-4">
+  <div class="bg-white border border-coal-900/5 p-5">
+   <div class="text-xs text-coal-900/50">Zamówienia łącznie</div>
+   <div class="display text-3xl text-coal-900 mt-1">7</div>
+   <div class="text-xs text-success-700 mt-1">+2 w tym roku</div>
+  </div>
+  <div class="bg-white border border-coal-900/5 p-5">
+   <div class="text-xs text-coal-900/50">Wydane łącznie</div>
+   <div class="display text-3xl text-coal-900 mt-1">4 280 <span class="text-base">zł</span></div>
+   <div class="text-xs text-coal-900/40 mt-1">średnio 611 zł / zamówienie</div>
+  </div>
+  <div class="bg-white border border-coal-900/5 p-5">
+   <div class="text-xs text-coal-900/50">Twoja oszczędność</div>
+   <div class="display text-3xl text-signal-500 mt-1">+15%</div>
+   <div class="text-xs text-coal-900/40 mt-1">rabat stałego klienta</div>
+  </div>
+  <div class=" from-gold-500/10 to-gold-500/5 border border-signal-500/20 p-5">
+   <div class="text-xs text-signal-600">Status klienta</div>
+   <div class="display text-2xl text-coal-900 mt-1">★ VIP Gold</div>
+   <div class="text-xs text-signal-600 mt-1">3 zamówienia do "Platinum"</div>
+  </div>
+  </div>
+
+  <!-- Recent orders -->
+  <div class="bg-white border border-coal-900/5 p-7 shadow-sm">
+  <div class="flex items-center justify-between mb-5">
+   <h2 class="display text-2xl text-coal-900">Ostatnie zamówienia</h2>
+   <a href="#" class="text-sm text-signal-500 hover:text-signal-600">Zobacz wszystkie</a>
+  </div>
+
+  <div class="space-y-3">
+   <!-- Order 1 -->
+   <div class="bg-paper-100 p-5 flex items-center gap-5">
+   <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=80" class="w-16 h-16 object-cover" />
+   <div class="flex-1">
+    <div class="flex items-center gap-2 mb-1">
+    <span class="text-coal-900 font-medium">Komunia BOX rodzinny</span>
+    <span class="text-xs px-2 py-0.5 bg-success-500/15 text-success-700 ">Zrealizowane</span>
+    </div>
+    <div class="text-xs text-coal-900/50">17 maja 2026 · Strefa 1 · ★★★★★ 5.0</div>
+   </div>
+   <div class="text-right">
+    <div class="display text-lg text-coal-900">1 480 zł</div>
+    <button class="text-xs text-signal-500 hover:text-signal-600 transition mt-1">Zamów ponownie</button>
+   </div>
+   </div>
+   <!-- Order 2 -->
+   <div class="bg-paper-100 p-5 flex items-center gap-5">
+   <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&q=80" class="w-16 h-16 object-cover" />
+   <div class="flex-1">
+    <div class="flex items-center gap-2 mb-1">
+    <span class="text-coal-900 font-medium">BOX koktajlowy II × 2 + BOX sałatkowy</span>
+    <span class="text-xs px-2 py-0.5 bg-signal-500/15 text-signal-600 ">W przygotowaniu</span>
+    </div>
+    <div class="text-xs text-coal-900/50">jutro, 20 maja · 12:00–14:00 · Katowice</div>
+   </div>
+   <div class="text-right">
+    <div class="display text-lg text-coal-900">890 zł</div>
+    <button class="text-xs text-coal-900/60 hover:text-coal-900 transition mt-1">Śledź dostawę</button>
+   </div>
+   </div>
+   <!-- Order 3 -->
+   <div class="bg-paper-100 p-5 flex items-center gap-5">
+   <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80" class="w-16 h-16 object-cover" />
+   <div class="flex-1">
+    <div class="flex items-center gap-2 mb-1">
+    <span class="text-coal-900 font-medium">Zimna płyta klasyczna</span>
+    <span class="text-xs px-2 py-0.5 bg-coal-900/15 text-coal-900/70 ">Zrealizowane</span>
+    </div>
+    <div class="text-xs text-coal-900/50">2 maja 2026 · Strefa 1 · ★★★★★ 5.0</div>
+   </div>
+   <div class="text-right">
+    <div class="display text-lg text-coal-900">390 zł</div>
+    <button class="text-xs text-signal-500 hover:text-signal-600 transition mt-1">Zamów ponownie</button>
+   </div>
+   </div>
+  </div>
+  </div>
+
+  <!-- AI suggestions -->
+  <div class=" from-gold-500/10 via-cream-50 to-cream-50 border border-signal-500/20 p-7">
+  <div class="flex items-start gap-4 mb-5">
+   <div class="w-12 h-12 bg-coal-900 text-paper-100 flex items-center justify-center">
+   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#061812" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+   </div>
+   <div>
+   <div class="text-xs uppercase tracking-widest text-signal-600 mb-1">Spersonalizowane przez AI</div>
+   <h3 class="display text-2xl text-coal-900">Może spodobać Ci się…</h3>
+   <p class="text-sm text-coal-900/60 mt-1">Na podstawie Twoich poprzednich 7 zamówień i sezonowości</p>
+   </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+   <div class="bg-white border border-coal-900/5 overflow-hidden hover:shadow-lg transition">
+   <img src="https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=85" class="w-full aspect-square object-cover" />
+   <div class="p-4">
+    <div class="text-coal-900 font-medium text-sm">BOX finger food premium</div>
+    <div class="text-xs text-coal-900/50 mt-0.5">Pasuje do urodzin</div>
+    <div class="flex items-center justify-between mt-3">
+    <span class="display text-lg text-coal-900">370 zł</span>
+    <button class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+   </div>
+   </div>
+   <div class="bg-white border border-coal-900/5 overflow-hidden hover:shadow-lg transition">
+   <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=85" class="w-full aspect-square object-cover" />
+   <div class="p-4">
+    <div class="text-coal-900 font-medium text-sm">BOX z mini burgerami</div>
+    <div class="text-xs text-coal-900/50 mt-0.5">Hit lata u Twoich gości</div>
+    <div class="flex items-center justify-between mt-3">
+    <span class="display text-lg text-coal-900">290 zł</span>
+    <button class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+   </div>
+   </div>
+   <div class="bg-white border border-coal-900/5 overflow-hidden hover:shadow-lg transition">
+   <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=85" class="w-full aspect-square object-cover" />
+   <div class="p-4">
+    <div class="text-coal-900 font-medium text-sm">BOX deserowy II</div>
+    <div class="text-xs text-coal-900/50 mt-0.5">Bezglutenowy — dla Twojej mamy</div>
+    <div class="flex items-center justify-between mt-3">
+    <span class="display text-lg text-coal-900">260 zł</span>
+    <button class="w-8 h-8 bg-coal-900 text-paper-100 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+   </div>
+   </div>
+  </div>
+  </div>
+
+  <!-- Subscription card -->
+  <div class="bg-coal-900 text-paper-100 p-7">
+  <div class="flex flex-col md:flex-row md:items-center gap-6">
+   <div class="flex-1">
+   <div class="text-xs uppercase tracking-widest text-signal-500 mb-2">Nowość · Tylko dla VIP Gold</div>
+   <h3 class="display text-2xl mb-2">Subskrypcja lunch dla biura</h3>
+   <p class="text-paper-100/70 text-sm">
+    Lunch BOX dla Twojego zespołu co tydzień. AI rotuje menu — bez monotoni.
+    Faktura VAT automatycznie. Anulujesz kiedy chcesz.
+   </p>
+   </div>
+   <button class="btn-signal px-6 py-3 text-sm flex items-center gap-2 flex-shrink-0">
+   Zobacz plany <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+   </button>
+  </div>
+  </div>
+ </div>
+ </div>
 </main>
 
 </body>

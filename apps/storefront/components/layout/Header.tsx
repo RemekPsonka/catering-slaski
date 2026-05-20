@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { LogoSymbol } from "@/components/brand/LogoSymbol"
-import { ShoppingBag, User, ArrowRight } from "lucide-react"
+import { User, ArrowRight } from "lucide-react"
+import { CartBadge } from "./CartBadge"
 
 export function Header() {
   return (
@@ -45,9 +46,7 @@ export function Header() {
             <Link href="/konto" className="hidden md:inline-flex items-center justify-center w-11 h-11 hover:bg-bone-200 transition" aria-label="Konto">
               <User size={18} />
             </Link>
-            <Link href="/koszyk" className="inline-flex items-center justify-center w-11 h-11 hover:bg-bone-200 transition relative" aria-label="Koszyk">
-              <ShoppingBag size={18} />
-            </Link>
+            <CartBadge />
             <Link href="/konfigurator" className="btn-coal">
               Zamów <ArrowRight size={14} strokeWidth={2.5} />
             </Link>

@@ -49,6 +49,12 @@ export default defineConfig({
       resolve: "./src/modules/catering-attributes",
     },
     {
+      resolve: "./src/modules/subscriptions",
+    },
+    {
+      resolve: "./src/modules/loyalty",
+    },
+    {
       resolve: "./src/modules/external-webhooks",
       options: {
         production: {
