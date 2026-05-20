@@ -2,7 +2,7 @@
   "name": "@cs/backend",
   "version": "1.0.0",
   "private": true,
-  "description": "Catering Śląski — Medusa.js backend with catering custom modules",
+  "description": "Catering \u015al\u0105ski \u2014 Medusa.js backend with catering custom modules",
   "main": "dist/main.js",
   "scripts": {
     "build": "medusa build",
@@ -47,7 +47,8 @@
     "zod": "^3.24.1",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
-    "date-fns-tz": "^3.2.0"
+    "date-fns-tz": "^3.2.0",
+    "body-parser": "^1.20.3"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.4.0",
@@ -58,7 +59,8 @@
     "vitest": "^2.1.8",
     "eslint": "^9.17.0",
     "@typescript-eslint/parser": "^8.18.0",
-    "@typescript-eslint/eslint-plugin": "^8.18.0"
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@types/body-parser": "^1.19.5"
   },
   "engines": {
     "node": ">=20.0.0"
