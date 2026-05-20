@@ -2,31 +2,60 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "pnpm build",
-  "installCommand": "pnpm install --frozen-lockfile",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "outputDirectory": ".next",
   "devCommand": "pnpm dev",
-  "regions": ["fra1"],
+  "regions": [
+    "fra1"
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(self)" }
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(self)"
+        }
       ]
     },
     {
       "source": "/_next/static/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/products", "destination": "/menu", "permanent": true },
-    { "source": "/products/account", "destination": "/konto", "permanent": true },
-    { "source": "/products/cart", "destination": "/koszyk", "permanent": true }
+    {
+      "source": "/products",
+      "destination": "/menu",
+      "permanent": true
+    },
+    {
+      "source": "/products/account",
+      "destination": "/konto",
+      "permanent": true
+    },
+    {
+      "source": "/products/cart",
+      "destination": "/koszyk",
+      "permanent": true
+    }
   ],
   "rewrites": [
     {
@@ -35,7 +64,7 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_SITE_NAME": "Catering Śląski"
+    "NEXT_PUBLIC_SITE_NAME": "Catering \u015al\u0105ski"
   },
   "github": {
     "silent": true
