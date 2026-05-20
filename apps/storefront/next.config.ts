@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       allowedOrigins: ["localhost:3000", "cateringslaski.pl"],
     },
-    typedRoutes: true,
+    typedRoutes: false,
   },
 
   images: {
