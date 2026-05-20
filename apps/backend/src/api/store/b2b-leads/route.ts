@@ -1,5 +1,6 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { z } from "zod"
+import { rateLimit, getClientIp } from "../../../lib/rate-limit"
 
 /**
  * POST /store/b2b-leads
@@ -35,6 +36,24 @@ const LeadSchema = z.object({
 })
 
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
+  const ip = getClientIp(req)
+  const logger = req.scope.resolve("logger") as any
+
+  // Rate limit: 5 lead submissions per IP per hour
+  const limitCheck = await rateLimit({
+    key: `b2b-leads:ip:${ip}`,
+    limit: 5,
+    windowSec: 3600,
+  })
+  if (!limitCheck.allowed) {
+    logger.warn(`[b2b-leads] Rate limit hit for IP ${ip}`)
+    res.setHeader("Retry-After", String(limitCheck.retryAfter))
+    return res.status(429).json({
+      error: "TOO_MANY_REQUESTS",
+      message: "Zbyt wiele zgłoszeń. Spróbuj ponownie za godzinę albo zadzwoń: +48 793 001 900",
+    })
+  }
+
   const parsed = LeadSchema.safeParse(req.body)
   if (!parsed.success) {
     return res.status(400).json({ error: "INVALID_BRIEF", details: parsed.error.flatten() })
@@ -42,10 +61,9 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
 
   // Honeypot — silently accept and discard
   if (parsed.data.website && parsed.data.website.length > 0) {
+    logger.info(`[b2b-leads] Honeypot triggered from IP ${ip} — silent drop`)
     return res.status(200).json({ ok: true })
   }
-
-  const logger = req.scope.resolve("logger") as any
 
   try {
     // Knex connection for raw insert (no Medusa module for leads — direct table)

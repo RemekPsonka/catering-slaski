@@ -1,6 +1,7 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { z } from "zod"
 import Anthropic from "@anthropic-ai/sdk"
+import { rateLimit, getClientIp } from "../../../../lib/rate-limit"
 
 const RequestSchema = z.object({
   brief: z.string().min(20).max(2000),
@@ -52,6 +53,23 @@ Pamiętaj: catering ślaski to TRADYCYJNA polska kuchnia z domowymi recepturami.
  * Zwraca structured proposal.
  */
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
+  const ip = getClientIp(req)
+
+  // Rate limit: 10 AI generations per IP per hour (Claude API kosztuje ~$0.03/call).
+  // Defense against scraping the menu corpus + cost blow-out.
+  const limitCheck = await rateLimit({
+    key: `ai-menu:ip:${ip}`,
+    limit: 10,
+    windowSec: 3600,
+  })
+  if (!limitCheck.allowed) {
+    res.setHeader("Retry-After", String(limitCheck.retryAfter))
+    return res.status(429).json({
+      error: "TOO_MANY_REQUESTS",
+      message: "Wykorzystałeś dzienny limit AI Generator. Wróć za godzinę albo wypełnij brief: /dla-firm",
+    })
+  }
+
   const parsed = RequestSchema.safeParse(req.body)
   if (!parsed.success) {
     return res.status(400).json({

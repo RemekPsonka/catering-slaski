@@ -33,6 +33,23 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    // CSP — restrictive. unsafe-inline pozwalane dla JSON-LD <script type="application/ld+json">
+    // i Next.js inline styles. Resztę zamykamy ścisło.
+    const cspProd = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "img-src 'self' data: blob: https://images.unsplash.com https://res.cloudinary.com https://cdn.cateringslaski.pl https://api.cateringslaski.pl",
+      "connect-src 'self' https://api.cateringslaski.pl https://*.supabase.co wss://*.supabase.co https://api.stripe.com",
+      "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'self'",
+      "upgrade-insecure-requests",
+    ].join("; ")
+
     return [
       {
         source: "/(.*)",
@@ -42,8 +59,17 @@ const nextConfig: NextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(self)",
+            value: "camera=(), microphone=(), geolocation=(self), payment=(self), interest-cohort=()",
           },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: cspProd,
+          },
+          { key: "X-DNS-Prefetch-Control", value: "on" },
         ],
       },
     ]

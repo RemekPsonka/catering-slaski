@@ -41,8 +41,14 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
 
   let event: Stripe.Event
   try {
-    // req.rawBody musi być dostępne — patrz medusa-config rawBody for /hooks/*
-    const rawBody = (req as any).rawBody || JSON.stringify(req.body)
+    // req.rawBody MUSI być Buffer/string — patrz src/api/middlewares.ts.
+    // Fallback JSON.stringify usunięty: nie odtwarza bajt-po-bajt oryginalnego payloadu,
+    // więc HMAC signature się zawsze rozjedzie (typowe pole order pól w JSON.stringify ≠ kolejność na wirze Stripe).
+    const rawBody = (req as any).rawBody
+    if (!rawBody) {
+      console.error("[stripe-webhook] rawBody missing — middleware misconfigured")
+      return res.status(500).json({ error: "Webhook misconfigured: raw body unavailable" })
+    }
     event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret)
   } catch (err: any) {
     console.error(`[stripe-webhook] Signature verification failed: ${err.message}`)
