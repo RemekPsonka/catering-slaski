@@ -1,0 +1,173 @@
+version: "3.9"
+
+# =====================================
+# Catering Śląski — dev/baseline stack
+# =====================================
+# Użycie:
+#   pnpm docker:up           # tylko postgres + redis (dev local)
+#   docker compose -f infra/docker-compose.yml --profile full up -d   # cały stack
+# Production overlay:
+#   infra/docker-compose.prod.yml (build images, nginx, certbot)
+
+services:
+  # ---- PostgreSQL with PostGIS ----
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: cs_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-medusa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-medusa_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-catering_slaski}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-medusa}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cs_net
+
+  # ---- Redis (cache + BullMQ queues) ----
+  redis:
+    image: redis:7-alpine
+    container_name: cs_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - cs_net
+
+  # ---- Medusa Backend ----
+  # Profile: full — uruchamiane gdy chcesz cały stack w dockerze
+  # Dev domyślny: pnpm dev w apps/backend uruchamia poza dockerem
+  backend:
+    profiles: ["full"]
+    build:
+      context: ../apps/backend
+      dockerfile: Dockerfile
+    container_name: cs_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      DATABASE_URL: postgres://${POSTGRES_USER:-medusa}:${POSTGRES_PASSWORD:-medusa_dev_password}@postgres:5432/${POSTGRES_DB:-catering_slaski}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+      STRIPE_API_KEY: ${STRIPE_API_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_FROM_NAME: ${EMAIL_FROM_NAME}
+      SMSAPI_TOKEN: ${SMSAPI_TOKEN}
+      SMSAPI_SENDER: ${SMSAPI_SENDER}
+      FAKTUROWNIA_API_TOKEN: ${FAKTUROWNIA_API_TOKEN}
+      FAKTUROWNIA_DOMAIN: ${FAKTUROWNIA_DOMAIN}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      MAPBOX_SECRET_TOKEN: ${MAPBOX_SECRET_TOKEN}
+      WEBHOOK_PRODUCTION_URL: ${WEBHOOK_PRODUCTION_URL}
+      WEBHOOK_PRODUCTION_SECRET: ${WEBHOOK_PRODUCTION_SECRET}
+      WEBHOOK_LOGISTICS_URL: ${WEBHOOK_LOGISTICS_URL}
+      WEBHOOK_LOGISTICS_SECRET: ${WEBHOOK_LOGISTICS_SECRET}
+      WEBHOOK_BILLING_URL: ${WEBHOOK_BILLING_URL}
+      WEBHOOK_BILLING_SECRET: ${WEBHOOK_BILLING_SECRET}
+      SENTRY_DSN: ${SENTRY_DSN}
+    ports:
+      - "9000:9000"
+      - "7001:7001"
+    volumes:
+      - backend_uploads:/app/static
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - cs_net
+
+  # ---- Next.js Storefront ----
+  storefront:
+    profiles: ["full"]
+    build:
+      context: ../apps/storefront
+      dockerfile: Dockerfile
+    container_name: cs_storefront
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: ${NEXT_PUBLIC_MEDUSA_BACKEND_URL:-http://backend:9000}
+      NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+      NEXT_PUBLIC_SITE_NAME: ${NEXT_PUBLIC_SITE_NAME:-Catering Śląski}
+      NEXT_PUBLIC_MAPBOX_TOKEN: ${NEXT_PUBLIC_MAPBOX_TOKEN}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY}
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - cs_net
+
+  # ---- Nginx reverse proxy (production overlay) ----
+  nginx:
+    profiles: ["full"]
+    image: nginx:alpine
+    container_name: cs_nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - storefront
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/sites:/etc/nginx/conf.d:ro
+      - certbot_certs:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    networks:
+      - cs_net
+
+  # ---- Certbot (Let's Encrypt SSL) ----
+  certbot:
+    profiles: ["full"]
+    image: certbot/certbot
+    container_name: cs_certbot
+    restart: unless-stopped
+    volumes:
+      - certbot_certs:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  postgres_data:
+  redis_data:
+  backend_uploads:
+  certbot_certs:
+  certbot_www:
+
+networks:
+  cs_net:
+    driver: bridge

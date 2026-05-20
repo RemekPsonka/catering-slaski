@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Katalog cateringu · Catering Śląski</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        forest: { 500: '#2D5A3D', 700: '#1A3A26', 900: '#0B2818', 950: '#061812' },
+        cream:  { 50: '#FBF8F2', 100: '#F4EFE6', 200: '#E8E0D0', 300: '#D8CCB4' },
+        gold:   { 400: '#D9BC78', 500: '#C9A961', 600: '#A88842', 700: '#7E6630' },
+        ember:  { 500: '#D97742', 600: '#B85A2A' },
+        tomato: { 500: '#C73E1D' },
+        coal:   { 900: '#0A0908', 800: '#15110F', 700: '#221C18' },
+      },
+      fontFamily: {
+        display: ['Fraunces', 'serif'],
+        serif:   ['"Instrument Serif"', 'serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+<style>
+body { font-family: 'Inter', sans-serif; background: #FBF8F2; color: #221C18; }
+.display { font-family: 'Fraunces', serif; }
+.accent-serif { font-family: 'Instrument Serif', serif; font-style: italic; }
+.btn-gold { background: linear-gradient(135deg, #C9A961, #A88842); color: #061812; font-weight: 600; transition: all .2s; }
+.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 10px 20px -5px rgba(168,136,66,0.4); }
+.btn-coal { background: #0A0908; color: #F4EFE6; transition: all .2s; }
+.btn-coal:hover { background: #221C18; }
+.product-card { transition: all .3s ease; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.15); }
+.tag { display: inline-flex; align-items: center; gap: .25rem; padding: .15rem .5rem; border-radius: 999px; font-size: .65rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.tag-veg { background: #D5E8DB; color: #1A3A26; }
+.tag-vegan { background: #BCD9C6; color: #0B2818; }
+.tag-gf { background: #F4E4C1; color: #7E6630; }
+.tag-best { background: #C9A961; color: #0A0908; }
+.tag-new { background: #D97742; color: #0A0908; }
+.tag-spicy { background: #C73E1D; color: #F4EFE6; }
+.filter-chip.active { background: #0A0908; color: #F4EFE6; border-color: #0A0908; }
+.deadline-bar { background: linear-gradient(90deg, #C9A961, #D97742); }
+</style>
+</head>
+<body>
+
+<!-- ===== Top deadline bar ===== -->
+<div class="deadline-bar text-coal-900 text-center text-xs md:text-sm py-2 px-4 font-medium">
+  ⏰ Zamów do <strong>16:00 dzisiaj</strong> — dostarczymy jutro. Pozostało: <span id="countdown" class="font-mono">06:23:14</span>
+</div>
+
+<!-- ===== Header ===== -->
+<header class="bg-cream-50 border-b border-coal-900/10 sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-6">
+    <a href="01-landing.html" class="flex items-center gap-3 flex-shrink-0">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center font-display font-bold text-coal-900">CŚ</div>
+      <span class="display text-xl text-coal-900 hidden md:inline">Catering Śląski</span>
+    </a>
+
+    <div class="flex-1 max-w-md hidden md:block">
+      <div class="relative">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-coal-900/40" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Czego szukasz? (np. box koktajlowy, finger food, wege…)" class="w-full bg-cream-100 border border-coal-900/10 rounded-full pl-11 pr-5 py-2.5 text-sm text-coal-900 placeholder:text-coal-900/40 focus:outline-none focus:border-coal-900/30 transition" />
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="02-konfigurator-b2b.html" class="hidden md:inline-flex items-center gap-2 text-sm text-coal-900 hover:text-gold-600 transition px-3 py-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse"></span>
+        Konfigurator AI
+      </a>
+      <a href="05-konto.html" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-cream-100 transition">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="04-checkout.html" class="relative px-4 py-2 bg-coal-900 text-cream-100 rounded-full text-sm flex items-center gap-2 hover:bg-coal-800 transition">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Koszyk
+        <span class="bg-gold-500 text-coal-900 rounded-full w-5 h-5 flex items-center justify-center text-[11px] font-semibold">3</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Page header ===== -->
+<section class="bg-cream-50 border-b border-coal-900/5">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
+    <div class="text-xs uppercase tracking-widest text-gold-600 mb-3">Katalog</div>
+    <h1 class="display text-4xl md:text-5xl text-coal-900 mb-3">Cała oferta cateringu</h1>
+    <p class="text-coal-900/60 max-w-xl">200+ pozycji w 8 kategoriach. Filtruj, dodawaj do koszyka, my doręczamy.</p>
+  </div>
+</section>
+
+<!-- ===== Categories scroll ===== -->
+<section class="border-b border-coal-900/5 bg-cream-50 sticky top-[73px] z-30">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4">
+    <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-1" style="scrollbar-width: none;">
+      <button class="filter-chip active flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 transition">Wszystko <span class="opacity-60 ml-1">(216)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Catering BOX <span class="opacity-60 ml-1">(48)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Finger food <span class="opacity-60 ml-1">(32)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Zimna płyta <span class="opacity-60 ml-1">(18)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Komunia 2026 <span class="opacity-60 ml-1">(24)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Burgery / Hot dogi <span class="opacity-60 ml-1">(12)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Desery <span class="opacity-60 ml-1">(28)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Lunch dnia <span class="opacity-60 ml-1">(8)</span></button>
+      <button class="filter-chip flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">Garmażerka <span class="opacity-60 ml-1">(46)</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Main grid ===== -->
+<section class="py-10">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-8">
+
+    <!-- Filters sidebar -->
+    <aside class="lg:col-span-3">
+      <div class="bg-white rounded-3xl border border-coal-900/5 p-6 lg:sticky lg:top-44 shadow-sm">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="display text-xl text-coal-900">Filtry</h3>
+          <button class="text-xs text-gold-600 hover:text-gold-700 transition">Wyczyść</button>
+        </div>
+
+        <!-- Liczba osób -->
+        <div class="mb-6 pb-6 border-b border-coal-900/5">
+          <h4 class="text-sm font-medium text-coal-900 mb-3">Liczba osób</h4>
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <button class="filter-mini py-2 px-3 rounded-lg border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">5–10</button>
+            <button class="filter-mini py-2 px-3 rounded-lg border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">10–20</button>
+            <button class="filter-mini py-2 px-3 rounded-lg border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">20–40</button>
+            <button class="filter-mini py-2 px-3 rounded-lg border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">40+</button>
+            <button class="filter-mini py-2 px-3 rounded-lg border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">80+</button>
+            <button class="filter-mini py-2 px-3 rounded-lg border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition">150+</button>
+          </div>
+        </div>
+
+        <!-- Diet -->
+        <div class="mb-6 pb-6 border-b border-coal-900/5">
+          <h4 class="text-sm font-medium text-coal-900 mb-3">Dieta</h4>
+          <div class="space-y-2.5 text-sm">
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">🌱 Wegetariańskie</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">🥬 Wegańskie</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">🌾 Bezglutenowe</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">🥛 Bez laktozy</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">🌶️ Pikantne</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-6 pb-6 border-b border-coal-900/5">
+          <h4 class="text-sm font-medium text-coal-900 mb-3">Cena</h4>
+          <div class="flex justify-between text-xs text-coal-900/60 mb-2"><span>50 zł</span><span>800 zł</span></div>
+          <input type="range" min="50" max="800" value="800" class="w-full accent-coal-900" />
+          <div class="text-xs text-coal-900/70 mt-2">do <strong class="text-coal-900">340 zł</strong></div>
+        </div>
+
+        <!-- Okazja -->
+        <div class="mb-6">
+          <h4 class="text-sm font-medium text-coal-900 mb-3">Okazja</h4>
+          <div class="space-y-2 text-sm">
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">Komunia / chrzciny</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">Urodziny / jubileusz</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">Wesele</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">Event firmowy</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="w-4 h-4 rounded accent-coal-900" />
+              <span class="text-coal-900/80 group-hover:text-coal-900">Sylwester / święta</span>
+            </label>
+          </div>
+        </div>
+
+        <a href="02-konfigurator-b2b.html" class="block bg-gradient-to-br from-gold-500/15 to-gold-500/5 border border-gold-500/30 rounded-2xl p-5 mt-4">
+          <div class="text-xs uppercase tracking-widest text-gold-600 mb-2">Nie wiesz co wybrać?</div>
+          <div class="text-coal-900 font-medium leading-snug">AI dobierze menu w 15 sekund — wpisz brief</div>
+          <div class="mt-3 text-xs text-gold-700 flex items-center gap-1">
+            Wypróbuj <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Products grid -->
+    <main class="lg:col-span-9">
+      <!-- Sort + view -->
+      <div class="flex items-center justify-between mb-6">
+        <div class="text-sm text-coal-900/60"><strong class="text-coal-900">216</strong> pozycji</div>
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-coal-900/60 hidden md:inline">Sortuj:</span>
+          <select class="bg-white border border-coal-900/10 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-coal-900/30">
+            <option>Popularność</option>
+            <option>Cena: rosnąco</option>
+            <option>Cena: malejąco</option>
+            <option>Najwyżej oceniane</option>
+            <option>Najnowsze</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <!-- Product 1 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-best">★ Bestseller</span>
+            <button class="absolute top-3 right-3 w-9 h-9 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-coal-900/60 hover:text-tomato-500 transition">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>5.0 (5)</span><span class="mx-1">·</span><span>10-12 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX koktajlowy II</h3>
+            <p class="text-xs text-coal-900/60 mb-4">Mix wytrawnych mini-przekąsek: kanapki, finger food, sery, owoce</p>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="display text-2xl text-coal-900">340 <span class="text-sm">zł</span></span>
+              </div>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 2 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-new">Hit lata</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>5.0 (1)</span><span class="mx-1">·</span><span>8-10 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX z mini burgerami</h3>
+            <p class="text-xs text-coal-900/60 mb-4">12 mini-burgerów w 3 wariantach + dipy + fries</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">290 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 3 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-veg">🌱 Wege</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>4.8 (12)</span><span class="mx-1">·</span><span>8 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX sałatkowy</h3>
+            <p class="text-xs text-coal-900/60 mb-4">4 sałatki sezonowe + pieczywo + dressing</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">210 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 4 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-best">★ Bestseller</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>4.9 (8)</span><span class="mx-1">·</span><span>12 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX ze słodkościami</h3>
+            <p class="text-xs text-coal-900/60 mb-4">Mini-torciki, eclairy, makaroniki, owoce w czekoladzie</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">240 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 5 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-best">★ Bestseller</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>4.9 (24)</span><span class="mx-1">·</span><span>16 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">Zimna płyta klasyczna</h3>
+            <p class="text-xs text-coal-900/60 mb-4">Wędliny, sery, marynaty, jajka faszerowane, pasztet</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">390 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 6 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-new">Premium</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>5.0 (3)</span><span class="mx-1">·</span><span>10-15 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX finger food premium</h3>
+            <p class="text-xs text-coal-900/60 mb-4">Tatar, carpaccio, smoked salmon, tartlette z foie gras</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">370 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 7 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-spicy">🌶️ Pikantne</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★☆</span><span>4.6 (7)</span><span class="mx-1">·</span><span>8 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX z hot dogami</h3>
+            <p class="text-xs text-coal-900/60 mb-4">12 hot dogów premium + 5 sosów + ogórki kiszone</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">290 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 8 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-gf">🌾 Bezglut.</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>4.9 (15)</span><span class="mx-1">·</span><span>12 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">BOX deserowy II</h3>
+            <p class="text-xs text-coal-900/60 mb-4">Mini-pavlovy, brownie, panna cotta, panna mousse</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">260 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 9 -->
+        <a href="#" class="product-card group bg-white rounded-3xl overflow-hidden border border-coal-900/5 shadow-sm">
+          <div class="relative aspect-square overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=85" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-3 left-3 tag tag-new">Sezon 2026</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-1.5 text-xs text-coal-900/50 mb-2">
+              <span>★★★★★</span><span>5.0 (4)</span><span class="mx-1">·</span><span>20 os.</span>
+            </div>
+            <h3 class="display text-lg text-coal-900 mb-1 group-hover:text-gold-600 transition">Komunia BOX rodzinny</h3>
+            <p class="text-xs text-coal-900/60 mb-4">Rolada śląska, kluski, czerwona, surówki + zimna płyta</p>
+            <div class="flex items-center justify-between">
+              <span class="display text-2xl text-coal-900">1 240 <span class="text-sm">zł</span></span>
+              <button class="w-10 h-10 rounded-full bg-coal-900 hover:bg-gold-500 text-cream-100 hover:text-coal-900 flex items-center justify-center transition">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-12 flex items-center justify-between">
+        <div class="text-sm text-coal-900/50">Pokazano <strong class="text-coal-900">1–9</strong> z <strong class="text-coal-900">216</strong></div>
+        <div class="flex items-center gap-1.5">
+          <button class="w-10 h-10 rounded-full border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="w-10 h-10 rounded-full bg-coal-900 text-cream-100 text-sm flex items-center justify-center">1</button>
+          <button class="w-10 h-10 rounded-full border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition text-sm">2</button>
+          <button class="w-10 h-10 rounded-full border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition text-sm">3</button>
+          <span class="text-coal-900/40 px-2">…</span>
+          <button class="w-10 h-10 rounded-full border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition text-sm">24</button>
+          <button class="w-10 h-10 rounded-full border border-coal-900/15 hover:bg-coal-900 hover:text-cream-100 transition flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<!-- ===== PRODUCT DETAIL preview (collapsed) ===== -->
+<section class="py-20 bg-coal-900 text-cream-100">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="text-xs uppercase tracking-widest text-gold-400 mb-3">Tak wygląda karta produktu</div>
+    <h2 class="display text-3xl md:text-4xl mb-12">BOX koktajlowy II — pełna karta produktu</h2>
+
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-6">
+        <div class="relative aspect-square rounded-3xl overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1200&q=90" alt="" class="w-full h-full object-cover" />
+          <span class="absolute top-4 left-4 tag tag-best">★ Bestseller · 5.0</span>
+        </div>
+        <div class="grid grid-cols-4 gap-3">
+          <div class="aspect-square rounded-2xl overflow-hidden border-2 border-gold-500"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300&q=80" class="w-full h-full object-cover" /></div>
+          <div class="aspect-square rounded-2xl overflow-hidden border border-cream-100/15"><img src="https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=300&q=80" class="w-full h-full object-cover opacity-80" /></div>
+          <div class="aspect-square rounded-2xl overflow-hidden border border-cream-100/15"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&q=80" class="w-full h-full object-cover opacity-80" /></div>
+          <div class="aspect-square rounded-2xl overflow-hidden border border-cream-100/15"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&q=80" class="w-full h-full object-cover opacity-80" /></div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-gold-400 text-sm">★★★★★ 5.0</span>
+          <span class="text-cream-100/50 text-sm">5 opinii</span>
+          <span class="text-cream-100/30">·</span>
+          <span class="text-cream-100/50 text-sm">Dla 10–12 osób</span>
+        </div>
+
+        <h3 class="display text-4xl lg:text-5xl mb-4">BOX koktajlowy II</h3>
+        <p class="text-cream-100/70 leading-relaxed mb-6">
+          Najczęściej zamawiany BOX na imprezy w domu. Mix wytrawnych mini-przekąsek dla 10-12 osób
+          w eleganckim drewnianym pudełku. Otwórz, podaj, gotowe.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="tag tag-best">★ Bestseller</span>
+          <span class="tag tag-veg">🌱 Opcja wege</span>
+          <span class="tag tag-gf">🌾 Opcja bezglutenowa</span>
+        </div>
+
+        <div class="bg-coal-800 rounded-2xl border border-cream-100/10 p-5 mb-6">
+          <div class="text-xs uppercase tracking-widest text-gold-400 mb-3">W zestawie</div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-start gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#C9A961" class="mt-0.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>24 kanapki koktajlowe (4 rodzaje: łosoś, kurczak, tatar, vege)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#C9A961" class="mt-0.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>Mini-tartlette z foie gras (12 szt)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#C9A961" class="mt-0.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>Patera serów + winogron + orzechów (na 12 os)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#C9A961" class="mt-0.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>Bruschettas z pomidorem i bazylią (16 szt)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#C9A961" class="mt-0.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>Owoce sezonowe + figi suszone</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Quantity + Add to cart -->
+        <div class="flex items-end gap-4 mb-6">
+          <div>
+            <div class="text-xs text-cream-100/50 mb-2">Cena</div>
+            <div class="display text-5xl">340 <span class="text-lg">zł</span></div>
+          </div>
+          <div class="flex items-center gap-2 bg-coal-800 rounded-full p-1.5">
+            <button class="w-9 h-9 rounded-full hover:bg-cream-100/10 transition flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg></button>
+            <span class="w-8 text-center font-medium">1</span>
+            <button class="w-9 h-9 rounded-full hover:bg-cream-100/10 transition flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <button class="flex-1 btn-gold rounded-full px-6 py-3.5 flex items-center justify-center gap-2 text-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Dodaj do koszyka
+          </button>
+        </div>
+
+        <!-- AI suggestion -->
+        <div class="bg-gradient-to-br from-gold-500/15 to-transparent border border-gold-500/30 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gold-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A961" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="text-xs uppercase tracking-widest text-gold-400 mb-1">Sugestia AI</div>
+              <div class="text-sm text-cream-100/90 leading-relaxed">
+                Klienci, którzy zamawiali BOX koktajlowy II, dokupowali również <strong>BOX wege</strong> (220 zł) i <strong>BOX z deserami II</strong> (240 zł) — łącznie 800 zł zamiast 800 zł osobno (taniej o 5%).
+              </div>
+              <button class="mt-3 text-xs text-gold-400 hover:text-gold-300 transition flex items-center gap-1">
+                Dodaj wszystkie 3 jako zestaw <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick info -->
+        <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+          <div class="bg-coal-800 rounded-xl p-3 border border-cream-100/5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A961" stroke-width="2" class="mx-auto mb-1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="text-xs text-cream-100/60">Zamów do 16:00</div>
+            <div class="text-sm font-medium">Dostawa jutro</div>
+          </div>
+          <div class="bg-coal-800 rounded-xl p-3 border border-cream-100/5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A961" stroke-width="2" class="mx-auto mb-1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="text-xs text-cream-100/60">Strefa 1</div>
+            <div class="text-sm font-medium">+29 zł</div>
+          </div>
+          <div class="bg-coal-800 rounded-xl p-3 border border-cream-100/5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A961" stroke-width="2" class="mx-auto mb-1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div class="text-xs text-cream-100/60">Płatność</div>
+            <div class="text-sm font-medium">Karta · BLIK · Pay</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Sticky mobile bottom CTA ===== -->
+<div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-cream-50/95 backdrop-blur border-t border-coal-900/10 p-4 flex items-center gap-3">
+  <a href="04-checkout.html" class="flex-1 btn-coal rounded-full py-3 text-sm flex items-center justify-center gap-2">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Koszyk (3) — 870 zł
+  </a>
+</div>
+
+<script>
+// === Filter chips toggle ===
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active','bg-coal-900','text-cream-100'));
+    chip.classList.add('active','bg-coal-900','text-cream-100');
+  });
+});
+
+// === Mini filter toggle ===
+document.querySelectorAll('.filter-mini').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('bg-coal-900');
+    btn.classList.toggle('text-cream-100');
+  });
+});
+
+// === Countdown ===
+const countdownEl = document.getElementById('countdown');
+let secs = 6 * 3600 + 23 * 60 + 14;
+setInterval(() => {
+  secs = Math.max(0, secs - 1);
+  const h = String(Math.floor(secs / 3600)).padStart(2,'0');
+  const m = String(Math.floor((secs % 3600) / 60)).padStart(2,'0');
+  const s = String(secs % 60).padStart(2,'0');
+  countdownEl.textContent = `${h}:${m}:${s}`;
+}, 1000);
+</script>
+
+</body>
+</html>

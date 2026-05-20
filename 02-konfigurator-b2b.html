@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Konfigurator z AI · Catering Śląski</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        coal:    { 900:'#0A0908', 800:'#1A1717', 700:'#2B2826' },
+        graphite:{ 500:'#585553' },
+        steel:   { 400:'#8B8784' },
+        bone:    { 200:'#E8E3DA' },
+        paper:   { 100:'#F5F2EC' },
+        snow:    { 50: '#FFFFFF' },
+        signal:  { 500:'#E54B17', 600:'#C73E0F', 100:'#FFE6DC' },
+        success: { 500:'#2D5A3D', 700:'#1A3A26' },
+      },
+      fontFamily: {
+        display: ['"Inter Tight"','Inter','system-ui','sans-serif'],
+        sans:    ['Inter','system-ui','sans-serif'],
+        hand:    ['Caveat','cursive'],
+      },
+    }
+  }
+}
+</script>
+<style>
+body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #0A0908; }
+.display { font-family: 'Inter Tight', sans-serif; }
+.hand { font-family: 'Caveat', cursive; }
+.upper-tight { text-transform: uppercase; letter-spacing: -0.02em; }
+.label { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; font-size: 12px; }
+.num { font-feature-settings: "tnum" on; }
+
+.btn-coal { background: #0A0908; color: #F5F2EC; padding: 16px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; border: 1.5px solid #0A0908; transition: all .15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-coal:hover { background: #1A1717; transform: translateY(-1px); }
+.btn-coal:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+.btn-signal { background: #E54B17; color: #FFFFFF; padding: 16px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; border: 1.5px solid #E54B17; transition: all .15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-signal:hover { background: #C73E0F; border-color: #C73E0F; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: #0A0908; padding: 16px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; border: 1.5px solid #0A0908; transition: all .15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-ghost:hover { background: #0A0908; color: #F5F2EC; }
+
+/* Step indicator */
+.step-circle { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-family: 'Inter Tight', sans-serif; transition: all .25s; }
+.step-circle.active { background: #E54B17; color: #FFFFFF; }
+.step-circle.done { background: #0A0908; color: #F5F2EC; }
+.step-circle.pending { background: transparent; color: rgba(10,9,8,0.35); border: 1.5px solid rgba(10,9,8,0.15); }
+
+/* Option cards */
+.option-card { transition: all .2s; cursor: pointer; background: #FFFFFF; border: 1.5px solid #E8E3DA; }
+.option-card:hover { border-color: #0A0908; }
+.option-card.selected { background: #FFE6DC; border-color: #E54B17; }
+.option-card.selected .check-icon { opacity: 1; transform: scale(1); }
+.check-icon { opacity: 0; transform: scale(0.5); transition: all .25s; }
+
+/* Range slider — industrial */
+input[type=range] { -webkit-appearance: none; appearance: none; height: 4px; background: #E8E3DA; outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #E54B17; cursor: pointer; border: 0; }
+input[type=range]::-moz-range-thumb { width: 20px; height: 20px; background: #E54B17; cursor: pointer; border: 0; }
+
+/* Typing cursor */
+.typing-cursor { display: inline-block; width: 2px; height: 1em; background: #E54B17; vertical-align: middle; margin-left: 2px; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.fade-in { animation: fadeIn .5s ease forwards; opacity: 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.thinking-dot { animation: thinking 1.4s ease-in-out infinite; }
+.thinking-dot:nth-child(2) { animation-delay: .2s; }
+.thinking-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes thinking { 0%,80%,100% { opacity: .3; transform: scale(.8); } 40% { opacity: 1; transform: scale(1); } }
+
+.live-dot { animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+/* Inputs */
+input[type=text], input[type=date], input[type=time], textarea, select {
+  background: #FFFFFF; border: 1.5px solid #E8E3DA; padding: 14px 16px; color: #0A0908;
+  font-size: 14px; transition: border-color .15s;
+}
+input[type=text]:focus, input[type=date]:focus, textarea:focus, select:focus {
+  outline: none; border-color: #0A0908;
+}
+input[type=text]::placeholder, textarea::placeholder { color: rgba(10,9,8,0.35); }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="bg-paper-100 border-b border-bone-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+    <a href="01-landing.html" class="flex items-center gap-4">
+      <svg width="36" height="48" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#0A0908" stroke-width="2" fill="none" stroke-linecap="square">
+          <line x1="35" y1="8" x2="45" y2="8"/><line x1="35" y1="8" x2="35" y2="16"/><line x1="45" y1="8" x2="45" y2="16"/><line x1="33" y1="16" x2="47" y2="16"/>
+          <line x1="25" y1="16" x2="25" y2="60"/><line x1="55" y1="16" x2="55" y2="60"/><line x1="40" y1="16" x2="25" y2="42"/><line x1="40" y1="16" x2="55" y2="42"/>
+          <line x1="25" y1="24" x2="55" y2="24"/><line x1="25" y1="32" x2="55" y2="32"/><line x1="25" y1="42" x2="55" y2="42"/><line x1="25" y1="52" x2="55" y2="52"/>
+          <line x1="15" y1="60" x2="65" y2="60"/><line x1="15" y1="60" x2="15" y2="78"/><line x1="65" y1="60" x2="65" y2="78"/><line x1="15" y1="78" x2="65" y2="78"/>
+          <line x1="3" y1="88" x2="77" y2="88"/><line x1="3" y1="94" x2="77" y2="94"/>
+        </g>
+      </svg>
+      <div class="leading-none">
+        <div class="display upper-tight font-bold text-coal-900 text-base">Catering</div>
+        <div class="display upper-tight font-bold text-coal-900 text-base">Śląski <span class="font-normal">_</span></div>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-3 text-sm">
+      <a href="01-landing.html" class="text-coal-900/60 hover:text-coal-900 transition">← Strona główna</a>
+      <span class="text-coal-900/20">/</span>
+      <span class="text-coal-900 font-medium">Konfigurator z AI</span>
+    </div>
+    <a href="03-sklep-b2c.html" class="btn-ghost">Wolę katalog</a>
+  </div>
+</header>
+
+<!-- ===== Page hero ===== -->
+<section class="bg-paper-100 py-16 lg:py-24 border-b border-bone-200">
+  <div class="max-w-5xl mx-auto px-6 lg:px-10 text-center">
+    <div class="inline-flex items-center gap-2 mb-6 label text-graphite-500">
+      <span class="w-6 h-px bg-coal-900"></span>
+      AI Generator menu · Pierwsze w PL · Beta
+      <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+    </div>
+    <h1 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl lg:text-6xl leading-[0.95]">
+      Opisz event.<br/>
+      <span class="text-signal-500">Menu w 15 sekundach.</span>
+    </h1>
+    <p class="mt-6 text-coal-900/70 text-lg max-w-2xl mx-auto leading-relaxed">
+      AI zna 200+ pozycji z naszego menu — ceny, alergeny, sezonowość. Wpisz brief po polsku albo wybierz krok-po-kroku.
+    </p>
+  </div>
+</section>
+
+<!-- ===== Mode switcher ===== -->
+<div class="max-w-3xl mx-auto px-6 lg:px-10 -mt-8 mb-12 relative">
+  <div class="bg-snow-50 border-2 border-coal-900 p-1.5 flex">
+    <button id="modeStep" class="modeBtn flex-1 px-5 py-3 text-sm font-medium uppercase tracking-wide bg-coal-900 text-paper-100 transition">
+      Krok po kroku
+    </button>
+    <button id="modeAI" class="modeBtn flex-1 px-5 py-3 text-sm font-medium uppercase tracking-wide text-coal-900/60 hover:text-coal-900 transition">
+      Napisz brief (AI)
+    </button>
+  </div>
+</div>
+
+<!-- ===== Step-by-step ===== -->
+<section id="stepView" class="max-w-7xl mx-auto px-6 lg:px-10 pb-20">
+  <div class="grid lg:grid-cols-12 gap-8">
+
+    <!-- Steps sidebar -->
+    <aside class="lg:col-span-3">
+      <div class="bg-snow-50 border border-bone-200 p-6 lg:sticky lg:top-24">
+        <div class="label text-graphite-500 mb-5">Postęp</div>
+        <ol class="space-y-0">
+          <li class="step-item flex items-center gap-4 py-3 border-b border-bone-200 last:border-b-0" data-step="1">
+            <span class="step-circle active">1</span>
+            <div class="flex-1">
+              <div class="text-sm text-coal-900 font-medium">Typ wydarzenia</div>
+              <div class="text-xs text-graphite-500 mt-0.5">Co świętujesz?</div>
+            </div>
+          </li>
+          <li class="step-item flex items-center gap-4 py-3 border-b border-bone-200 last:border-b-0 opacity-50" data-step="2">
+            <span class="step-circle pending">2</span>
+            <div class="flex-1">
+              <div class="text-sm text-coal-900 font-medium">Liczba osób</div>
+              <div class="text-xs text-graphite-500 mt-0.5">Ile gości?</div>
+            </div>
+          </li>
+          <li class="step-item flex items-center gap-4 py-3 border-b border-bone-200 last:border-b-0 opacity-50" data-step="3">
+            <span class="step-circle pending">3</span>
+            <div class="flex-1">
+              <div class="text-sm text-coal-900 font-medium">Budżet</div>
+              <div class="text-xs text-graphite-500 mt-0.5">+ preferencje</div>
+            </div>
+          </li>
+          <li class="step-item flex items-center gap-4 py-3 border-b border-bone-200 last:border-b-0 opacity-50" data-step="4">
+            <span class="step-circle pending">4</span>
+            <div class="flex-1">
+              <div class="text-sm text-coal-900 font-medium">Data i adres</div>
+              <div class="text-xs text-graphite-500 mt-0.5">Gdzie i kiedy?</div>
+            </div>
+          </li>
+          <li class="step-item flex items-center gap-4 py-3 border-b border-bone-200 last:border-b-0 opacity-50" data-step="5">
+            <span class="step-circle pending">5</span>
+            <div class="flex-1">
+              <div class="text-sm text-coal-900 font-medium">Propozycja</div>
+              <div class="text-xs text-graphite-500 mt-0.5">Oferta gotowa</div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="mt-6 pt-6 border-t border-coal-900">
+          <div class="label text-graphite-500 mb-2">Bieżąca wycena</div>
+          <div class="display upper font-bold text-3xl text-signal-500 num" id="runningTotal">0 zł</div>
+          <div class="text-xs text-graphite-500 mt-1" id="runningPerPerson">— zł/os</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main step content -->
+    <div class="lg:col-span-9">
+
+      <!-- STEP 1 -->
+      <div class="step-content" data-step="1">
+        <div class="mb-8">
+          <div class="label text-graphite-500 mb-3">Krok 1 z 5</div>
+          <h2 class="display upper-tight font-bold text-coal-900 text-3xl lg:text-4xl mb-3">Co świętujesz?</h2>
+          <p class="text-coal-900/60">Wybierz typ wydarzenia — od tego zależy bilans menu.</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="option-card p-5 relative" data-event="komunia">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="text-3xl mb-3">⛪</div>
+            <div class="display upper-tight font-bold text-base">Komunia</div>
+            <div class="text-xs text-graphite-500 mt-1">Niedziela, rodzina</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="urodziny">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">🎂</div>
+            <div class="display upper-tight font-bold text-base">Urodziny</div>
+            <div class="text-xs text-graphite-500 mt-1">Round number</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="wesele">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">💍</div>
+            <div class="display upper-tight font-bold text-base">Wesele</div>
+            <div class="text-xs text-graphite-500 mt-1">Całą noc</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="firmowy">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">💼</div>
+            <div class="display upper-tight font-bold text-base">Event firmowy</div>
+            <div class="text-xs text-graphite-500 mt-1">Konferencja, integracja</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="lunch">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">🍱</div>
+            <div class="display upper-tight font-bold text-base">Lunch dla biura</div>
+            <div class="text-xs text-graphite-500 mt-1">Jednorazowo / cykl</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="chrzciny">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">👶</div>
+            <div class="display upper-tight font-bold text-base">Chrzciny / Roczek</div>
+            <div class="text-xs text-graphite-500 mt-1">Kameralnie</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="koktajl">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">🥂</div>
+            <div class="display upper-tight font-bold text-base">Koktajl party</div>
+            <div class="text-xs text-graphite-500 mt-1">Finger food</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="domowka">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">🏠</div>
+            <div class="display upper-tight font-bold text-base">Spotkanie</div>
+            <div class="text-xs text-graphite-500 mt-1">Domówka, oglądanie</div>
+          </div>
+          <div class="option-card p-5 relative" data-event="inne">
+            <div class="absolute top-3 right-3 check-icon w-6 h-6 bg-signal-500 flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            <div class="text-3xl mb-3">✨</div>
+            <div class="display upper-tight font-bold text-base">Inna okazja</div>
+            <div class="text-xs text-graphite-500 mt-1">Opisz nam</div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex justify-end">
+          <button class="next-btn btn-coal" disabled>
+            Dalej
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-content hidden" data-step="2">
+        <div class="mb-8">
+          <div class="label text-graphite-500 mb-3">Krok 2 z 5</div>
+          <h2 class="display upper-tight font-bold text-coal-900 text-3xl lg:text-4xl mb-3">Ile osób?</h2>
+          <p class="text-coal-900/60">Przygotujemy 10% buffer na niespodziewanych gości.</p>
+        </div>
+
+        <div class="bg-snow-50 border border-bone-200 p-8 lg:p-12">
+          <div class="text-center mb-10">
+            <div class="display upper font-bold text-coal-900 text-7xl lg:text-8xl num"><span id="guestCount">40</span></div>
+            <div class="label text-graphite-500 mt-3">osób</div>
+          </div>
+
+          <input id="guestSlider" type="range" min="5" max="200" value="40" step="5" class="w-full" />
+
+          <div class="flex justify-between text-xs text-graphite-500 mt-2 num">
+            <span>5</span><span>50</span><span>100</span><span>150</span><span>200+</span>
+          </div>
+
+          <div class="grid grid-cols-3 lg:grid-cols-6 gap-2 mt-8">
+            <button class="guestPreset border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition py-3 text-sm font-medium num" data-value="10">10 os</button>
+            <button class="guestPreset border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition py-3 text-sm font-medium num" data-value="25">25 os</button>
+            <button class="guestPreset border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition py-3 text-sm font-medium num" data-value="50">50 os</button>
+            <button class="guestPreset border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition py-3 text-sm font-medium num" data-value="80">80 os</button>
+            <button class="guestPreset border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition py-3 text-sm font-medium num" data-value="120">120 os</button>
+            <button class="guestPreset border border-coal-900/15 hover:bg-coal-900 hover:text-paper-100 transition py-3 text-sm font-medium num" data-value="150">150 os</button>
+          </div>
+        </div>
+
+        <div class="mt-10 flex justify-between">
+          <button class="prev-btn btn-ghost">← Wstecz</button>
+          <button class="next-btn btn-coal">
+            Dalej
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-content hidden" data-step="3">
+        <div class="mb-8">
+          <div class="label text-graphite-500 mb-3">Krok 3 z 5</div>
+          <h2 class="display upper-tight font-bold text-coal-900 text-3xl lg:text-4xl mb-3">Budżet + preferencje</h2>
+          <p class="text-coal-900/60">Dopasujemy menu — nie pokażemy nic poza budżetem.</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Budget -->
+          <div class="bg-snow-50 border border-bone-200 p-7">
+            <div class="flex items-baseline justify-between mb-4">
+              <div>
+                <h3 class="display upper-tight font-bold text-coal-900 text-lg">Budżet / osobę</h3>
+                <p class="text-xs text-graphite-500 mt-1">Średnia rynkowa: 80–150 zł</p>
+              </div>
+              <div class="display upper font-bold text-signal-500 text-4xl num"><span id="budgetVal">80</span> <span class="text-xl">zł</span></div>
+            </div>
+            <input id="budgetSlider" type="range" min="30" max="300" value="80" step="10" class="w-full" />
+            <div class="grid grid-cols-3 gap-px mt-4 text-xs">
+              <div class="text-center bg-bone-200 py-2.5"><span class="text-graphite-500">Ekonomiczny</span><br/><span class="text-coal-900/40 num">30–60 zł</span></div>
+              <div class="text-center bg-signal-100 border border-signal-500 py-2.5"><span class="text-coal-900 font-semibold">Standard</span><br/><span class="text-coal-900/70 num">60–120 zł</span></div>
+              <div class="text-center bg-bone-200 py-2.5"><span class="text-graphite-500">Premium</span><br/><span class="text-coal-900/40 num">120+ zł</span></div>
+            </div>
+          </div>
+
+          <!-- Styl -->
+          <div class="bg-snow-50 border border-bone-200 p-7">
+            <h3 class="display upper-tight font-bold text-coal-900 text-lg mb-1">Styl serwowania</h3>
+            <p class="text-xs text-graphite-500 mb-5">Możesz wybrać kilka</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="option-card multi p-4 text-center relative" data-style="koktajl">
+                <div class="absolute top-2 right-2 check-icon w-5 h-5 bg-signal-500 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                <div class="text-2xl mb-1.5">🥂</div>
+                <div class="text-xs display upper-tight font-bold">Finger food</div>
+              </div>
+              <div class="option-card multi p-4 text-center relative" data-style="zimna">
+                <div class="absolute top-2 right-2 check-icon w-5 h-5 bg-signal-500 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                <div class="text-2xl mb-1.5">🍢</div>
+                <div class="text-xs display upper-tight font-bold">Zimna płyta</div>
+              </div>
+              <div class="option-card multi p-4 text-center relative" data-style="cieple">
+                <div class="absolute top-2 right-2 check-icon w-5 h-5 bg-signal-500 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                <div class="text-2xl mb-1.5">🍲</div>
+                <div class="text-xs display upper-tight font-bold">Ciepłe dania</div>
+              </div>
+              <div class="option-card multi p-4 text-center relative" data-style="sladkie">
+                <div class="absolute top-2 right-2 check-icon w-5 h-5 bg-signal-500 flex items-center justify-center"><svg width="11" height="11" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                <div class="text-2xl mb-1.5">🧁</div>
+                <div class="text-xs display upper-tight font-bold">Słodki bufet</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dieta -->
+          <div class="bg-snow-50 border border-bone-200 p-7">
+            <h3 class="display upper-tight font-bold text-coal-900 text-lg mb-1">Restrykcje (opcja)</h3>
+            <p class="text-xs text-graphite-500 mb-5">% gości z wymaganiami</p>
+            <div class="space-y-5">
+              <div>
+                <div class="flex justify-between mb-2"><span class="text-sm">🌱 Wegetariańskie</span><span class="text-sm text-signal-500 font-semibold num" id="vegLabel">0%</span></div>
+                <input id="vegSlider" type="range" min="0" max="100" value="0" class="w-full" />
+              </div>
+              <div>
+                <div class="flex justify-between mb-2"><span class="text-sm">🥬 Wegańskie</span><span class="text-sm text-signal-500 font-semibold num" id="veganLabel">0%</span></div>
+                <input id="veganSlider" type="range" min="0" max="100" value="0" class="w-full" />
+              </div>
+              <div>
+                <div class="flex justify-between mb-2"><span class="text-sm">🌾 Bezglutenowe</span><span class="text-sm text-signal-500 font-semibold num" id="gfLabel">0%</span></div>
+                <input id="gfSlider" type="range" min="0" max="100" value="0" class="w-full" />
+              </div>
+              <div>
+                <div class="flex justify-between mb-2"><span class="text-sm">🥛 Bez laktozy</span><span class="text-sm text-signal-500 font-semibold num" id="lactoseLabel">0%</span></div>
+                <input id="lactoseSlider" type="range" min="0" max="100" value="0" class="w-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex justify-between">
+          <button class="prev-btn btn-ghost">← Wstecz</button>
+          <button class="next-btn btn-coal">
+            Dalej <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-content hidden" data-step="4">
+        <div class="mb-8">
+          <div class="label text-graphite-500 mb-3">Krok 4 z 5</div>
+          <h2 class="display upper-tight font-bold text-coal-900 text-3xl lg:text-4xl mb-3">Kiedy i gdzie?</h2>
+          <p class="text-coal-900/60">Sprawdzimy strefę dostawy i dostępność.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-5">
+          <div class="bg-snow-50 border border-bone-200 p-7">
+            <label class="display upper-tight font-bold text-base mb-3 block">Data eventu</label>
+            <input type="date" value="2026-06-13" class="w-full" />
+            <div class="mt-5">
+              <label class="label text-graphite-500 mb-2 block">Godzina rozpoczęcia</label>
+              <input type="time" value="18:00" class="w-full" />
+            </div>
+          </div>
+
+          <div class="bg-snow-50 border border-bone-200 p-7">
+            <label class="display upper-tight font-bold text-base mb-3 block">Adres dostawy</label>
+            <input type="text" placeholder="ul. Mariacka 5, Katowice" class="w-full" />
+            <div class="mt-5">
+              <label class="label text-graphite-500 mb-2 block">Kod pocztowy</label>
+              <div class="flex gap-2">
+                <input type="text" placeholder="40-014" class="flex-1" />
+                <button class="btn-coal" style="padding: 14px 18px;">Sprawdź</button>
+              </div>
+            </div>
+            <div class="mt-4 bg-success-500/10 border border-success-500 p-4 flex items-center gap-3">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#2D5A3D"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <div class="text-sm">
+                <div class="text-success-700 font-semibold">Strefa 1 — dostawa 29 zł</div>
+                <div class="text-success-700/80 text-xs mt-0.5">Katowice · dostępna jutro</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2 bg-snow-50 border border-bone-200 p-7">
+            <label class="display upper-tight font-bold text-base mb-3 block">Dodatkowe życzenia (opcja)</label>
+            <textarea rows="3" placeholder="Np. 'Goście lubią ostre', 'Bez orzechów (alergia)', 'Chcielibyśmy elementy kuchni śląskiej'" class="w-full"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-10 flex justify-between">
+          <button class="prev-btn btn-ghost">← Wstecz</button>
+          <button id="generateBtn" class="btn-signal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+            Wygeneruj menu z AI
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 5 — Result -->
+      <div class="step-content hidden" data-step="5">
+        <!-- Thinking state -->
+        <div id="aiThinking" class="bg-coal-900 text-paper-100 border border-coal-700 p-10 lg:p-14 text-center hidden">
+          <div class="w-16 h-16 mx-auto bg-signal-500 flex items-center justify-center mb-6">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl mb-3">AI projektuje menu</h3>
+          <p class="text-paper-100/60 mb-6">Analizujemy 200+ pozycji, dobieramy bilans, sprawdzamy budżet…</p>
+          <div class="flex items-center justify-center gap-2">
+            <span class="thinking-dot w-2 h-2 bg-signal-500"></span>
+            <span class="thinking-dot w-2 h-2 bg-signal-500"></span>
+            <span class="thinking-dot w-2 h-2 bg-signal-500"></span>
+          </div>
+        </div>
+
+        <!-- Result state -->
+        <div id="aiResult" class="hidden">
+          <div class="bg-signal-100 border-2 border-signal-500 p-7 mb-5">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-signal-500 flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+              </div>
+              <div class="flex-1">
+                <div class="label text-signal-600 mb-1">Twoja propozycja · 14 s</div>
+                <h3 class="display upper-tight font-bold text-coal-900 text-xl">Menu dopasowane do Twojego eventu</h3>
+                <p class="text-coal-900/70 text-sm mt-2">
+                  Komentarz AI: "Dla 40 os z 30% wege i budżetem 80 zł sugeruję mix BOXów koktajlowych + akcent wege + słodki finał. Bilans 65/25/10 (mięso/wege/słodkie). Polecam 2× obsługa kelnerska 4h."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-5">
+            <div class="lg:col-span-2 bg-snow-50 border border-bone-200 p-7">
+              <div class="flex items-center justify-between mb-5">
+                <h4 class="display upper-tight font-bold text-coal-900">Pozycje menu</h4>
+                <button class="label text-signal-500 hover:text-signal-600 transition">Edytuj</button>
+              </div>
+              <div class="space-y-2" id="menuItems"></div>
+
+              <div class="mt-6 pt-6 border-t border-coal-900 space-y-2 text-sm">
+                <div class="flex justify-between text-coal-900/70 num"><span>Suma pozycji</span><span id="sumItems">5 940 zł</span></div>
+                <div class="flex justify-between text-coal-900/70 num"><span>Dostawa (Strefa 1)</span><span>29 zł</span></div>
+                <div class="flex justify-between text-coal-900/70 num"><span>Obsługa kelnerska 4h × 2</span><span>720 zł</span></div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="bg-coal-900 text-paper-100 p-6">
+                <div class="label text-signal-500 mb-2">Razem brutto</div>
+                <div class="display upper font-bold text-4xl num">6 689 <span class="text-xl">zł</span></div>
+                <div class="text-sm text-paper-100/60 mt-1 num">~167 zł / os</div>
+                <div class="mt-3 flex items-center gap-2 text-xs text-signal-500"><span class="w-1.5 h-1.5 rounded-full bg-signal-500"></span> W budżecie · 98%</div>
+              </div>
+
+              <button class="btn-signal w-full justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Pobierz PDF
+              </button>
+              <button class="btn-ghost w-full justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6L12 13 2 6"/></svg>
+                Wyślij mailem
+              </button>
+              <button class="btn-coal w-full justify-center">
+                Zarezerwuj termin
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+
+              <div class="bg-paper-100 border border-bone-200 p-5">
+                <div class="label text-graphite-500 mb-3">Co dalej?</div>
+                <ul class="space-y-2 text-sm text-coal-900/80">
+                  <li class="flex gap-2"><span class="display upper font-bold text-signal-500">1</span> Zarezerwuj termin (zwrotne 24h)</li>
+                  <li class="flex gap-2"><span class="display upper font-bold text-signal-500">2</span> Opiekun odezwie się w 60 min</li>
+                  <li class="flex gap-2"><span class="display upper font-bold text-signal-500">3</span> Potwierdzamy menu — 50% zaliczki</li>
+                  <li class="flex gap-2"><span class="display upper font-bold text-signal-500">4</span> Faktura VAT po realizacji</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI brief view ===== -->
+<section id="aiView" class="max-w-4xl mx-auto px-6 lg:px-10 pb-20 hidden">
+  <div class="bg-snow-50 border-2 border-coal-900 p-8 lg:p-10">
+    <div class="flex items-center gap-4 mb-8">
+      <div class="w-12 h-12 bg-signal-500 flex items-center justify-center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+      </div>
+      <div>
+        <div class="label text-signal-500">AI Generator · Beta</div>
+        <h2 class="display upper-tight font-bold text-2xl">Napisz brief</h2>
+      </div>
+    </div>
+
+    <div class="bg-paper-100 border border-bone-200 p-5 mb-5">
+      <textarea id="aiBriefInput" rows="6" placeholder="Np. '120 osób, wesele, sobota całą noc, 150 zł/os, 60% mięsne, 30% wege, 10% wegan, słodki bufet…'" class="w-full bg-transparent border-0 p-0 text-base leading-relaxed resize-none focus:outline-none"></textarea>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-8">
+      <span class="text-xs text-graphite-500 mr-2 py-2 label">Szybkie:</span>
+      <button class="aiChip text-xs px-3 py-1.5 border border-coal-900/15 hover:border-signal-500 hover:bg-signal-100 transition" data-text="80 osób, komunia syna, niedziela, 120 zł/os, tradycyjne śląskie z 20% wege">⛪ Komunia 80 os</button>
+      <button class="aiChip text-xs px-3 py-1.5 border border-coal-900/15 hover:border-signal-500 hover:bg-signal-100 transition" data-text="40 osób, urodziny 50-stka, piątek wieczór, finger food + zimna płyta, 100 zł/os">🎉 Urodziny 50</button>
+      <button class="aiChip text-xs px-3 py-1.5 border border-coal-900/15 hover:border-signal-500 hover:bg-signal-100 transition" data-text="30 osób, event firmowy, czwartek 14:00, lunch dla biura, 60 zł/os, opcje wege i bezglutenowe">💼 Lunch firmowy</button>
+      <button class="aiChip text-xs px-3 py-1.5 border border-coal-900/15 hover:border-signal-500 hover:bg-signal-100 transition" data-text="150 osób, wesele, sobota całą noc, 150 zł/os, 60% mięsne, 30% wege, 10% wegan, słodki bufet">💍 Wesele 150</button>
+    </div>
+
+    <button id="aiGenerate" class="btn-signal w-full justify-center text-base">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L9.4 8.6 2 9.27l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-6.99L22 9.27l-7.4-.67z"/></svg>
+      Wygeneruj menu
+    </button>
+
+    <p class="text-center text-xs text-graphite-500 mt-4 label">Bez logowania · bez maila · 30 sekund</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-3 mt-6 text-center">
+    <div class="bg-snow-50 border border-bone-200 p-5">
+      <div class="display upper font-bold text-signal-500 text-3xl num">15 s</div>
+      <div class="label text-graphite-500 mt-1">średni czas</div>
+    </div>
+    <div class="bg-snow-50 border border-bone-200 p-5">
+      <div class="display upper font-bold text-signal-500 text-3xl num">93%</div>
+      <div class="label text-graphite-500 mt-1">w budżecie</div>
+    </div>
+    <div class="bg-snow-50 border border-bone-200 p-5">
+      <div class="display upper font-bold text-signal-500 text-3xl num">200+</div>
+      <div class="label text-graphite-500 mt-1">pozycji w bazie</div>
+    </div>
+  </div>
+</section>
+
+<script>
+let state = { step: 1, event: null, guests: 40, budget: 80, styles: [], veg: 0, vegan: 0, gf: 0, lactose: 0 };
+
+const stepItems = document.querySelectorAll('.step-item');
+const stepContents = document.querySelectorAll('.step-content');
+
+// Mode switcher
+document.getElementById('modeStep').addEventListener('click', () => {
+  document.getElementById('stepView').classList.remove('hidden');
+  document.getElementById('aiView').classList.add('hidden');
+  document.getElementById('modeStep').classList.add('bg-coal-900','text-paper-100');
+  document.getElementById('modeStep').classList.remove('text-coal-900/60');
+  document.getElementById('modeAI').classList.remove('bg-coal-900','text-paper-100');
+  document.getElementById('modeAI').classList.add('text-coal-900/60');
+});
+document.getElementById('modeAI').addEventListener('click', () => {
+  document.getElementById('stepView').classList.add('hidden');
+  document.getElementById('aiView').classList.remove('hidden');
+  document.getElementById('modeAI').classList.add('bg-coal-900','text-paper-100');
+  document.getElementById('modeAI').classList.remove('text-coal-900/60');
+  document.getElementById('modeStep').classList.remove('bg-coal-900','text-paper-100');
+  document.getElementById('modeStep').classList.add('text-coal-900/60');
+});
+
+function goTo(step) {
+  state.step = step;
+  stepContents.forEach(s => s.classList.toggle('hidden', +s.dataset.step !== step));
+  stepItems.forEach(it => {
+    const n = +it.dataset.step;
+    const circle = it.querySelector('.step-circle');
+    circle.classList.remove('active','done','pending');
+    if (n < step) { circle.classList.add('done'); circle.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'; it.classList.remove('opacity-50'); }
+    else if (n === step) { circle.classList.add('active'); circle.textContent = n; it.classList.remove('opacity-50'); }
+    else { circle.classList.add('pending'); circle.textContent = n; it.classList.add('opacity-50'); }
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Single-select event
+document.querySelectorAll('[data-event]').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('[data-event]').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.event = card.dataset.event;
+    card.closest('.step-content').querySelector('.next-btn').disabled = false;
+  });
+});
+
+// Multi-select style
+document.querySelectorAll('.option-card.multi').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('selected');
+    const style = card.dataset.style;
+    if (card.classList.contains('selected')) state.styles.push(style);
+    else state.styles = state.styles.filter(s => s !== style);
+    updateRunningTotal();
+  });
+});
+
+// Sliders
+const guestSlider = document.getElementById('guestSlider');
+const guestCount = document.getElementById('guestCount');
+guestSlider.addEventListener('input', e => { state.guests = +e.target.value; guestCount.textContent = state.guests; updateRunningTotal(); });
+document.querySelectorAll('.guestPreset').forEach(btn => btn.addEventListener('click', () => {
+  state.guests = +btn.dataset.value; guestSlider.value = state.guests; guestCount.textContent = state.guests; updateRunningTotal();
+}));
+
+const budgetSlider = document.getElementById('budgetSlider');
+budgetSlider.addEventListener('input', e => { state.budget = +e.target.value; document.getElementById('budgetVal').textContent = state.budget; updateRunningTotal(); });
+
+['veg','vegan','gf','lactose'].forEach(key => {
+  const s = document.getElementById(key + 'Slider');
+  const l = document.getElementById(key + 'Label');
+  s.addEventListener('input', e => { state[key] = +e.target.value; l.textContent = e.target.value + '%'; });
+});
+
+function updateRunningTotal() {
+  const total = state.guests * state.budget;
+  document.getElementById('runningTotal').textContent = total.toLocaleString('pl-PL') + ' zł';
+  document.getElementById('runningPerPerson').textContent = state.budget + ' zł/os';
+}
+updateRunningTotal();
+
+// Next / Prev
+document.querySelectorAll('.next-btn').forEach(b => b.addEventListener('click', () => {
+  if (b.disabled) return; if (state.step < 5) goTo(state.step + 1);
+}));
+document.querySelectorAll('.prev-btn').forEach(b => b.addEventListener('click', () => {
+  if (state.step > 1) goTo(state.step - 1);
+}));
+
+// Generate
+document.getElementById('generateBtn').addEventListener('click', () => {
+  goTo(5);
+  document.getElementById('aiThinking').classList.remove('hidden');
+  document.getElementById('aiResult').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('aiThinking').classList.add('hidden');
+    document.getElementById('aiResult').classList.remove('hidden');
+    populateResult();
+  }, 2200);
+});
+
+function populateResult() {
+  const items = [
+    { name: 'BOX koktajlowy II', qty: 3, unit: 340, tag: 'Bestseller', icon: '🥂' },
+    { name: 'BOX wege', qty: 2, unit: 220, tag: 'Wege', icon: '🥬' },
+    { name: 'BOX z mini burgerami', qty: 2, unit: 290, tag: 'Hit', icon: '🍔' },
+    { name: 'BOX finger food', qty: 1, unit: 370, tag: 'Premium', icon: '🍢' },
+    { name: 'BOX ze słodkościami', qty: 1, unit: 240, tag: 'Słodkie', icon: '🧁' },
+    { name: 'Patera kanapek koktajlowych', qty: 2, unit: 290, tag: '', icon: '🥪' }
+  ];
+  const wrap = document.getElementById('menuItems');
+  wrap.innerHTML = '';
+  let sum = 0;
+  items.forEach((it, i) => {
+    const total = it.qty * it.unit; sum += total;
+    const row = document.createElement('div');
+    row.className = 'fade-in flex items-center gap-4 py-3 border-b border-bone-200 last:border-b-0';
+    row.style.animationDelay = (i * 0.08) + 's';
+    row.innerHTML = `
+      <div class="w-10 h-10 bg-paper-100 flex items-center justify-center text-xl">${it.icon}</div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-coal-900 font-medium text-sm">${it.name}</span>
+          ${it.tag ? `<span class="text-[10px] uppercase tracking-widest text-signal-600 bg-signal-100 px-1.5 py-0.5">${it.tag}</span>` : ''}
+        </div>
+        <div class="text-xs text-graphite-500 mt-0.5 num">${it.qty}× ${it.unit} zł · ok ${Math.round(it.qty * 10)} os</div>
+      </div>
+      <div class="text-right">
+        <div class="display upper font-bold text-coal-900 num">${total.toLocaleString('pl-PL')} zł</div>
+      </div>
+    `;
+    wrap.appendChild(row);
+  });
+  document.getElementById('sumItems').textContent = sum.toLocaleString('pl-PL') + ' zł';
+}
+
+// AI brief mode
+document.querySelectorAll('.aiChip').forEach(chip => chip.addEventListener('click', () => {
+  document.getElementById('aiBriefInput').value = chip.dataset.text;
+}));
+document.getElementById('aiGenerate').addEventListener('click', () => {
+  document.getElementById('modeStep').click();
+  goTo(5);
+  document.getElementById('aiThinking').classList.remove('hidden');
+  document.getElementById('aiResult').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('aiThinking').classList.add('hidden');
+    document.getElementById('aiResult').classList.remove('hidden');
+    populateResult();
+  }, 2200);
+});
+</script>
+
+</body>
+</html>

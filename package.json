@@ -1,0 +1,41 @@
+{
+  "name": "catering-slaski",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Catering Śląski — sklep zamówieniowy + integracje z systemami operacyjnymi",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:migrate": "pnpm --filter @cs/backend db:migrate",
+    "db:seed": "pnpm --filter @cs/backend db:seed",
+    "db:reset": "pnpm --filter @cs/backend db:reset",
+    "import:legacy-products": "pnpm --filter @cs/backend import:legacy-products",
+    "docker:up": "docker compose -f infra/docker-compose.yml up -d",
+    "docker:down": "docker compose -f infra/docker-compose.yml down",
+    "docker:logs": "docker compose -f infra/docker-compose.yml logs -f",
+    "docker:prod:up": "docker compose -f infra/docker-compose.yml -f infra/docker-compose.prod.yml up -d --build",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky install || true"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "prettier": "^3.5.0",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.10.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,md}": ["prettier --write"]
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "license": "UNLICENSED"
+}

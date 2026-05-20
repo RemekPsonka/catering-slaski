@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Catering Śląski · Redesign — Index</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = { theme: { extend: {
+  colors: {
+    coal: { 900:'#0A0908', 800:'#1A1717', 700:'#2B2826' },
+    graphite: { 500:'#585553' },
+    steel: { 400:'#8B8784' },
+    bone: { 200:'#E8E3DA' },
+    paper: { 100:'#F5F2EC' },
+    signal: { 500:'#E54B17', 600:'#C73E0F', 100:'#FFE6DC' }
+  },
+  fontFamily: { display:['"Inter Tight"','Inter','sans-serif'], sans:['Inter','sans-serif'], hand:['Caveat','cursive'] }
+}}}
+</script>
+<style>
+body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #0A0908; }
+.display { font-family: 'Inter Tight', sans-serif; }
+.hand { font-family: 'Caveat', cursive; }
+.upper-tight { text-transform: uppercase; letter-spacing: -0.02em; }
+.label { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; font-size: 12px; }
+.num-block { font-feature-settings: "tnum" on; }
+.btn-coal { background: #0A0908; color: #F5F2EC; padding: 16px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; border: 1.5px solid #0A0908; transition: all .15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-coal:hover { background: #1A1717; }
+.btn-signal { background: #E54B17; color: #FFFFFF; padding: 16px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; border: 1.5px solid #E54B17; transition: all .15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-signal:hover { background: #C73E0F; border-color: #C73E0F; }
+.btn-ghost { background: transparent; color: #0A0908; padding: 16px 28px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; border: 1.5px solid #0A0908; transition: all .15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-ghost:hover { background: #0A0908; color: #F5F2EC; }
+.live-dot { animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+.card-hover { transition: all .3s ease; }
+.card-hover:hover { transform: translateY(-4px); }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="bg-coal-900 text-paper-100 text-xs">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-2.5 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+      <span class="label">Catering Śląski — Redesign v3 · Brand v2</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-paper-100/70 label">
+      19 maja 2026 · Po nocy
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="bg-paper-100 border-b border-bone-200">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <svg width="36" height="48" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#0A0908" stroke-width="2" fill="none" stroke-linecap="square">
+          <line x1="35" y1="8" x2="45" y2="8"/><line x1="35" y1="8" x2="35" y2="16"/><line x1="45" y1="8" x2="45" y2="16"/><line x1="33" y1="16" x2="47" y2="16"/>
+          <line x1="25" y1="16" x2="25" y2="60"/><line x1="55" y1="16" x2="55" y2="60"/><line x1="40" y1="16" x2="25" y2="42"/><line x1="40" y1="16" x2="55" y2="42"/>
+          <line x1="25" y1="24" x2="55" y2="24"/><line x1="25" y1="32" x2="55" y2="32"/><line x1="25" y1="42" x2="55" y2="42"/><line x1="25" y1="52" x2="55" y2="52"/>
+          <line x1="15" y1="60" x2="65" y2="60"/><line x1="15" y1="60" x2="15" y2="78"/><line x1="65" y1="60" x2="65" y2="78"/><line x1="15" y1="78" x2="65" y2="78"/>
+          <line x1="3" y1="88" x2="77" y2="88"/><line x1="3" y1="94" x2="77" y2="94"/>
+        </g>
+      </svg>
+      <div class="leading-none">
+        <div class="display upper-tight font-bold text-coal-900 text-base">Catering</div>
+        <div class="display upper-tight font-bold text-coal-900 text-base">Śląski <span class="font-normal">_</span></div>
+      </div>
+    </div>
+    <a href="01-landing.html" class="btn-coal">
+      Zobacz nowy landing
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- Hero index -->
+<section class="bg-paper-100 py-16 lg:py-24">
+  <div class="max-w-6xl mx-auto px-6 lg:px-10">
+    <div class="label text-graphite-500 mb-6 flex items-center gap-2">
+      <span class="w-6 h-px bg-coal-900"></span>
+      Przewodnik po projekcie · Dla Remka rano
+    </div>
+    <h1 class="display upper-tight font-bold text-coal-900 text-5xl md:text-6xl lg:text-7xl leading-[0.95] mb-6">
+      Catering Śląski.<br/>
+      <span class="text-signal-500">Pełna propozycja. Po nocy.</span>
+    </h1>
+    <p class="text-lg md:text-xl text-coal-900/70 max-w-2xl leading-relaxed">
+      Cześć Remek. To finalna wersja po wprowadzeniu logo — wszystko dopasowane do
+      industrialnego śląskiego DNA. Zobacz brand doc, landing v2, i co czeka na poranne
+      decyzje.
+    </p>
+  </div>
+</section>
+
+<!-- 4-up stats -->
+<section class="bg-paper-100 border-y border-coal-900">
+  <div class="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 border-l border-coal-900">
+    <div class="border-r border-coal-900 p-6 lg:p-8">
+      <div class="display upper font-bold text-coal-900 text-4xl num-block">~6h</div>
+      <div class="label text-graphite-500 mt-2">Czas pracy</div>
+    </div>
+    <div class="border-r border-coal-900 p-6 lg:p-8">
+      <div class="display upper font-bold text-coal-900 text-4xl num-block">10</div>
+      <div class="label text-graphite-500 mt-2">Plików</div>
+    </div>
+    <div class="border-r border-coal-900 p-6 lg:p-8">
+      <div class="display upper font-bold text-coal-900 text-4xl num-block">3</div>
+      <div class="label text-graphite-500 mt-2">Wersje stack</div>
+    </div>
+    <div class="p-6 lg:p-8">
+      <div class="display upper font-bold text-signal-500 text-4xl num-block">v2</div>
+      <div class="label text-graphite-500 mt-2">Brand finalny</div>
+    </div>
+  </div>
+</section>
+
+<!-- Brand pivot -->
+<section class="bg-paper-100 py-20 lg:py-28">
+  <div class="max-w-6xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-12 mb-12">
+      <div class="lg:col-span-5">
+        <div class="label text-signal-500 mb-5 flex items-center gap-2">
+          <span class="w-6 h-px bg-signal-500"></span>
+          Pivot wizualny
+        </div>
+        <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl leading-[0.95]">
+          Z premium-gold<br/>
+          na <span class="text-signal-500">industrial-coal.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-7">
+        <p class="text-lg text-coal-900/70 leading-relaxed">
+          Twoje logo — szyb kopalniany + tory kolejowe + sans-serif uppercase — wymagało
+          przebudowy całego design system. Wycofałem złoto i dark forest. Wprowadzam <strong class="text-coal-900">coal black + paper off-white + signal orange</strong>.
+          Industrialna spuścizna Śląska, ciepłe jedzenie w środku.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-0 border-t border-l border-coal-900">
+      <div class="border-r border-b border-coal-900 p-6 lg:p-8">
+        <div class="label text-graphite-500 mb-3">Było (v1)</div>
+        <ul class="space-y-2 text-coal-900/70 text-sm">
+          <li>Deep Forest Green #0B2818 + Burnt Gold #C9A961</li>
+          <li>Fraunces serif + Instrument Serif italic</li>
+          <li>Premium-dark luxury restaurant vibe</li>
+          <li>"Smak, który pamiętasz"</li>
+        </ul>
+      </div>
+      <div class="border-b border-coal-900 p-6 lg:p-8 bg-coal-900 text-paper-100">
+        <div class="label text-signal-500 mb-3">Jest (v2)</div>
+        <ul class="space-y-2 text-paper-100/80 text-sm">
+          <li>Coal Black #0A0908 + Paper #F5F2EC + Signal Orange #E54B17</li>
+          <li>Inter Tight UPPERCASE + Inter body + Caveat handwritten</li>
+          <li>Industrial heritage + warm food</li>
+          <li>"GOTUJEMY MOCNO. JAK ŚLĄSK."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Status mockups -->
+<section class="bg-paper-100 py-20 lg:py-28 border-t border-coal-900">
+  <div class="max-w-6xl mx-auto px-6 lg:px-10">
+    <div class="label text-graphite-500 mb-5 flex items-center gap-2">
+      <span class="w-6 h-px bg-coal-900"></span>
+      Status mockupów
+    </div>
+    <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl mb-12 leading-[0.95]">
+      Co przebudowane.<br/>
+      Co czeka na rano.
+    </h2>
+
+    <div class="grid lg:grid-cols-2 gap-0 border-t border-l border-coal-900">
+      <!-- Landing — done -->
+      <a href="01-landing.html" class="card-hover border-r border-b border-coal-900 p-8 lg:p-10 bg-signal-100/40 block">
+        <div class="flex items-start justify-between mb-4">
+          <div class="display upper font-bold text-coal-900 text-5xl num-block">01</div>
+          <div class="label text-signal-500 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+            Przebudowany v2
+          </div>
+        </div>
+        <h3 class="display upper-tight font-bold text-2xl text-coal-900 mb-3">Landing page</h3>
+        <p class="text-coal-900/70 text-sm leading-relaxed mb-6">
+          Pełny rewrite: nowy hero "Gotujemy mocno", logo w nawigacji, industrialne ticker,
+          AI demo na żywo, sharp corners, signal orange CTAs, brand voice.
+        </p>
+        <span class="text-signal-500 label">Otwórz mockup →</span>
+      </a>
+
+      <!-- Brand doc - new -->
+      <a href="BRAND.md" class="card-hover border-b border-coal-900 p-8 lg:p-10 bg-coal-900 text-paper-100 block">
+        <div class="flex items-start justify-between mb-4">
+          <div class="display upper font-bold text-paper-100 text-5xl num-block">00</div>
+          <div class="label text-signal-500">Nowy dokument</div>
+        </div>
+        <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-3">BRAND.md</h3>
+        <p class="text-paper-100/70 text-sm leading-relaxed mb-6">
+          Pełny brand book v2: paleta kolorów, typografia, tone of voice, fotografia, copy,
+          inspiracje (Carhartt, Aesop, Magnum Photos), reguły logo.
+        </p>
+        <span class="text-signal-500 label">Czytaj brand book →</span>
+      </a>
+
+      <!-- Konfigurator — pending restyle -->
+      <a href="02-konfigurator-b2b.html" class="card-hover border-r border-b border-coal-900 p-8 lg:p-10 block">
+        <div class="flex items-start justify-between mb-4">
+          <div class="display upper font-bold text-coal-900 text-5xl num-block">02</div>
+          <div class="label text-graphite-500">Czeka na restyle</div>
+        </div>
+        <h3 class="display upper-tight font-bold text-2xl text-coal-900 mb-3">Konfigurator B2B + AI</h3>
+        <p class="text-coal-900/70 text-sm leading-relaxed mb-6">
+          Struktura i funkcjonalność OK — 5 kroków + AI Generator brief mode. Trzeba przerobić skin:
+          coal/paper/signal palette, Inter Tight UPPERCASE, sharp corners.
+        </p>
+        <span class="text-graphite-500 label">Otwórz (stary skin) →</span>
+      </a>
+
+      <a href="03-sklep-b2c.html" class="card-hover border-b border-coal-900 p-8 lg:p-10 block">
+        <div class="flex items-start justify-between mb-4">
+          <div class="display upper font-bold text-coal-900 text-5xl num-block">03</div>
+          <div class="label text-graphite-500">Czeka na restyle</div>
+        </div>
+        <h3 class="display upper-tight font-bold text-2xl text-coal-900 mb-3">Sklep B2C / katalog</h3>
+        <p class="text-coal-900/70 text-sm leading-relaxed mb-6">
+          Light theme zostaje (dobry dla katalogu), wymiana akcentów gold→signal,
+          filtry redesign na industrial chip style, food photo grayscale → color on hover.
+        </p>
+        <span class="text-graphite-500 label">Otwórz (stary skin) →</span>
+      </a>
+
+      <a href="04-checkout.html" class="card-hover border-r border-b lg:border-b-0 border-coal-900 p-8 lg:p-10 block">
+        <div class="flex items-start justify-between mb-4">
+          <div class="display upper font-bold text-coal-900 text-5xl num-block">04</div>
+          <div class="label text-graphite-500">Czeka na restyle</div>
+        </div>
+        <h3 class="display upper-tight font-bold text-2xl text-coal-900 mb-3">Checkout 1-page</h3>
+        <p class="text-coal-900/70 text-sm leading-relaxed mb-6">
+          Struktura i UX są poprawne. Trzeba zmienić color tokens, buttons sharp, label uppercase,
+          BLIK box w signal orange, trust signals industrial.
+        </p>
+        <span class="text-graphite-500 label">Otwórz (stary skin) →</span>
+      </a>
+
+      <a href="05-konto.html" class="card-hover border-coal-900 p-8 lg:p-10 block">
+        <div class="flex items-start justify-between mb-4">
+          <div class="display upper font-bold text-coal-900 text-5xl num-block">05</div>
+          <div class="label text-graphite-500">Czeka na restyle</div>
+        </div>
+        <h3 class="display upper-tight font-bold text-2xl text-coal-900 mb-3">Panel klienta</h3>
+        <p class="text-coal-900/70 text-sm leading-relaxed mb-6">
+          Dashboard, historia, ulubione, subskrypcje, loyalty status — wszystko OK strukturalnie.
+          Restyle: tier-y loyalty Bronze→Platinum w industrial type, AI suggestions w nowym vibe.
+        </p>
+        <span class="text-graphite-500 label">Otwórz (stary skin) →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Documents -->
+<section class="bg-coal-900 text-paper-100 py-20 lg:py-28">
+  <div class="max-w-6xl mx-auto px-6 lg:px-10">
+    <div class="label text-signal-500 mb-5 flex items-center gap-2">
+      <span class="w-6 h-px bg-signal-500"></span>
+      Dokumentacja
+    </div>
+    <h2 class="display upper-tight font-bold text-paper-100 text-4xl md:text-5xl mb-12 leading-[0.95]">
+      Strategiczne dokumenty<br/>
+      <span class="text-signal-500">przekazywalne zespołowi.</span>
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-0 border-t border-l border-paper-100/20">
+      <a href="BRAND.md" class="block border-r border-b border-paper-100/20 p-7 hover:bg-coal-800 transition">
+        <div class="label text-signal-500 mb-2">Aktualne · do akceptacji</div>
+        <div class="display upper-tight font-bold text-paper-100 text-lg mb-2">BRAND.md</div>
+        <div class="text-paper-100/60 text-sm">Pełny brand book v2 — paleta, typo, voice, fotografia, copy examples</div>
+      </a>
+      <a href="docs/CATERING_SHOP_SPEC_V3.md" class="block border-r border-b border-paper-100/20 p-7 hover:bg-coal-800 transition">
+        <div class="label text-signal-500 mb-2">Aktualne · do akceptacji</div>
+        <div class="display upper-tight font-bold text-paper-100 text-lg mb-2">SPEC v3</div>
+        <div class="text-paper-100/60 text-sm">Sklep zamówieniowy + 3 webhooki do istniejących systemów (1976 linii)</div>
+      </a>
+      <a href="STRATEGIA.md" class="block border-b border-paper-100/20 p-7 hover:bg-coal-800 transition">
+        <div class="label text-paper-100/40 mb-2">Częściowo aktualne</div>
+        <div class="display upper-tight font-bold text-paper-100 text-lg mb-2">STRATEGIA.md</div>
+        <div class="text-paper-100/60 text-sm">Strategia biznesowa, analiza konkurencji, KPI — design section out-of-date</div>
+      </a>
+      <a href="docs/CATERING_SHOP_FULL_SPEC.md" class="block border-r border-paper-100/20 p-7 hover:bg-coal-800 transition">
+        <div class="label text-paper-100/40 mb-2">Archiwalne</div>
+        <div class="display upper-tight font-bold text-paper-100 text-lg mb-2">SPEC v2 (full)</div>
+        <div class="text-paper-100/60 text-sm">Stara wersja "build everything" — zastąpiona przez SPEC v3</div>
+      </a>
+      <a href="assets/logo.svg" class="block border-r border-paper-100/20 p-7 hover:bg-coal-800 transition">
+        <div class="label text-signal-500 mb-2">Nowe</div>
+        <div class="display upper-tight font-bold text-paper-100 text-lg mb-2">logo.svg</div>
+        <div class="text-paper-100/60 text-sm">Reusable SVG logo — szyb kopalniany + tory + wordmark, do użycia we wszystkich plikach</div>
+      </a>
+      <div class="p-7 bg-signal-500 text-coal-900">
+        <div class="label mb-2">Po akceptacji</div>
+        <div class="display upper-tight font-bold text-lg mb-2">START PRODUKCJI</div>
+        <div class="text-sm">Sprint 1 ~4 tyg · Sprint 2 ~3 tyg · Sprint 3 ~3 tyg · Produkcja ~10 tyg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Decisions for morning -->
+<section class="bg-paper-100 py-20 lg:py-28 border-t border-coal-900">
+  <div class="max-w-4xl mx-auto px-6 lg:px-10">
+    <div class="label text-signal-500 mb-5 flex items-center gap-2">
+      <span class="w-6 h-px bg-signal-500"></span>
+      Co rano
+    </div>
+    <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl mb-12 leading-[0.95]">
+      4 decyzje<br/>
+      do podjęcia.
+    </h2>
+
+    <div class="space-y-4">
+      <div class="border-l-4 border-signal-500 pl-6 py-4">
+        <div class="display upper-tight font-bold text-xl mb-2">01 · Brand v2 OK?</div>
+        <p class="text-coal-900/70 leading-relaxed">
+          Coal black + paper + signal orange. Industrial heritage. UPPERCASE typografia.
+          Open BRAND.md i landing — czy to ten kierunek?
+        </p>
+      </div>
+      <div class="border-l-4 border-signal-500 pl-6 py-4">
+        <div class="display upper-tight font-bold text-xl mb-2">02 · Stack Medusa OK?</div>
+        <p class="text-coal-900/70 leading-relaxed">
+          Next.js + Medusa.js + PostgreSQL/PostGIS + Stripe + Vercel + Railway.
+          Sanity tylko dla content. Spec V3 to opisuje szczegółowo.
+        </p>
+      </div>
+      <div class="border-l-4 border-signal-500 pl-6 py-4">
+        <div class="display upper-tight font-bold text-xl mb-2">03 · Webhook contracts z ops</div>
+        <p class="text-coal-900/70 leading-relaxed">
+          Sprint 2 nie ruszy bez uzgodnienia kontraktów webhook z zespołem ops.
+          3 webhooki out: produkcja, logistyka, rozliczenia. Specyfikacja gotowa w SPEC v3.
+        </p>
+      </div>
+      <div class="border-l-4 border-signal-500 pl-6 py-4">
+        <div class="display upper-tight font-bold text-xl mb-2">04 · Sesja zdjęciowa</div>
+        <p class="text-coal-900/70 leading-relaxed">
+          Blocker dla launch. 50 top BOXów + 20 sytuacyjnych (kuchnia, zespół).
+          Mood: industrial heritage + warm food. Fotograf must understand brand vibe.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col sm:flex-row gap-3">
+      <a href="01-landing.html" class="btn-signal">
+        Zobacz nowy landing
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="BRAND.md" class="btn-ghost">Czytaj BRAND.md</a>
+      <a href="docs/CATERING_SHOP_SPEC_V3.md" class="btn-ghost">Czytaj SPEC v3</a>
+    </div>
+  </div>
+</section>
+
+<!-- Final tagline -->
+<section class="bg-coal-900 text-paper-100 py-20">
+  <div class="max-w-4xl mx-auto px-6 lg:px-10 text-center">
+    <h2 class="display upper-tight font-bold text-paper-100 text-5xl md:text-6xl leading-[0.95] mb-4">
+      Gotujemy mocno.
+    </h2>
+    <p class="hand text-signal-500 text-5xl">Jak Śląsk.</p>
+    <p class="mt-10 text-paper-100/50 text-sm label">
+      Catering Śląski Redesign · 19 maja 2026 · Brand v2 dopasowany do logo
+    </p>
+  </div>
+</section>
+
+</body>
+</html>

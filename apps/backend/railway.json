@@ -1,0 +1,28 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pnpm install --frozen-lockfile && pnpm build"
+  },
+  "deploy": {
+    "startCommand": "pnpm db:migrate && pnpm start",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3,
+    "numReplicas": 1,
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 30
+  },
+  "environments": {
+    "production": {
+      "deploy": {
+        "startCommand": "pnpm db:migrate && pnpm start",
+        "numReplicas": 1
+      }
+    },
+    "staging": {
+      "deploy": {
+        "startCommand": "pnpm db:migrate && pnpm start"
+      }
+    }
+  }
+}

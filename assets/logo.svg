@@ -1,0 +1,57 @@
+<svg width="360" height="120" viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Catering Śląski">
+  <!-- Symbol: mining tower (szyb wydobywczy) + tory -->
+  <g stroke="#0A0908" stroke-width="2" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- Wheel / koło wielokrążkowe na szczycie -->
+    <line x1="40" y1="14" x2="50" y2="14"/>
+    <line x1="40" y1="14" x2="40" y2="22"/>
+    <line x1="50" y1="14" x2="50" y2="22"/>
+    <line x1="38" y1="22" x2="52" y2="22"/>
+
+    <!-- Pionowe wsporniki -->
+    <line x1="30" y1="22" x2="30" y2="70"/>
+    <line x1="60" y1="22" x2="60" y2="70"/>
+
+    <!-- Pochyła rama szybowa -->
+    <line x1="45" y1="22" x2="30" y2="50"/>
+    <line x1="45" y1="22" x2="60" y2="50"/>
+
+    <!-- Belki poprzeczne -->
+    <line x1="30" y1="32" x2="60" y2="32"/>
+    <line x1="30" y1="42" x2="60" y2="42"/>
+    <line x1="30" y1="52" x2="60" y2="52"/>
+    <line x1="30" y1="62" x2="60" y2="62"/>
+
+    <!-- Diagonale (kratownica) -->
+    <line x1="30" y1="32" x2="60" y2="42"/>
+    <line x1="60" y1="32" x2="30" y2="42"/>
+    <line x1="30" y1="42" x2="60" y2="52"/>
+    <line x1="60" y1="42" x2="30" y2="52"/>
+    <line x1="30" y1="52" x2="60" y2="62"/>
+    <line x1="60" y1="52" x2="30" y2="62"/>
+
+    <!-- Podstawa budynku -->
+    <line x1="20" y1="70" x2="70" y2="70"/>
+    <line x1="20" y1="70" x2="20" y2="88"/>
+    <line x1="70" y1="70" x2="70" y2="88"/>
+    <line x1="20" y1="88" x2="70" y2="88"/>
+
+    <!-- Tory kolejowe pod spodem -->
+    <line x1="5" y1="98" x2="100" y2="98"/>
+    <line x1="5" y1="104" x2="100" y2="104"/>
+    <line x1="10" y1="98" x2="10" y2="104"/>
+    <line x1="20" y1="98" x2="20" y2="104"/>
+    <line x1="30" y1="98" x2="30" y2="104"/>
+    <line x1="40" y1="98" x2="40" y2="104"/>
+    <line x1="50" y1="98" x2="50" y2="104"/>
+    <line x1="60" y1="98" x2="60" y2="104"/>
+    <line x1="70" y1="98" x2="70" y2="104"/>
+    <line x1="80" y1="98" x2="80" y2="104"/>
+    <line x1="90" y1="98" x2="90" y2="104"/>
+  </g>
+
+  <!-- Wordmark: CATERING ŚLĄSKI -->
+  <g fill="#0A0908" font-family="'Inter Tight', 'Inter', sans-serif" font-weight="700">
+    <text x="120" y="55" font-size="32" letter-spacing="2">CATERING</text>
+    <text x="120" y="92" font-size="32" letter-spacing="2">ŚLĄSKI <tspan font-weight="400">_</tspan></text>
+  </g>
+</svg>

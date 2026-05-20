@@ -1,0 +1,46 @@
+name: Deploy to Production VPS
+
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Add VPS to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+            set -e
+            cd /opt/catering-slaski
+            ./infra/scripts/deploy.sh up
+          ENDSSH
+
+      - name: Verify health
+        run: |
+          sleep 30
+          curl -fsS https://cateringslaski.pl/api/health || exit 1
+          curl -fsS https://api.cateringslaski.pl/health || exit 1
+          echo "✓ Production healthy"
+
+      - name: Notify Slack on failure
+        if: failure()
+        run: |
+          curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+            -H "Content-Type: application/json" \
+            -d '{"text":"❌ Production deploy failed! See: ${{ github.event.head_commit.url }}"}'

@@ -1,0 +1,67 @@
+# Catering Śląski — Supabase local config (dla `supabase` CLI)
+# Production project zarządzany przez https://supabase.com/dashboard
+
+project_id = "catering-slaski"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 16
+
+[db.pooler]
+enabled = true
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[auth]
+enabled = true
+site_url = "https://cateringslaski.pl"
+additional_redirect_urls = [
+  "https://cateringslaski.pl",
+  "https://www.cateringslaski.pl",
+  "http://localhost:3000"
+]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = true
+
+# Catering — email templates po polsku
+[auth.email.template.confirmation]
+subject = "Potwierdź email — Catering Śląski"
+content_path = "./infra/supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "Reset hasła — Catering Śląski"
+content_path = "./infra/supabase/templates/recovery.html"
+
+[auth.sms]
+enable_signup = false
+
+[storage]
+enabled = true
+file_size_limit = "10MiB"
+buckets = [
+  { name = "product-images", public = true, file_size_limit = "5MiB", allowed_mime_types = ["image/jpeg", "image/png", "image/webp", "image/avif"] },
+  { name = "order-attachments", public = false, file_size_limit = "10MiB" }
+]
+
+[edge_runtime]
+enabled = false  # Używamy Vercel Edge zamiast Supabase Edge
+
+[experimental]
+webhooks_enabled = false  # Webhook routing przez Medusa, nie Supabase

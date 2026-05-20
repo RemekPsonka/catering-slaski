@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Catering Śląski — Gotujemy mocno. Jak Śląsk.</title>
+<meta name="description" content="Catering eventowy i lunch firmowy na Górnym Śląsku. Zamów do 16:00 — dostarczymy jutro. AI Generator menu w 15 sekund." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        coal:    { 900: '#0A0908', 800: '#1A1717', 700: '#2B2826' },
+        graphite:{ 500: '#585553' },
+        steel:   { 400: '#8B8784' },
+        smoke:   { 300: '#C5C2BE' },
+        bone:    { 200: '#E8E3DA' },
+        paper:   { 100: '#F5F2EC' },
+        snow:    { 50:  '#FFFFFF' },
+        signal:  { 500: '#E54B17', 600: '#C73E0F', 100: '#FFE6DC' },
+      },
+      fontFamily: {
+        display: ['"Inter Tight"', 'Inter', 'system-ui', 'sans-serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        hand:    ['Caveat', 'cursive'],
+      },
+    }
+  }
+}
+</script>
+<style>
+  :root { --coal: #0A0908; --paper: #F5F2EC; --signal: #E54B17; --bone: #E8E3DA; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--coal); -webkit-font-smoothing: antialiased; }
+  .display { font-family: 'Inter Tight', sans-serif; font-feature-settings: "ss01" on; }
+  .hand { font-family: 'Caveat', cursive; }
+  .upper { text-transform: uppercase; letter-spacing: -0.02em; }
+  .upper-tight { text-transform: uppercase; letter-spacing: -0.03em; }
+  .label { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; font-size: 12px; }
+  /* Logo SVG inline */
+  .logo-symbol { width: 36px; height: 48px; }
+  /* Hero img treatment — high contrast, no fluff */
+  .hero-img {
+    filter: contrast(1.05) saturate(0.95);
+  }
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* Buttons — INDUSTRIAL sharp corners */
+  .btn-coal {
+    background: #0A0908; color: #F5F2EC;
+    padding: 16px 28px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px;
+    border: 1.5px solid #0A0908;
+    transition: background .15s ease, transform .15s ease;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-coal:hover { background: #1A1717; transform: translateY(-1px); }
+  .btn-signal {
+    background: #E54B17; color: #FFFFFF;
+    padding: 16px 28px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px;
+    border: 1.5px solid #E54B17;
+    transition: background .15s ease, transform .15s ease;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-signal:hover { background: #C73E0F; border-color: #C73E0F; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: #0A0908;
+    padding: 16px 28px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px;
+    border: 1.5px solid #0A0908;
+    transition: all .15s ease;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-ghost:hover { background: #0A0908; color: #F5F2EC; }
+  .btn-ghost-light {
+    background: transparent; color: #F5F2EC;
+    padding: 16px 28px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px;
+    border: 1.5px solid rgba(245,242,236,0.4);
+    transition: all .15s ease;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-ghost-light:hover { background: rgba(245,242,236,0.1); border-color: #F5F2EC; }
+  /* Ticker */
+  .ticker { display: flex; overflow: hidden; }
+  .ticker-track { display: flex; gap: 3rem; flex-shrink: 0; animation: ticker 40s linear infinite; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  /* Sharp cards */
+  .card { background: #FFFFFF; border: 1px solid #E8E3DA; }
+  .card-dark { background: #1A1717; color: #F5F2EC; border: 1px solid #2B2826; }
+  /* Number block — industrial */
+  .num-block { font-feature-settings: "tnum" on; }
+  /* Live dot */
+  .live-dot { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(1.4); } }
+  /* Image with grain overlay */
+  .grainy::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+  /* Industrial divider */
+  .div-line { height: 1px; background: #0A0908; }
+</style>
+</head>
+<body>
+
+<!-- ===== Top notice bar ===== -->
+<div class="bg-coal-900 text-paper-100 text-xs">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-2.5 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+      <span class="label">Zamów do 16:00 — przywieziemy jutro</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-paper-100/70">
+      <a href="tel:+48793001900" class="hover:text-paper-100 transition">+48 793 001 900</a>
+      <span>Dąbrowa Górnicza · 25+ miast Śląska</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Header / Nav ===== -->
+<header id="nav" class="bg-paper-100 border-b border-bone-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-4" aria-label="Catering Śląski - strona główna">
+      <!-- Logo symbol -->
+      <svg class="logo-symbol" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g stroke="#0A0908" stroke-width="2" fill="none" stroke-linecap="square">
+          <!-- Wheel top -->
+          <line x1="35" y1="8" x2="45" y2="8"/>
+          <line x1="35" y1="8" x2="35" y2="16"/>
+          <line x1="45" y1="8" x2="45" y2="16"/>
+          <line x1="33" y1="16" x2="47" y2="16"/>
+          <!-- Frame -->
+          <line x1="25" y1="16" x2="25" y2="60"/>
+          <line x1="55" y1="16" x2="55" y2="60"/>
+          <line x1="40" y1="16" x2="25" y2="42"/>
+          <line x1="40" y1="16" x2="55" y2="42"/>
+          <!-- Cross bars -->
+          <line x1="25" y1="24" x2="55" y2="24"/>
+          <line x1="25" y1="32" x2="55" y2="32"/>
+          <line x1="25" y1="42" x2="55" y2="42"/>
+          <line x1="25" y1="52" x2="55" y2="52"/>
+          <!-- Diagonals -->
+          <line x1="25" y1="24" x2="55" y2="32"/>
+          <line x1="55" y1="24" x2="25" y2="32"/>
+          <line x1="25" y1="42" x2="55" y2="52"/>
+          <line x1="55" y1="42" x2="25" y2="52"/>
+          <!-- Base building -->
+          <line x1="15" y1="60" x2="65" y2="60"/>
+          <line x1="15" y1="60" x2="15" y2="78"/>
+          <line x1="65" y1="60" x2="65" y2="78"/>
+          <line x1="15" y1="78" x2="65" y2="78"/>
+          <!-- Tracks -->
+          <line x1="3" y1="88" x2="77" y2="88"/>
+          <line x1="3" y1="94" x2="77" y2="94"/>
+          <line x1="10" y1="88" x2="10" y2="94"/>
+          <line x1="20" y1="88" x2="20" y2="94"/>
+          <line x1="30" y1="88" x2="30" y2="94"/>
+          <line x1="40" y1="88" x2="40" y2="94"/>
+          <line x1="50" y1="88" x2="50" y2="94"/>
+          <line x1="60" y1="88" x2="60" y2="94"/>
+          <line x1="70" y1="88" x2="70" y2="94"/>
+        </g>
+      </svg>
+      <div class="leading-none">
+        <div class="display upper-tight font-bold text-coal-900 text-base">Catering</div>
+        <div class="display upper-tight font-bold text-coal-900 text-base">Śląski <span class="font-normal">_</span></div>
+      </div>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 text-sm font-medium" aria-label="Nawigacja główna">
+      <a href="#menu" class="text-coal-900 hover:text-signal-500 transition">Menu</a>
+      <a href="#ai-generator" class="text-coal-900 hover:text-signal-500 transition flex items-center gap-2">
+        AI Generator
+        <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+      </a>
+      <a href="#firmy" class="text-coal-900 hover:text-signal-500 transition">Dla firm</a>
+      <a href="#dostawa" class="text-coal-900 hover:text-signal-500 transition">Dostawa</a>
+      <a href="#o-nas" class="text-coal-900 hover:text-signal-500 transition">O nas</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="05-konto.html" class="hidden md:inline-flex items-center justify-center w-11 h-11 hover:bg-bone-200 transition" aria-label="Zaloguj się">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="02-konfigurator-b2b.html" class="btn-coal">
+        Zamów
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="bg-paper-100 border-b border-bone-200">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+    <div class="lg:col-span-7 reveal">
+      <div class="inline-flex items-center gap-2 mb-8 label text-graphite-500">
+        <span class="w-6 h-px bg-coal-900"></span>
+        Catering od 2019 — Górny Śląsk
+      </div>
+
+      <h1 class="display upper-tight font-bold text-coal-900 text-5xl md:text-7xl lg:text-8xl leading-[0.95]">
+        Gotujemy<br/>
+        mocno.<br/>
+        <span class="text-signal-500">Jak Śląsk.</span>
+      </h1>
+
+      <p class="mt-8 max-w-xl text-coal-900/70 text-lg md:text-xl leading-relaxed">
+        Catering eventowy i lunch firmowy z domowych receptur babci Hildy.
+        Zamówisz w 3 minuty. Przywieziemy bez kombinowania.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-3">
+        <a href="02-konfigurator-b2b.html" class="btn-signal">
+          Dobierz menu z AI
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="03-sklep-b2c.html" class="btn-ghost">
+          Pokaż menu
+        </a>
+      </div>
+
+      <div class="mt-14 grid grid-cols-3 gap-6 max-w-lg">
+        <div>
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">238</div>
+          <div class="label text-graphite-500 mt-1">Rodzin</div>
+        </div>
+        <div>
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">47</div>
+          <div class="label text-graphite-500 mt-1">Firm</div>
+        </div>
+        <div>
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">4.9★</div>
+          <div class="label text-graphite-500 mt-1">187 opinii</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 reveal">
+      <div class="relative grainy overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1400&q=85" alt="Catering Śląski" class="hero-img w-full h-[520px] lg:h-[640px] object-cover" />
+
+        <!-- Stamp overlay -->
+        <div class="absolute bottom-6 left-6 right-6 bg-paper-100 p-5 border border-coal-900">
+          <div class="label text-graphite-500 mb-2">Dziś najczęściej zamawiane</div>
+          <div class="flex items-baseline justify-between">
+            <div class="display upper font-bold text-2xl">BOX koktajlowy II</div>
+            <div class="display upper font-bold text-2xl text-signal-500">340 zł</div>
+          </div>
+          <div class="text-sm text-coal-900/60 mt-1">Dla 10-12 osób · Dostępny jutro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Industrial ticker ===== -->
+<section class="bg-coal-900 text-paper-100 border-y border-coal-700 py-5 overflow-hidden">
+  <div class="ticker">
+    <div class="ticker-track label text-paper-100/60" style="mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);">
+      <span>Komunie 2026</span><span class="text-signal-500">●</span>
+      <span>Wesela do 150 osób</span><span class="text-signal-500">●</span>
+      <span>Eventy firmowe</span><span class="text-signal-500">●</span>
+      <span>Lunch dla biur</span><span class="text-signal-500">●</span>
+      <span>Chrzciny / 18-stki</span><span class="text-signal-500">●</span>
+      <span>Catering eventowy</span><span class="text-signal-500">●</span>
+      <span>Sylwester / święta</span><span class="text-signal-500">●</span>
+      <span>Komunie 2026</span><span class="text-signal-500">●</span>
+      <span>Wesela do 150 osób</span><span class="text-signal-500">●</span>
+      <span>Eventy firmowe</span><span class="text-signal-500">●</span>
+      <span>Lunch dla biur</span><span class="text-signal-500">●</span>
+      <span>Chrzciny / 18-stki</span><span class="text-signal-500">●</span>
+      <span>Catering eventowy</span><span class="text-signal-500">●</span>
+      <span>Sylwester / święta</span><span class="text-signal-500">●</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Why us (3 pillars, industrial) ===== -->
+<section class="bg-paper-100 py-20 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 mb-20 reveal">
+      <div class="lg:col-span-5">
+        <div class="label text-graphite-500 mb-5 flex items-center gap-2">
+          <span class="w-6 h-px bg-coal-900"></span>
+          Dlaczego my
+        </div>
+        <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl lg:text-6xl leading-[0.95]">
+          Bez<br/>
+          kombinowania.<br/>
+          <span class="hand text-signal-500 text-5xl md:text-6xl">tylko jedzenie.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 self-end">
+        <p class="text-lg text-coal-900/70 leading-relaxed">
+          Trzy rzeczy które robimy inaczej. Nie szpanujemy "premium",
+          nie udajemy fine dining. Robimy catering, który ma działać —
+          smakować, dotrzeć na czas, zadowolić Twoich gości.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-0 border-t border-coal-900">
+
+      <!-- Pillar 1 -->
+      <div class="reveal border-r-0 lg:border-r border-coal-900 border-b lg:border-b-0 py-10 pr-0 lg:pr-10">
+        <div class="display upper font-bold text-coal-900 text-6xl num-block">01</div>
+        <h3 class="display upper-tight font-bold text-2xl mt-6 mb-4">Domowy smak. Bez ściemy.</h3>
+        <p class="text-coal-900/70 leading-relaxed">
+          Sprawdzone receptury rodzinne — rolada, kluski śląskie, czerwona, rosół. Świeże mięso od polskich gospodarstw, pieczywo z rzemieślniczej piekarni z Sosnowca. Babcia by się przyznała.
+        </p>
+        <ul class="mt-6 space-y-2.5 text-sm text-coal-900/80">
+          <li class="flex items-start gap-2.5"><span class="text-signal-500 mt-1">▪</span> Mięso z polskich gospodarstw</li>
+          <li class="flex items-start gap-2.5"><span class="text-signal-500 mt-1">▪</span> Bez konserwantów i wzmacniaczy smaku</li>
+          <li class="flex items-start gap-2.5"><span class="text-signal-500 mt-1">▪</span> Receptury z domowej kuchni</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 2 - highlighted -->
+      <div class="reveal bg-coal-900 text-paper-100 py-10 px-8 lg:px-10 -mx-0 lg:-mx-0 my-0 lg:my-0 relative">
+        <div class="absolute top-3 right-3 label text-signal-500 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+          Beta · Pierwsze w PL
+        </div>
+        <div class="display upper font-bold text-paper-100 text-6xl num-block">02</div>
+        <h3 class="display upper-tight font-bold text-2xl mt-6 mb-4">
+          AI Generator menu eventowego
+        </h3>
+        <p class="text-paper-100/70 leading-relaxed mb-6">
+          Wpisz brief: ile osób, jaki event, jaki budżet. W 15 sekund dostajesz gotowe menu z wyceną. Bez maili, bez 3 dni czekania na ofertę.
+        </p>
+        <a href="#ai-generator" class="inline-flex items-center gap-2 text-signal-500 hover:text-paper-100 transition border-b border-signal-500 hover:border-paper-100 pb-1">
+          <span class="label">Zobacz jak to działa</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="reveal border-l-0 lg:border-l border-coal-900 border-t lg:border-t-0 py-10 pl-0 lg:pl-10">
+        <div class="display upper font-bold text-coal-900 text-6xl num-block">03</div>
+        <h3 class="display upper-tight font-bold text-2xl mt-6 mb-4">Dostawa. 25 miast. Punktualnie.</h3>
+        <p class="text-coal-900/70 leading-relaxed">
+          Katowice, Sosnowiec, Dąbrowa, Gliwice, Tychy, Bytom — i 19 innych. Dostawa 8:00–17:00, codziennie. 99% zamówień na czas. Reszta — gratis następne zamówienie.
+        </p>
+        <div class="mt-6 grid grid-cols-2 gap-4">
+          <div class="border-l-2 border-signal-500 pl-3">
+            <div class="label text-graphite-500">Strefa 1</div>
+            <div class="display upper font-bold text-xl mt-0.5">29 zł</div>
+            <div class="text-xs text-graphite-500">Centrum aglomeracji</div>
+          </div>
+          <div class="border-l-2 border-coal-900 pl-3">
+            <div class="label text-graphite-500">Strefa 2</div>
+            <div class="display upper font-bold text-xl mt-0.5">49 zł</div>
+            <div class="text-xs text-graphite-500">Pozostałe miasta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Categories / Menu ===== -->
+<section id="menu" class="bg-coal-900 text-paper-100 py-20 lg:py-32 border-y border-coal-700">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14 reveal">
+      <div>
+        <div class="label text-signal-500 mb-5 flex items-center gap-2">
+          <span class="w-6 h-px bg-signal-500"></span>
+          Menu · 200+ pozycji
+        </div>
+        <h2 class="display upper-tight font-bold text-paper-100 text-4xl md:text-5xl lg:text-6xl leading-[0.95]">
+          Wybierz okazję.<br/>
+          Resztę zrobimy my.
+        </h2>
+      </div>
+      <a href="03-sklep-b2c.html" class="btn-ghost-light self-start lg:self-end">
+        Cały katalog
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-paper-100/15">
+      <!-- 6 categories — bordered grid -->
+      <a href="03-sklep-b2c.html" class="reveal group block bg-coal-900 border-b border-r-0 lg:border-r border-paper-100/15 hover:bg-coal-800 transition">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=85" alt="" class="hero-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+        </div>
+        <div class="p-7 lg:p-8">
+          <div class="flex items-start justify-between mb-3">
+            <div class="label text-signal-500">Bestseller</div>
+            <span class="display upper font-bold text-paper-100/30 text-xs num-block">01</span>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-2">Catering BOX</h3>
+          <p class="text-sm text-paper-100/60 leading-relaxed">Gotowy zestaw dla 8-20 osób. Otwierasz i podajesz.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="display upper font-bold text-paper-100">od 210 zł</span>
+            <span class="group-hover:translate-x-1 transition text-signal-500">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="03-sklep-b2c.html" class="reveal group block bg-coal-900 border-b border-r-0 lg:border-r border-paper-100/15 hover:bg-coal-800 transition">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=900&q=85" alt="" class="hero-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+        </div>
+        <div class="p-7 lg:p-8">
+          <div class="flex items-start justify-between mb-3">
+            <div class="label text-paper-100/50">Wytrawne</div>
+            <span class="display upper font-bold text-paper-100/30 text-xs num-block">02</span>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-2">Finger food</h3>
+          <p class="text-sm text-paper-100/60 leading-relaxed">Mini przekąski na koktajl party. Z winem do kompletu.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="display upper font-bold text-paper-100">od 370 zł</span>
+            <span class="group-hover:translate-x-1 transition text-signal-500">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="03-sklep-b2c.html" class="reveal group block bg-coal-900 border-b border-paper-100/15 hover:bg-coal-800 transition">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&q=85" alt="" class="hero-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+        </div>
+        <div class="p-7 lg:p-8">
+          <div class="flex items-start justify-between mb-3">
+            <div class="label text-paper-100/50">Klasyka</div>
+            <span class="display upper font-bold text-paper-100/30 text-xs num-block">03</span>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-2">Zimna płyta</h3>
+          <p class="text-sm text-paper-100/60 leading-relaxed">Wędliny, sery, marynaty. Tak jak robi się w domu.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="display upper font-bold text-paper-100">od 290 zł</span>
+            <span class="group-hover:translate-x-1 transition text-signal-500">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="03-sklep-b2c.html" class="reveal group block bg-coal-900 border-b lg:border-b-0 border-r-0 lg:border-r border-paper-100/15 hover:bg-coal-800 transition">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85" alt="" class="hero-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+        </div>
+        <div class="p-7 lg:p-8">
+          <div class="flex items-start justify-between mb-3">
+            <div class="label text-signal-500">Sezon 2026</div>
+            <span class="display upper font-bold text-paper-100/30 text-xs num-block">04</span>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-2">Komunia Święta</h3>
+          <p class="text-sm text-paper-100/60 leading-relaxed">Zestawy uroczyste dla rodzin (10-40 osób).</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="display upper font-bold text-paper-100">od 980 zł</span>
+            <span class="group-hover:translate-x-1 transition text-signal-500">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="03-sklep-b2c.html" class="reveal group block bg-coal-900 border-b lg:border-b-0 border-r-0 lg:border-r border-paper-100/15 hover:bg-coal-800 transition">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=900&q=85" alt="" class="hero-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+        </div>
+        <div class="p-7 lg:p-8">
+          <div class="flex items-start justify-between mb-3">
+            <div class="label text-paper-100/50">Street food</div>
+            <span class="display upper font-bold text-paper-100/30 text-xs num-block">05</span>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-2">Burgery / Hot dogi</h3>
+          <p class="text-sm text-paper-100/60 leading-relaxed">Kiedy wieczór ma być z luzem.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="display upper font-bold text-paper-100">od 290 zł</span>
+            <span class="group-hover:translate-x-1 transition text-signal-500">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="03-sklep-b2c.html" class="reveal group block bg-coal-900 hover:bg-coal-800 transition">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=900&q=85" alt="" class="hero-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+        </div>
+        <div class="p-7 lg:p-8">
+          <div class="flex items-start justify-between mb-3">
+            <div class="label text-paper-100/50">Słodki finał</div>
+            <span class="display upper font-bold text-paper-100/30 text-xs num-block">06</span>
+          </div>
+          <h3 class="display upper-tight font-bold text-2xl text-paper-100 mb-2">Desery & croissanty</h3>
+          <p class="text-sm text-paper-100/60 leading-relaxed">Mini-torciki, donuty, kruche z owocami.</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="display upper font-bold text-paper-100">od 150 zł</span>
+            <span class="group-hover:translate-x-1 transition text-signal-500">→</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI Generator demo ===== -->
+<section id="ai-generator" class="bg-paper-100 py-20 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="grid lg:grid-cols-12 gap-12 mb-16">
+      <div class="lg:col-span-5 reveal">
+        <div class="label text-graphite-500 mb-5 flex items-center gap-2">
+          <span class="w-6 h-px bg-coal-900"></span>
+          Pierwsze takie w PL
+        </div>
+        <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl lg:text-6xl leading-[0.95]">
+          Opisz event.<br/>
+          <span class="text-signal-500">Menu w 15 sekund.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 self-end reveal">
+        <p class="text-lg text-coal-900/70 leading-relaxed">
+          AI zna 200+ pozycji menu — ceny, alergeny, sezonowość, porcje.
+          Wpisz brief po polsku. Dostajesz dopracowaną propozycję z wyceną i PDFem do pobrania.
+        </p>
+      </div>
+    </div>
+
+    <div class="card grid lg:grid-cols-2 gap-0 border-2 border-coal-900 reveal">
+
+      <!-- Input -->
+      <div class="p-8 lg:p-10 border-r-0 lg:border-r border-coal-900 border-b lg:border-b-0">
+        <div class="flex items-center justify-between mb-6">
+          <div class="label text-graphite-500">Twój brief</div>
+          <div class="label text-signal-500 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-signal-500 live-dot"></span>
+            Live demo
+          </div>
+        </div>
+
+        <div class="min-h-[160px] mb-6 text-coal-900 text-lg leading-relaxed">
+          <p id="briefText"></p>
+          <span class="inline-block w-0.5 h-5 bg-signal-500 ml-1 align-middle" style="animation: blink 1s infinite;"></span>
+        </div>
+
+        <div class="border-t border-bone-200 pt-5">
+          <div class="label text-graphite-500 mb-3">Wybierz scenariusz</div>
+          <div class="flex flex-wrap gap-2">
+            <button class="briefChip border border-coal-900 px-3 py-1.5 text-xs font-medium hover:bg-coal-900 hover:text-paper-100 transition active" data-text="100 osób, urodziny 40-stka, sobota wieczór, ok 80 zł/osoba, 30% wegetariańskie, koktajl party.">🎉 Urodziny 100 os.</button>
+            <button class="briefChip border border-coal-900 px-3 py-1.5 text-xs font-medium hover:bg-coal-900 hover:text-paper-100 transition" data-text="80 osób, komunia syna, niedziela południe, 120 zł/os, tradycyjne śląskie z 20% wegetariańskie.">⛪ Komunia 80 os.</button>
+            <button class="briefChip border border-coal-900 px-3 py-1.5 text-xs font-medium hover:bg-coal-900 hover:text-paper-100 transition" data-text="30 osób, event firmowy, czwartek 14:00, lunch dla biura, 60 zł/os, opcje wege i bezglutenowe.">💼 Lunch firmowy</button>
+            <button class="briefChip border border-coal-900 px-3 py-1.5 text-xs font-medium hover:bg-coal-900 hover:text-paper-100 transition" data-text="150 osób, wesele, sobota całą noc, 150 zł/os, 60% mięsne, 30% wege, 10% wegan, słodki bufet.">💍 Wesele 150 os.</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="bg-coal-900 text-paper-100 p-8 lg:p-10">
+        <div class="flex items-center justify-between mb-6">
+          <div class="label text-signal-500">Propozycja AI</div>
+          <div class="label text-paper-100/50">14 sekund</div>
+        </div>
+
+        <div id="menuResult" class="space-y-2 mb-8 min-h-[200px]">
+          <!-- populated by JS -->
+        </div>
+
+        <div class="div-line bg-paper-100/15 mb-5"></div>
+
+        <div class="flex items-end justify-between">
+          <div>
+            <div class="label text-paper-100/50 mb-1">Razem brutto</div>
+            <div class="display upper font-bold text-4xl num-block" id="totalPrice">8 040 zł</div>
+            <div class="text-xs text-signal-500 mt-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-signal-500"></span>
+              W budżecie · 98%
+            </div>
+          </div>
+          <a href="02-konfigurator-b2b.html" class="btn-signal whitespace-nowrap">
+            Pobierz PDF
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10 reveal">
+      <a href="02-konfigurator-b2b.html" class="btn-coal">
+        Wypróbuj AI Generator
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <p class="text-xs text-graphite-500 mt-4 label">Bez logowania · bez maila · w 30 sekund</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== B2B section ===== -->
+<section id="firmy" class="bg-paper-100 border-y border-coal-900 py-20 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+    <div class="lg:col-span-6 reveal">
+      <div class="label text-graphite-500 mb-5 flex items-center gap-2">
+        <span class="w-6 h-px bg-coal-900"></span>
+        Dla firm
+      </div>
+      <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl lg:text-6xl leading-[0.95] mb-6">
+        Lunch w biurze.<br/>
+        Event firmowy.<br/>
+        <span class="text-signal-500">Cała integracja.</span>
+      </h2>
+
+      <p class="text-lg text-coal-900/70 leading-relaxed mb-10">
+        Obsługujemy 47 firm z Górnego Śląska — od 10-osobowych biur po eventy na 150 osób.
+        Subskrypcje lunchowe, oferty świąteczne, premiery produktów, konferencje.
+        <strong class="text-coal-900">Faktura VAT auto, termin 14/30.</strong>
+      </p>
+
+      <div class="grid grid-cols-2 gap-0 border-t border-l border-coal-900 mb-10">
+        <div class="border-r border-b border-coal-900 p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">14/30</div>
+          <div class="text-sm text-coal-900/70 mt-1">dni terminu</div>
+        </div>
+        <div class="border-b border-coal-900 p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">100%</div>
+          <div class="text-sm text-coal-900/70 mt-1">faktura VAT auto</div>
+        </div>
+        <div class="border-r border-coal-900 p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">1×</div>
+          <div class="text-sm text-coal-900/70 mt-1">opiekun na stałe</div>
+        </div>
+        <div class="p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">7d</div>
+          <div class="text-sm text-coal-900/70 mt-1">subskrypcja rotacja</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="02-konfigurator-b2b.html" class="btn-signal">
+          Skonfiguruj ofertę B2B
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="tel:+48793001900" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          +48 793 001 900
+        </a>
+      </div>
+    </div>
+
+    <div class="lg:col-span-6 reveal">
+      <div class="relative grainy overflow-hidden border border-coal-900">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=85" alt="" class="hero-img w-full h-[480px] lg:h-[560px] object-cover grayscale" />
+        <div class="absolute inset-x-0 bottom-0 bg-coal-900/95 backdrop-blur p-7 text-paper-100">
+          <div class="label text-signal-500 mb-2">Case study</div>
+          <p class="text-paper-100 text-lg leading-snug mb-3">
+            „Subskrypcja lunchu co poniedziałek, 24 osoby, zero zamówień przez maila.
+            Catering Śląski oszczędza nam 4 godziny tygodniowo."
+          </p>
+          <div class="label text-paper-100/60">— Anna K., Office Manager, TechSilesia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Delivery zones ===== -->
+<section id="dostawa" class="bg-paper-100 py-20 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+    <div class="lg:col-span-6 reveal">
+      <div class="label text-graphite-500 mb-5 flex items-center gap-2">
+        <span class="w-6 h-px bg-coal-900"></span>
+        Dostawa
+      </div>
+      <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl lg:text-6xl leading-[0.95] mb-6">
+        Codziennie.<br/>
+        Punktualnie.<br/>
+        <span class="text-signal-500">25 miast Śląska.</span>
+      </h2>
+      <p class="text-lg text-coal-900/70 leading-relaxed mb-10">
+        Dostarczamy 7 dni w tygodniu, 8:00–17:00. Zamówisz do 16:00 — przywieziemy jutro.
+        Możliwy też odbiór osobisty w Dąbrowie Górniczej.
+      </p>
+
+      <div class="border-t border-l border-coal-900 mb-8">
+        <div class="border-b border-r border-coal-900 p-5 grid grid-cols-[auto_1fr_auto] gap-5 items-center bg-signal-100">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">1</div>
+          <div>
+            <div class="display upper font-bold text-coal-900 text-lg">Strefa 1 — Centrum</div>
+            <div class="text-sm text-coal-900/70 mt-1">Katowice, Sosnowiec, DG, Będzin, Chorzów, Mysłowice, Ruda Śl., Bytom, Siemianowice, Czeladź, Wojkowice</div>
+          </div>
+          <div class="display upper font-bold text-signal-500 text-3xl">29 zł</div>
+        </div>
+        <div class="border-b border-r border-coal-900 p-5 grid grid-cols-[auto_1fr_auto] gap-5 items-center">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">2</div>
+          <div>
+            <div class="display upper font-bold text-coal-900 text-lg">Strefa 2 — Pozostałe</div>
+            <div class="text-sm text-coal-900/70 mt-1">Gliwice, Tychy, Zabrze, Mikołów, Jaworzno, Piekary, Tarnowskie Góry, Knurów, Łaziska, Bieruń i okolice</div>
+          </div>
+          <div class="display upper font-bold text-coal-900 text-3xl">49 zł</div>
+        </div>
+        <div class="border-r border-coal-900 p-5 grid grid-cols-[auto_1fr_auto] gap-5 items-center">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">0</div>
+          <div>
+            <div class="display upper font-bold text-coal-900 text-lg">Odbiór osobisty</div>
+            <div class="text-sm text-coal-900/70 mt-1">Marcina Kasprzaka 256, Dąbrowa Górnicza · 8:00–17:00</div>
+          </div>
+          <div class="display upper font-bold text-coal-900 text-3xl">0 zł</div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 max-w-md">
+        <input type="text" placeholder="Wpisz kod pocztowy" class="flex-1 bg-snow-50 border border-coal-900 px-4 py-3.5 text-coal-900 placeholder:text-graphite-500 focus:outline-none focus:bg-paper-100 transition text-sm" />
+        <button class="btn-coal">Sprawdź</button>
+      </div>
+    </div>
+
+    <div class="lg:col-span-6 reveal">
+      <div class="relative aspect-[5/6] border-2 border-coal-900 overflow-hidden bg-paper-100">
+        <!-- Industrial map -->
+        <svg viewBox="0 0 400 500" class="w-full h-full">
+          <!-- Grid background -->
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E8E3DA" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#grid)"/>
+
+          <!-- Strefa 2 polygon (outer) -->
+          <path d="M 60 80 L 340 100 L 360 320 L 320 420 L 100 440 L 40 380 L 50 200 Z"
+                fill="rgba(10,9,8,0.04)" stroke="#0A0908" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+          <!-- Strefa 1 polygon (inner, highlighted) -->
+          <path d="M 140 180 L 280 190 L 290 320 L 250 360 L 160 350 L 130 280 Z"
+                fill="rgba(229,75,23,0.08)" stroke="#E54B17" stroke-width="2"/>
+
+          <!-- HQ pin -->
+          <g transform="translate(210, 270)">
+            <line x1="0" y1="0" x2="0" y2="-20" stroke="#0A0908" stroke-width="2"/>
+            <rect x="-12" y="-32" width="24" height="12" fill="#0A0908"/>
+            <text x="0" y="-22" text-anchor="middle" fill="#F5F2EC" font-family="Inter Tight" font-size="8" font-weight="700">HQ</text>
+            <circle cx="0" cy="0" r="4" fill="#E54B17"/>
+          </g>
+
+          <!-- City dots -->
+          <g fill="#0A0908">
+            <circle cx="180" cy="240" r="3"/>
+            <text x="186" y="244" font-family="Inter" font-size="10" fill="#0A0908">Katowice</text>
+
+            <circle cx="240" cy="260" r="3"/>
+            <text x="246" y="264" font-family="Inter" font-size="10" fill="#0A0908">Sosnowiec</text>
+
+            <circle cx="200" cy="310" r="3"/>
+            <text x="206" y="314" font-family="Inter" font-size="10" fill="#0A0908">Mysłowice</text>
+
+            <circle cx="160" cy="200" r="3"/>
+            <text x="166" y="204" font-family="Inter" font-size="10" fill="#0A0908">Bytom</text>
+          </g>
+
+          <g fill="#585553" opacity="0.7">
+            <circle cx="110" cy="170" r="2.5"/>
+            <text x="116" y="174" font-family="Inter" font-size="9" fill="#585553">Gliwice</text>
+
+            <circle cx="290" cy="190" r="2.5"/>
+            <text x="296" y="194" font-family="Inter" font-size="9" fill="#585553">Jaworzno</text>
+
+            <circle cx="180" cy="390" r="2.5"/>
+            <text x="186" y="394" font-family="Inter" font-size="9" fill="#585553">Tychy</text>
+          </g>
+
+          <!-- Legend -->
+          <g transform="translate(20, 460)">
+            <rect width="14" height="14" fill="rgba(229,75,23,0.4)" stroke="#E54B17" stroke-width="1.5"/>
+            <text x="20" y="11" font-family="Inter Tight" font-size="10" font-weight="600" fill="#0A0908">STREFA 1 (29 ZŁ)</text>
+
+            <g transform="translate(150, 0)">
+              <rect width="14" height="14" fill="rgba(10,9,8,0.06)" stroke="#0A0908" stroke-width="1" stroke-dasharray="3 2"/>
+              <text x="20" y="11" font-family="Inter Tight" font-size="10" font-weight="600" fill="#0A0908">STREFA 2 (49 ZŁ)</text>
+            </g>
+          </g>
+
+          <!-- Compass / label corner -->
+          <text x="380" y="20" text-anchor="end" font-family="Inter Tight" font-size="9" font-weight="600" letter-spacing="1" fill="#585553">MAPA DOSTAW 1:200K</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Testimonials — industrial cards ===== -->
+<section class="bg-coal-900 text-paper-100 py-20 lg:py-32 border-y border-coal-700">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="mb-16 reveal">
+      <div class="label text-signal-500 mb-5 flex items-center gap-2">
+        <span class="w-6 h-px bg-signal-500"></span>
+        Zaufało nam 238 rodzin i 47 firm
+      </div>
+      <h2 class="display upper-tight font-bold text-paper-100 text-4xl md:text-5xl lg:text-6xl leading-[0.95] max-w-3xl">
+        Każda opinia.<br/>
+        Prawdziwa rodzina.<br/>
+        <span class="hand text-signal-500 text-5xl md:text-6xl">prawdziwe święto.</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-0 border-t border-paper-100/15">
+      <div class="reveal p-8 lg:p-10 border-b md:border-b-0 md:border-r border-paper-100/15">
+        <div class="display upper font-bold text-signal-500 text-5xl leading-none mb-5">"</div>
+        <p class="text-paper-100 leading-relaxed mb-6">
+          Pierwszy raz zdecydowałam się na catering na domówkę i… czemu nie zrobiłam tego wcześniej!
+          Goście nie poznali, że nie sama robiłam.
+          Mogłam w końcu spędzić Sylwestra z gośćmi.
+        </p>
+        <div class="div-line bg-paper-100/15 mb-4"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="display upper font-bold text-sm">Anna K.</div>
+            <div class="text-xs text-paper-100/50 mt-0.5">Sylwester 2025 · Katowice</div>
+          </div>
+          <div class="text-signal-500 text-xs">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="reveal p-8 lg:p-10 border-b md:border-b-0 md:border-r border-paper-100/15">
+        <div class="display upper font-bold text-signal-500 text-5xl leading-none mb-5">"</div>
+        <p class="text-paper-100 leading-relaxed mb-6">
+          Zamówiłem catering na urodziny. Jedzenie przepyszne, świeże,
+          porcje solidne. Goście chwalili różnorodność, paterą przekąsek byli zachwyceni.
+          Kontakt z firmą perfekcyjny.
+        </p>
+        <div class="div-line bg-paper-100/15 mb-4"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="display upper font-bold text-sm">Kamil S.</div>
+            <div class="text-xs text-paper-100/50 mt-0.5">Urodziny 35 · Sosnowiec</div>
+          </div>
+          <div class="text-signal-500 text-xs">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="reveal p-8 lg:p-10">
+        <div class="display upper font-bold text-signal-500 text-5xl leading-none mb-5">"</div>
+        <p class="text-paper-100 leading-relaxed mb-6">
+          Przez nawał obowiązków nie miałam czasu przygotować jedzenia
+          na sylwestrową imprezę. Uratowali nam zabawę.
+          Krokiety rozpływały się w ustach, zimna płyta rewelacyjna.
+        </p>
+        <div class="div-line bg-paper-100/15 mb-4"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="display upper font-bold text-sm">Małgorzata B.</div>
+            <div class="text-xs text-paper-100/50 mt-0.5">Sylwester 2025 · Gliwice</div>
+          </div>
+          <div class="text-signal-500 text-xs">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-paper-100/15 reveal">
+      <div class="border-r border-paper-100/15 p-6 text-center">
+        <div class="display upper font-bold text-signal-500 text-4xl num-block">4.9</div>
+        <div class="label text-paper-100/50 mt-2">Google</div>
+      </div>
+      <div class="border-r border-paper-100/15 p-6 text-center">
+        <div class="display upper font-bold text-paper-100 text-4xl num-block">187</div>
+        <div class="label text-paper-100/50 mt-2">Opinii</div>
+      </div>
+      <div class="border-r border-paper-100/15 p-6 text-center">
+        <div class="display upper font-bold text-paper-100 text-4xl num-block">238</div>
+        <div class="label text-paper-100/50 mt-2">Rodzin</div>
+      </div>
+      <div class="p-6 text-center">
+        <div class="display upper font-bold text-paper-100 text-4xl num-block">47</div>
+        <div class="label text-paper-100/50 mt-2">Firm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Story / Śląsk ===== -->
+<section id="o-nas" class="bg-paper-100 py-20 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+    <div class="lg:col-span-7 reveal">
+      <div class="label text-graphite-500 mb-5 flex items-center gap-2">
+        <span class="w-6 h-px bg-coal-900"></span>
+        Nasza historia
+      </div>
+      <h2 class="display upper-tight font-bold text-coal-900 text-4xl md:text-5xl lg:text-6xl leading-[0.95] mb-8">
+        Gotujemy z tych<br/>
+        samych receptur,<br/>
+        z których nasze<br/>
+        <span class="text-signal-500">babcie gotowały</span><br/>
+        po szychcie.
+      </h2>
+
+      <div class="space-y-5 text-coal-900/80 text-lg leading-relaxed max-w-xl">
+        <p>
+          Catering Śląski powstał w 2019 w Dąbrowie Górniczej. Zaczynaliśmy od jednej kuchni
+          i 12 zaufanych receptur. Dziś obsługujemy 25+ miast i mamy 200+ pozycji w menu.
+        </p>
+        <p>
+          Ale wciąż gotujemy ze świeżych składników. Wciąż mówimy "nie"
+          gotowcom z hurtowni. Tylko że dziś można nas zamówić jednym klikiem.
+        </p>
+        <p class="hand text-2xl text-signal-500">— bo śląski smak to nie nostalgia. to standard.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-0 mt-10 border-t border-l border-coal-900 max-w-lg">
+        <div class="border-b border-r border-coal-900 p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">7</div>
+          <div class="label text-graphite-500 mt-2">Lat</div>
+        </div>
+        <div class="border-b border-r border-coal-900 p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">200+</div>
+          <div class="label text-graphite-500 mt-2">Pozycji</div>
+        </div>
+        <div class="border-b border-coal-900 p-5">
+          <div class="display upper font-bold text-coal-900 text-3xl num-block">12</div>
+          <div class="label text-graphite-500 mt-2">Kucharzy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 reveal">
+      <div class="relative grainy overflow-hidden border-2 border-coal-900">
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=900&q=85" alt="" class="hero-img w-full aspect-[4/5] object-cover grayscale" />
+        <div class="absolute bottom-5 left-5 right-5 bg-paper-100 p-5 border border-coal-900">
+          <div class="label text-signal-500 mb-2">Babcia Hilda · 1932-2018</div>
+          <p class="display upper-tight font-bold text-coal-900 text-lg leading-tight">
+            „Robić jeść z miłością.<br/>
+            Reszty się ludzie domyślą."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section class="bg-coal-900 text-paper-100 py-20 lg:py-32">
+  <div class="max-w-5xl mx-auto px-6 lg:px-10 text-center reveal">
+    <h2 class="display upper-tight font-bold text-paper-100 text-5xl md:text-6xl lg:text-7xl leading-[0.95] mb-8">
+      Twoje wspomnienia<br/>
+      zasługują na<br/>
+      <span class="text-signal-500">pełną obecność.</span>
+    </h2>
+    <p class="text-paper-100/70 text-lg mb-10 max-w-2xl mx-auto">
+      Otwórz przeglądarkę, opisz event, dostań menu z wyceną w 15 sekund.
+      Albo zadzwoń. Albo napisz. My się dostosujemy.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="02-konfigurator-b2b.html" class="btn-signal">
+        Zamów teraz
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="tel:+48793001900" class="btn-ghost-light">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+        +48 793 001 900
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="bg-coal-900 text-paper-100 border-t border-coal-700 py-16">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 mb-12">
+      <div class="lg:col-span-4">
+        <div class="flex items-center gap-3 mb-5">
+          <svg class="logo-symbol" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#F5F2EC" stroke-width="2" fill="none" stroke-linecap="square">
+              <line x1="35" y1="8" x2="45" y2="8"/><line x1="35" y1="8" x2="35" y2="16"/><line x1="45" y1="8" x2="45" y2="16"/><line x1="33" y1="16" x2="47" y2="16"/>
+              <line x1="25" y1="16" x2="25" y2="60"/><line x1="55" y1="16" x2="55" y2="60"/><line x1="40" y1="16" x2="25" y2="42"/><line x1="40" y1="16" x2="55" y2="42"/>
+              <line x1="25" y1="24" x2="55" y2="24"/><line x1="25" y1="32" x2="55" y2="32"/><line x1="25" y1="42" x2="55" y2="42"/><line x1="25" y1="52" x2="55" y2="52"/>
+              <line x1="15" y1="60" x2="65" y2="60"/><line x1="15" y1="60" x2="15" y2="78"/><line x1="65" y1="60" x2="65" y2="78"/><line x1="15" y1="78" x2="65" y2="78"/>
+              <line x1="3" y1="88" x2="77" y2="88"/><line x1="3" y1="94" x2="77" y2="94"/>
+            </g>
+          </svg>
+          <div class="display upper-tight font-bold text-paper-100">
+            <div>Catering</div>
+            <div>Śląski <span class="font-normal">_</span></div>
+          </div>
+        </div>
+        <p class="text-paper-100/60 leading-relaxed max-w-sm mb-6 text-sm">
+          Catering eventowy i lunch firmowy od 2019 roku w Dąbrowie Górniczej. Górny Śląsk.
+        </p>
+        <div class="flex gap-2">
+          <a href="#" class="w-10 h-10 border border-paper-100/20 hover:bg-signal-500 hover:border-signal-500 flex items-center justify-center transition" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.46H15.2c-1.24 0-1.62.77-1.62 1.56V12h2.77l-.44 2.89h-2.32v6.99C18.34 21.12 22 16.99 22 12z"/></svg>
+          </a>
+          <a href="#" class="w-10 h-10 border border-paper-100/20 hover:bg-signal-500 hover:border-signal-500 flex items-center justify-center transition" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.89 2.38 7.15 2.23 8.42 2.18 8.8 2.16 12 2.16zm0 3.84c-3.32 0-6 2.68-6 6s2.68 6 6 6 6-2.68 6-6-2.68-6-6-6zm0 9.83c-2.12 0-3.83-1.72-3.83-3.83S9.88 8.17 12 8.17s3.83 1.72 3.83 3.83-1.71 3.83-3.83 3.83zm6.41-11.32c-.77 0-1.4.63-1.4 1.4s.63 1.4 1.4 1.4 1.4-.63 1.4-1.4-.63-1.4-1.4-1.4z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="label text-paper-100/50 mb-4">Menu</div>
+        <ul class="space-y-2.5 text-sm text-paper-100/80">
+          <li><a href="#" class="hover:text-signal-500 transition">Catering BOX</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Finger food</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Zimna płyta</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Komunia 2026</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Lunch firmowy</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="label text-paper-100/50 mb-4">Firma</div>
+        <ul class="space-y-2.5 text-sm text-paper-100/80">
+          <li><a href="#" class="hover:text-signal-500 transition">O nas</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Realizacje</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Blog</a></li>
+          <li><a href="#" class="hover:text-signal-500 transition">Praca</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-4">
+        <div class="label text-paper-100/50 mb-4">Kontakt</div>
+        <ul class="space-y-2.5 text-sm text-paper-100/80">
+          <li><a href="tel:+48793001900" class="hover:text-signal-500 transition">+48 793 001 900</a></li>
+          <li><a href="mailto:zamowienia@cateringslaski.pl" class="hover:text-signal-500 transition">zamowienia@cateringslaski.pl</a></li>
+          <li class="pt-2 text-paper-100/60">Marcina Kasprzaka 256<br/>41-303 Dąbrowa Górnicza</li>
+          <li class="text-paper-100/60">Pn–Nd · 8:00–17:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-paper-100/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-paper-100/40">
+      <div>© 2026 Catering Śląski · Wszystkie prawa zastrzeżone</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-signal-500 transition">Polityka prywatności</a>
+        <a href="#" class="hover:text-signal-500 transition">Regulamin</a>
+        <a href="#" class="hover:text-signal-500 transition">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// === Reveal on scroll ===
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(r => io.observe(r));
+
+// === AI Generator demo ===
+const briefs = [
+  {
+    text: "100 osób, urodziny 40-stka, sobota wieczór, ok 80 zł/osoba, 30% wegetariańskie, koktajl party.",
+    items: [
+      ['3× BOX koktajlowy II', '1 020 zł'],
+      ['2× BOX wege', '440 zł'],
+      ['2× BOX z mini burgerami', '580 zł'],
+      ['1× BOX finger food', '370 zł'],
+      ['1× BOX ze słodkościami', '240 zł'],
+      ['Patera mięs i serów', '890 zł'],
+      ['Słodki bufet', '1 240 zł'],
+      ['Obsługa kelnerska 4h × 2', '720 zł']
+    ],
+    total: '5 500 zł'
+  },
+  {
+    text: "80 osób, komunia syna, niedziela południe, 120 zł/os, tradycyjne śląskie z 20% wegetariańskie.",
+    items: [
+      ['Rosół z makaronem (80 os)', '1 200 zł'],
+      ['Rolada śląska + kluski (60)', '2 400 zł'],
+      ['Filet z indyka (20)', '600 zł'],
+      ['Surówki śląskie 4 rodz.', '480 zł'],
+      ['Zimna płyta premium', '1 480 zł'],
+      ['Tort komunijny 80 os', '1 360 zł'],
+      ['Napoje + soki', '720 zł']
+    ],
+    total: '8 240 zł'
+  },
+  {
+    text: "30 osób, event firmowy, czwartek 14:00, lunch dla biura, 60 zł/os, opcje wege i bezglutenowe.",
+    items: [
+      ['Lunch box premium x 24', '1 200 zł'],
+      ['Lunch box vege x 6', '270 zł'],
+      ['Sałatki mix (30 os)', '380 zł'],
+      ['Owoce sezonowe', '180 zł'],
+      ['Woda + soki', '270 zł']
+    ],
+    total: '2 300 zł'
+  },
+  {
+    text: "150 osób, wesele, sobota całą noc, 150 zł/os, 60% mięsne, 30% wege, 10% wegan, słodki bufet.",
+    items: [
+      ['Menu główne 3 dania (mięsne)', '8 400 zł'],
+      ['Menu wege 3 dania', '3 150 zł'],
+      ['Menu wegan 3 dania', '1 200 zł'],
+      ['Zimna płyta premium', '2 980 zł'],
+      ['Słodki stół 5m', '4 200 zł'],
+      ['Obsługa 8h × 6 os', '4 320 zł'],
+      ['Napoje + drinki', '2 100 zł']
+    ],
+    total: '22 470 zł'
+  }
+];
+
+const briefEl = document.getElementById('briefText');
+const menuEl = document.getElementById('menuResult');
+const totalEl = document.getElementById('totalPrice');
+let typeTimer = null;
+
+function showBrief(idx) {
+  const b = briefs[idx];
+  if (typeTimer) clearInterval(typeTimer);
+  briefEl.textContent = '';
+  menuEl.innerHTML = '';
+  let i = 0;
+  typeTimer = setInterval(() => {
+    if (i < b.text.length) {
+      briefEl.textContent += b.text[i++];
+    } else {
+      clearInterval(typeTimer);
+      b.items.forEach((it, k) => {
+        setTimeout(() => {
+          const row = document.createElement('div');
+          row.className = 'flex items-baseline justify-between text-sm opacity-0 transition-opacity duration-300 border-b border-paper-100/10 pb-2';
+          row.innerHTML = `<span class="text-paper-100">${it[0]}</span><span class="text-signal-500 font-semibold whitespace-nowrap num-block">${it[1]}</span>`;
+          menuEl.appendChild(row);
+          requestAnimationFrame(() => row.classList.remove('opacity-0'));
+        }, k * 120);
+      });
+      setTimeout(() => totalEl.textContent = b.total, b.items.length * 120 + 200);
+    }
+  }, 25);
+}
+
+window.addEventListener('load', () => showBrief(0));
+
+document.querySelectorAll('.briefChip').forEach((chip, idx) => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.briefChip').forEach(c => c.classList.remove('active','bg-coal-900','text-paper-100'));
+    chip.classList.add('active','bg-coal-900','text-paper-100');
+    showBrief(idx);
+  });
+});
+
+// blink cursor keyframe (inline since tailwind doesn't define)
+const style = document.createElement('style');
+style.textContent = '@keyframes blink { 50% { opacity: 0; } }';
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
