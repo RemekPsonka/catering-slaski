@@ -1,6 +1,6 @@
 import { model } from "@medusajs/framework/utils"
 
-export const TimeSlot = model.define("delivery_time_slot", {
+export const TimeSlot = model.define("DeliveryTimeSlot", {
   id: model.id().primaryKey(),
   delivery_zone_id: model.text(),
   slot_date: model.dateTime(),
@@ -12,7 +12,7 @@ export const TimeSlot = model.define("delivery_time_slot", {
   admin_note: model.text().nullable(),
 })
 
-export const SlotReservation = model.define("slot_reservation", {
+export const SlotReservation = model.define("SlotReservation", {
   id: model.id().primaryKey(),
   time_slot_id: model.text(),
   cart_id: model.text(),

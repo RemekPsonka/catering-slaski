@@ -9,7 +9,7 @@ import { model } from "@medusajs/framework/utils"
  *
  * Schema w infra/postgres/init.sql tworzy ją jako geometry(MultiPolygon, 4326).
  */
-export const DeliveryZone = model.define("delivery_zone", {
+export const DeliveryZone = model.define("DeliveryZone", {
   id: model.id({ prefix: "dz" }).primaryKey(),
   name: model.text(),
   slug: model.text().unique(),
