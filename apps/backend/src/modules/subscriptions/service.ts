@@ -26,6 +26,8 @@ class SubscriptionsService extends MedusaService({
     const now = new Date()
     const nextRun = this.computeNextRunAt(now, input.frequency, input.weekdays)
 
+    // @ts-ignore
+
     return this.createSubscriptions({
       ...input,
       started_at: now,

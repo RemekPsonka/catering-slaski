@@ -22,7 +22,7 @@ export default async function orderPaidBilling({
     relations: ["items", "shipping_address", "billing_address", "customer", "payment_collections.payments"],
   })
 
-  if (order.payment_status !== "captured") return
+  if ((order as any).payment_status !== "captured") return
 
   const metaResult = await knex.raw(
     `SELECT * FROM order_catering_metadata WHERE order_id = ?`,
