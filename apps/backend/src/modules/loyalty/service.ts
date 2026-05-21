@@ -2,11 +2,11 @@ import { MedusaService } from "@medusajs/framework/utils"
 import { LoyaltyAccount, LoyaltyTransaction } from "./models/loyalty"
 import { randomBytes } from "node:crypto"
 
-const TIERS: Array<{ name: "brąz" | "srebro" | "złoto" | "diament"; threshold: number }> = [
-  { name: "brąz",     threshold: 0 },
-  { name: "srebro",   threshold: 1000 },
-  { name: "złoto",    threshold: 1500 },
-  { name: "diament",  threshold: 5000 },
+const TIERS: Array<{ name: "bronze" | "silver" | "gold" | "diamond"; threshold: number }> = [
+  { name: "bronze",     threshold: 0 },
+  { name: "silver",   threshold: 1000 },
+  { name: "gold",    threshold: 1500 },
+  { name: "diamond",  threshold: 5000 },
 ]
 
 const POINTS_PER_PLN = 1 // 1 punkt = 1 zł wydany
@@ -118,7 +118,7 @@ class LoyaltyService extends MedusaService({
   /**
    * Compute tier name and progress percent toward next tier.
    */
-  computeTier(lifetimePoints: number): { tier: "brąz" | "srebro" | "złoto" | "diament"; progressPct: number } {
+  computeTier(lifetimePoints: number): { tier: "bronze" | "silver" | "gold" | "diamond"; progressPct: number } {
     let current = TIERS[0]
     let next = TIERS[1]
     for (let i = 0; i < TIERS.length; i++) {

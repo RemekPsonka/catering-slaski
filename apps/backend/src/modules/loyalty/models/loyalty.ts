@@ -14,7 +14,7 @@ export const LoyaltyAccount = model.define(
     points_balance: model.number().default(0),
     points_lifetime: model.number().default(0), // for tier calculation
 
-    tier: model.enum(["brąz", "srebro", "złoto", "diament"]).default("brąz"),
+    tier: model.enum(["bronze", "silver", "gold", "diamond"]).default("bronze"),
     tier_progress_pct: model.number().default(0),
 
     referral_code: model.text().unique().nullable(),
