@@ -23,9 +23,11 @@ import Stripe from "stripe"
  *  - duplicate event = 200 OK bez side effects
  */
 
-const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
-  apiVersion: "2025-02-24.acacia",
-})
+function getStripe(): Stripe {
+  const key = process.env.STRIPE_API_KEY
+  if (!key) throw new Error("STRIPE_API_KEY is not set")
+  return new Stripe(key, { apiVersion: "2025-02-24.acacia" })
+}
 
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
@@ -49,7 +51,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
       console.error("[stripe-webhook] rawBody missing — middleware misconfigured")
       return res.status(500).json({ error: "Webhook misconfigured: raw body unavailable" })
     }
-    event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret)
+    event = getStripe().webhooks.constructEvent(rawBody, signature, webhookSecret)
   } catch (err: any) {
     console.error(`[stripe-webhook] Signature verification failed: ${err.message}`)
     return res.status(400).json({ error: `Webhook signature invalid: ${err.message}` })
