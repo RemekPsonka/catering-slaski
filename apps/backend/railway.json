@@ -1,8 +1,8 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "pnpm install --frozen-lockfile && pnpm build"
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "apps/backend/Dockerfile"
   },
   "deploy": {
     "startCommand": "pnpm db:migrate && pnpm start",
@@ -10,19 +10,6 @@
     "restartPolicyMaxRetries": 3,
     "numReplicas": 1,
     "healthcheckPath": "/health",
-    "healthcheckTimeout": 30
-  },
-  "environments": {
-    "production": {
-      "deploy": {
-        "startCommand": "pnpm db:migrate && pnpm start",
-        "numReplicas": 1
-      }
-    },
-    "staging": {
-      "deploy": {
-        "startCommand": "pnpm db:migrate && pnpm start"
-      }
-    }
+    "healthcheckTimeout": 60
   }
 }
