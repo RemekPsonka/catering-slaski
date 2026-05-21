@@ -17,7 +17,7 @@ export const LoyaltyAccount = model.define(
     tier: model.enum(["brąz", "srebro", "złoto", "diament"]).default("brąz"),
     tier_progress_pct: model.number().default(0),
 
-    referral_code: model.text().nullable().unique(),
+    referral_code: model.text().unique().nullable(),
     referred_by_customer_id: model.text().nullable(),
 
     last_activity_at: model.dateTime().nullable(),

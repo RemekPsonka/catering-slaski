@@ -89,7 +89,7 @@ class SubscriptionsService extends MedusaService({
     const [sub] = await this.listSubscriptions({ id: subscriptionId }, { take: 1 })
     if (!sub) throw new Error("Subscription not found")
 
-    const nextRun = this.computeNextRunAt(new Date(), sub.frequency, sub.weekdays as number[] | null)
+    const nextRun = this.computeNextRunAt(new Date(), sub.frequency, sub.weekdays as unknown as number[] | null)
 
     return this.updateSubscriptions({
       id: subscriptionId,
@@ -132,7 +132,7 @@ class SubscriptionsService extends MedusaService({
     const nextRun = this.computeNextRunAt(
       sub.next_run_at as Date,
       sub.frequency,
-      sub.weekdays as number[] | null
+      sub.weekdays as unknown as number[] | null
     )
 
     return this.updateSubscriptions({

@@ -39,7 +39,7 @@ async function getRedis(): Promise<Redis | null> {
   if (!process.env.REDIS_URL) return null
 
   try {
-    const { default: Redis } = await import("ioredis")
+    const Redis: any = (await import("ioredis")).default
     redisClient = new Redis(process.env.REDIS_URL, {
       maxRetriesPerRequest: 1,
       enableReadyCheck: false,
