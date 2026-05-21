@@ -83,9 +83,9 @@ export default async function orderPaidBilling({
     customer: {
       id: order.customer_id,
       email: order.email,
-      phone: order.shipping_address?.phone || (order.customer as any)?.phone,
-      first_name: (order.customer as any)?.first_name || order.shipping_address?.first_name,
-      last_name: (order.customer as any)?.last_name || order.shipping_address?.last_name,
+      phone: order.shipping_address?.phone || (((order as any).customer))?.phone,
+      first_name: (((order as any).customer))?.first_name || order.shipping_address?.first_name,
+      last_name: (((order as any).customer))?.last_name || order.shipping_address?.last_name,
       is_business: meta.requires_invoice,
       billing_address: {
         street: order.billing_address?.address_1 || order.shipping_address?.address_1,

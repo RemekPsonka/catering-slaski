@@ -28,7 +28,7 @@ export default async function orderCompletedLoyaltyHandler({
       return
     }
 
-    if (!order.total || order.total <= 0) {
+    if (!Number(order.total) || Number(order.total) <= 0) {
       logger.warn(`Order ${data.id} has zero total — skipping loyalty earn`)
       return
     }
@@ -36,7 +36,7 @@ export default async function orderCompletedLoyaltyHandler({
     const result = await loyaltyService.earnFromOrder(
       order.customer_id,
       order.id,
-      Math.round(order.total * 100) // Medusa total is in major units
+      Math.round((Number(order.total) || 0) * 100) // Medusa total is in major units
     )
 
     logger.info(

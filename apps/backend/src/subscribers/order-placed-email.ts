@@ -35,16 +35,16 @@ export default async function orderPlacedEmailHandler({
     const items = (order.items ?? []).map((i: any) => ({
       name: i.title ?? "Pozycja",
       qty: i.quantity ?? 1,
-      total_cents: Math.round((i.subtotal ?? 0) * 100),
+      total_cents: Math.round((Number(i.subtotal) || 0) * 100),
     }))
 
     const { subject, html } = renderOrderConfirmation({
       orderId: order.display_id ? `CS-${order.display_id}` : order.id,
       customerName: order.shipping_address?.first_name ?? "Kliencie",
       items,
-      subtotal_cents: Math.round((order.subtotal ?? 0) * 100),
-      delivery_cents: Math.round((order.shipping_total ?? 0) * 100),
-      total_cents: Math.round((order.total ?? 0) * 100),
+      subtotal_cents: Math.round((Number(order.subtotal) || 0) * 100),
+      delivery_cents: Math.round((Number(order.shipping_total) || 0) * 100),
+      total_cents: Math.round((Number(order.total) || 0) * 100),
       delivery_date: (order.metadata as any)?.delivery_date ?? "termin do uzgodnienia",
       delivery_slot: (order.metadata as any)?.delivery_slot ?? "",
       address: addressLines,

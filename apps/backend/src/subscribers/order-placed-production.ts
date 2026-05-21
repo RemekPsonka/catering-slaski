@@ -123,7 +123,7 @@ export default async function orderPlacedProduction({
       },
       contact: {
         email: order.email,
-        phone: order.shipping_address?.phone || order.customer?.phone,
+        phone: order.shipping_address?.phone || (order as any).customer?.phone,
       },
     },
 

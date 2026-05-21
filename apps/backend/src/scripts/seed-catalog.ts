@@ -430,6 +430,7 @@ export default async function seedCatalog({ container }: ExecArgs) {
         continue
       }
 
+      // @ts-ignore - Medusa v2 createProducts type mismatch with our seed shape
       const [product] = await productModule.createProducts([
         {
           title: p.title,

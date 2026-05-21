@@ -33,7 +33,7 @@ class CateringAttributesService extends MedusaService({
     let filtered = attrs
     if (filter.occasion) {
       filtered = attrs.filter((a) => {
-        const tags = (a.occasion_tags as string[] | null) ?? []
+        const tags = ((a.occasion_tags as any) as string[] | null) ?? []
         return tags.includes(filter.occasion!)
       })
     }

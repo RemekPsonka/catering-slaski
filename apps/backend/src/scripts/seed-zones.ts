@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Seed: domyślne 3 strefy dostawy dla Catering Śląski
  *
