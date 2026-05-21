@@ -28,7 +28,7 @@ export default defineConfig({
   modules: [
     // TEMPORARILY DISABLED for diagnostic
     // { resolve: "./src/modules/delivery-zones" },
-    // { resolve: "./src/modules/time-slots" },
+    { resolve: "./src/modules/time-slots" },
     // { resolve: "./src/modules/catering-attributes" },
     // { resolve: "./src/modules/subscriptions" },
     // { resolve: "./src/modules/loyalty" },
