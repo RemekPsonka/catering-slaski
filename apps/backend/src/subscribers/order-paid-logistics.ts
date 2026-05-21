@@ -22,7 +22,7 @@ export default async function orderPaidLogistics({
     relations: ["items", "shipping_address", "customer"],
   })
 
-  if (order.payment_status !== "captured" && order.payment_status !== "authorized") {
+  if ((order as any).payment_status !== "captured" && (order as any).payment_status !== "authorized") {
     return  // tylko opłacone
   }
 

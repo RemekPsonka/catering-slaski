@@ -5,11 +5,11 @@
   "description": "Catering \u015al\u0105ski \u2014 Medusa.js backend with catering custom modules",
   "main": "dist/main.js",
   "scripts": {
-    "build": "medusa build",
+    "build": "NODE_OPTIONS=\"--import tsx\" medusa build",
     "dev": "medusa develop",
-    "start": "medusa start",
+    "start": "NODE_OPTIONS=\"--import tsx\" medusa start",
     "db:create": "medusa db:create",
-    "db:migrate": "medusa db:migrate",
+    "db:migrate": "NODE_OPTIONS=\"--import tsx\" medusa db:migrate",
     "db:rollback": "medusa db:rollback",
     "db:reset": "medusa db:create --drop && medusa db:create && pnpm db:migrate && pnpm db:seed",
     "db:seed": "tsx src/scripts/seed.ts",
@@ -47,13 +47,13 @@
     "zod": "^3.24.1",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
-    "date-fns-tz": "^3.2.0"
+    "date-fns-tz": "^3.2.0",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.4.0",
     "@types/node": "^22.10.0",
     "@types/react": "^18.3.18",
-    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8",
     "eslint": "^9.17.0",

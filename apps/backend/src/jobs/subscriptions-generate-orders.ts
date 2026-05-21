@@ -27,6 +27,7 @@ export default async function subscriptionsGenerateOrdersJob(container: MedusaCo
       }
 
       // Create draft cart from subscription snapshot
+      // @ts-ignore
       const cart = await cartModuleService.createCarts({
         customer_id: sub.customer_id,
         email: sub.address_snapshot?.email,

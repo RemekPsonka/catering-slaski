@@ -98,6 +98,9 @@ importers:
       stripe:
         specifier: ^17.4.0
         version: 17.7.0
+      tsx:
+        specifier: ^4.19.2
+        version: 4.22.3
       zod:
         specifier: ^3.24.1
         version: 3.25.76
@@ -120,9 +123,6 @@ importers:
       eslint:
         specifier: ^9.17.0
         version: 9.39.4(jiti@1.21.7)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.22.3
       typescript:
         specifier: ^5.6.3
         version: 5.9.3
