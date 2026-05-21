@@ -1,8 +1,8 @@
-const { loadEnv, defineConfig, Modules } = require("@medusajs/framework/utils")
+import { loadEnv, defineConfig, Modules } from "@medusajs/framework/utils"
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd())
 
-module.exports = defineConfig({
+export default defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     databaseDriverOptions: {
@@ -18,7 +18,7 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret_change_me",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret_change_me",
     },
-    workerMode: process.env.MEDUSA_WORKER_MODE || "shared",
+    workerMode: (process.env.MEDUSA_WORKER_MODE as "shared" | "server" | "worker") || "shared",
   },
   admin: {
     disable: process.env.DISABLE_ADMIN === "true",
@@ -33,5 +33,4 @@ module.exports = defineConfig({
     { resolve: "./src/modules/loyalty" },
     { resolve: "./src/modules/external-webhooks" },
   ],
-  plugins: [],
 })
