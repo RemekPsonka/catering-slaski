@@ -58,7 +58,7 @@ class CateringAttributesService extends MedusaService({
   async getCrossSells(productId: string): Promise<string[]> {
     const [attr] = await this.listProductAttributes({ product_id: productId }, { take: 1 })
     if (!attr) return []
-    return (attr.cross_sell_ids as string[] | null) ?? []
+    return ((attr.cross_sell_ids as any) as string[] | null) ?? []
   }
 
   /**
