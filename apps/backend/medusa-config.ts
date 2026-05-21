@@ -26,6 +26,18 @@ export default defineConfig({
     backendUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
   },
   modules: [
+    {
+      resolve: "@medusajs/medusa/event-bus-redis",
+      options: { redisUrl: process.env.REDIS_URL },
+    },
+    {
+      resolve: "@medusajs/medusa/cache-redis",
+      options: { redisUrl: process.env.REDIS_URL, ttl: 30 },
+    },
+    {
+      resolve: "@medusajs/medusa/workflow-engine-redis",
+      options: { redis: { url: process.env.REDIS_URL } },
+    },
     { resolve: "./src/modules/delivery-zones" },
     { resolve: "./src/modules/time-slots" },
     { resolve: "./src/modules/catering-attributes" },
