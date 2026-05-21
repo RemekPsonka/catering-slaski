@@ -28,12 +28,9 @@ type CreateZoneInput = Omit<DeliveryZoneType, "id" | "created_at" | "updated_at"
 export default class DeliveryZonesService extends MedusaService({
   DeliveryZone,
 }) {
-  private readonly knex_
-
+  // knex is obtained lazily via getKnex_() from mikro-orm manager — no field needed
   constructor(container: MedusaContainer) {
     super(...arguments)
-    // Knex instance dla raw queries (PostGIS)
-    this.knex_ = (container as any).__knex || (container as any).manager?.config?.get?.("knex")
   }
 
   /**
