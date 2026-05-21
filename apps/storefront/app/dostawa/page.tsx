@@ -14,6 +14,7 @@ export async function generateMetadata() {
 }
 import Link from "next/link"
 import { MapPin, Clock, Truck, AlertCircle } from "lucide-react"
+import { PostalLookup } from "@/components/delivery/PostalLookup"
 
 
 

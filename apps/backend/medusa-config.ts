@@ -42,6 +42,12 @@ export default defineConfig({
     { resolve: "./src/modules/subscriptions" },
     { resolve: "./src/modules/loyalty" },
     { resolve: "./src/modules/external-webhooks" },
+    { resolve: "./src/modules/delivery-methods" },
+    { resolve: "./src/modules/product-availability" },
+    { resolve: "./src/modules/newsletter" },
+    { resolve: "./src/modules/dietary-profile" },
+    { resolve: "./src/modules/b2b-accounts" },
+    { resolve: "./src/modules/production" },
     { resolve: "./src/modules/seo-meta" },
     { resolve: "./src/modules/resend-notification" },
     {

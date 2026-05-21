@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { LogoSymbol } from "@/components/brand/LogoSymbol"
+import { NewsletterSignup } from "@/components/newsletter/NewsletterSignup"
 
 export function Footer() {
   return (
@@ -47,6 +48,9 @@ export function Footer() {
               <li className="pt-2 text-paper-100/60">Marcina Kasprzaka 256<br/>41-303 Dąbrowa Górnicza</li>
               <li className="text-paper-100/60">Pn–Nd · 8:00–17:00</li>
             </ul>
+            <div className="mt-6 pt-6 border-t border-paper-100/10">
+              <NewsletterSignup source="footer" />
+            </div>
           </div>
         </div>
 
@@ -55,6 +59,7 @@ export function Footer() {
           <div className="flex gap-6">
             <Link href="/polityka-prywatnosci" className="hover:text-signal-500 transition">Polityka prywatności</Link>
             <Link href="/regulamin" className="hover:text-signal-500 transition">Regulamin</Link>
+            <Link href="/zwroty" className="hover:text-signal-500 transition">Reklamacje i zwroty</Link>
           </div>
         </div>
       </div>
