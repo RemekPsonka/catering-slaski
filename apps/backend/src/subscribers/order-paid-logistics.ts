@@ -129,7 +129,7 @@ export default async function orderPaidLogistics({
       },
       contact: {
         email: order.email,
-        phone: order.shipping_address?.phone || (order.customer as any)?.phone,
+        phone: order.shipping_address?.phone || ((order as any).customer)?.phone,
       },
       delivery_instructions: meta.delivery_instructions,
       preferred_arrival_window: {

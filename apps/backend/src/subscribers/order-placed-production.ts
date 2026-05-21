@@ -95,7 +95,7 @@ export default async function orderPlacedProduction({
       display_number: `CS-${new Date().getFullYear()}-${(order as any).display_id?.toString().padStart(5, "0") || "00000"}`,
       placed_at: order.created_at,
       source: meta.source || "storefront",
-      payment_status: order.payment_status,
+      payment_status: (order as any).payment_status,
       currency: order.currency_code,
     },
 

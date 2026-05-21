@@ -32,7 +32,7 @@ export default async function orderPaidBilling({
   if (!meta) return
 
   // Get Stripe payment intent ID from payment provider data
-  const payment = order.payment_collections?.[0]?.payments?.[0]
+  const payment = (order as any).payment_collections?.[0]?.payments?.[0]
   const stripePaymentIntent = (payment?.data as any)?.id || null
   const stripeChargeId = (payment?.data as any)?.charges?.data?.[0]?.id || null
 
