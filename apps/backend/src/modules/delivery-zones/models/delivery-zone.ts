@@ -27,7 +27,7 @@ export const DeliveryZone = model.define("delivery_zone", {
   lead_time_days: model.number().default(0),
   cutoff_hour: model.number().default(18),
   cutoff_minute: model.number().default(0),
-  allowed_product_categories: model.json().default(["catering_boxes"]),
+  allowed_product_categories: model.json().default({ categories: ["catering_boxes"] }),
   max_transport_hours: model.number().nullable(),
   priority: model.number().default(100),
   is_active: model.boolean().default(true),
