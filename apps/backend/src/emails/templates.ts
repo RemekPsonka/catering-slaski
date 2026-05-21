@@ -279,3 +279,153 @@ function escapeHtml(str: string | undefined | null): string {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;")
 }
+
+/**
+ * renderPaymentCaptured — payment received, order moving to production.
+ */
+export function renderPaymentCaptured(params: {
+  orderId: string
+  customerName: string
+  amountPaid_cents: number
+  method?: string
+}): { subject: string; html: string } {
+  const fmt = (c: number) =>
+    new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN" }).format(c / 100)
+  const subject = `Płatność zaksięgowana ✓ — zamówienie ${params.orderId}`
+  const content = `
+        <h1 style="margin:0 0 16px; font-size:24px; color:${COLORS.coal};">Płatność zaksięgowana</h1>
+        <p style="margin:0 0 12px;">Cześć ${params.customerName},</p>
+        <p style="margin:0 0 12px;">Otrzymaliśmy <strong>${fmt(params.amountPaid_cents)}</strong>${
+          params.method ? ` (${params.method})` : ""
+        }. Twoje zamówienie wchodzi do produkcji.</p>
+        <p style="margin:0 0 12px;">Numer zamówienia: <strong>${params.orderId}</strong>.</p>
+        <p style="margin:24px 0 0; color:${COLORS.graphite};">Wkrótce dostaniesz mail z dokładną godziną dostawy.</p>`
+  return { subject, html: wrap(subject, "Płatność OK — gotujemy.", content) }
+}
+
+/**
+ * renderOrderShipped — order is en route.
+ */
+export function renderOrderShipped(params: {
+  orderId: string
+  customerName: string
+  trackingUrl?: string
+  driverName?: string
+  driverPhone?: string
+  etaWindow?: string
+}): { subject: string; html: string } {
+  const subject = `W drodze! Twoje zamówienie ${params.orderId}`
+  const content = `
+        <h1 style="margin:0 0 16px; font-size:24px; color:${COLORS.coal};">Już jedziemy</h1>
+        <p style="margin:0 0 12px;">Cześć ${params.customerName},</p>
+        <p style="margin:0 0 12px;">Twoje zamówienie <strong>${params.orderId}</strong> wyruszyło z naszej kuchni.</p>
+        ${params.etaWindow ? `<p style="margin:0 0 12px;"><strong>Spodziewany czas dostawy:</strong> ${params.etaWindow}</p>` : ""}
+        ${
+          params.driverName
+            ? `<p style="margin:0 0 12px;"><strong>Kierowca:</strong> ${params.driverName}${
+                params.driverPhone ? ` · ${params.driverPhone}` : ""
+              }</p>`
+            : ""
+        }
+        ${
+          params.trackingUrl
+            ? `<p style="margin:24px 0;"><a href="${params.trackingUrl}" style="background:${COLORS.signal}; color:#fff; padding:14px 24px; text-decoration:none; display:inline-block; font-weight:600;">Śledź dostawę</a></p>`
+            : ""
+        }`
+  return { subject, html: wrap(subject, "Jesteśmy w drodze.", content) }
+}
+
+/**
+ * renderOrderDelivered — confirmation + review CTA.
+ */
+export function renderOrderDelivered(params: {
+  orderId: string
+  customerName: string
+  reviewUrl?: string
+}): { subject: string; html: string } {
+  const subject = `Dostarczone — zamówienie ${params.orderId}`
+  const content = `
+        <h1 style="margin:0 0 16px; font-size:24px; color:${COLORS.coal};">Smacznego!</h1>
+        <p style="margin:0 0 12px;">Cześć ${params.customerName},</p>
+        <p style="margin:0 0 12px;">Twoje zamówienie ${params.orderId} zostało dostarczone. Mamy nadzieję, że było jak należy — mocno, prosto, dobrze.</p>
+        ${
+          params.reviewUrl
+            ? `<p style="margin:24px 0;"><a href="${params.reviewUrl}" style="background:${COLORS.signal}; color:#fff; padding:14px 24px; text-decoration:none; display:inline-block; font-weight:600;">Zostaw opinię (2 minuty)</a></p>`
+            : ""
+        }
+        <p style="margin:24px 0 0; color:${COLORS.graphite}; font-size:13px;">Następna impreza? Zamów ponownie z poziomu <a href="${process.env.STOREFRONT_URL}/konto" style="color:${COLORS.signal};">swojego konta</a> — wszystkie adresy i ulubione już zapisane.</p>`
+  return { subject, html: wrap(subject, "Dostarczone. Dziękujemy!", content) }
+}
+
+/**
+ * renderAbandonedCart — gentle nudge for inactive cart after N hours.
+ */
+export function renderAbandonedCart(params: {
+  customerName: string
+  itemsCount: number
+  total_cents: number
+  resumeUrl: string
+  discountCode?: string
+}): { subject: string; html: string } {
+  const fmt = (c: number) =>
+    new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN" }).format(c / 100)
+  const subject = "Twój koszyk wciąż czeka — wróć i zamów do 16:00"
+  const content = `
+        <h1 style="margin:0 0 16px; font-size:24px; color:${COLORS.coal};">${params.customerName}, nie zapomnij!</h1>
+        <p style="margin:0 0 12px;">Twój koszyk z <strong>${params.itemsCount} ${
+          params.itemsCount === 1 ? "pozycją" : "pozycjami"
+        }</strong> (${fmt(params.total_cents)}) wciąż czeka. Zamów do 16:00 — dostarczymy jutro.</p>
+        ${
+          params.discountCode
+            ? `<p style="margin:0 0 12px; background:${COLORS.signal}1A; padding:12px 16px; border:1px solid ${COLORS.signal};">Bonus dla Ciebie: kod <strong style="color:${COLORS.signal};">${params.discountCode}</strong> — działa do końca dnia.</p>`
+            : ""
+        }
+        <p style="margin:24px 0;"><a href="${params.resumeUrl}" style="background:${COLORS.signal}; color:#fff; padding:14px 24px; text-decoration:none; display:inline-block; font-weight:600;">Wróć do koszyka</a></p>`
+  return { subject, html: wrap(subject, "Twój koszyk czeka.", content) }
+}
+
+/**
+ * renderB2BLeadReceived — admin notification for inbound B2B brief.
+ */
+export function renderB2BLeadReceived(params: {
+  company: string
+  contactName: string
+  email: string
+  phone?: string
+  briefText: string
+  estimatedValue?: number
+}): { subject: string; html: string } {
+  const subject = `[B2B] Nowy brief: ${params.company}`
+  const fmt = (c?: number) =>
+    c
+      ? new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN" }).format(c / 100)
+      : "—"
+  const content = `
+        <h1 style="margin:0 0 16px; font-size:24px; color:${COLORS.coal};">Nowy brief B2B</h1>
+        <table cellpadding="6" cellspacing="0" style="border-collapse:collapse; font-size:14px;">
+          <tr><td style="color:${COLORS.graphite};">Firma:</td><td><strong>${params.company}</strong></td></tr>
+          <tr><td style="color:${COLORS.graphite};">Kontakt:</td><td>${params.contactName}</td></tr>
+          <tr><td style="color:${COLORS.graphite};">E-mail:</td><td><a href="mailto:${params.email}">${params.email}</a></td></tr>
+          ${params.phone ? `<tr><td style="color:${COLORS.graphite};">Telefon:</td><td>${params.phone}</td></tr>` : ""}
+          <tr><td style="color:${COLORS.graphite};">Szac. wartość:</td><td><strong>${fmt(params.estimatedValue)}</strong></td></tr>
+        </table>
+        <p style="margin:16px 0 8px; color:${COLORS.graphite}; font-size:12px; text-transform:uppercase; letter-spacing:0.1em;">Brief</p>
+        <div style="background:${COLORS.bone}; padding:14px; border-left:3px solid ${COLORS.signal}; font-size:14px; white-space:pre-wrap;">${params.briefText}</div>`
+  return { subject, html: wrap(subject, "Nowy brief.", content) }
+}
+
+/**
+ * renderWelcomeCustomer — new customer signup welcome.
+ */
+export function renderWelcomeCustomer(params: {
+  customerName: string
+  loginUrl: string
+}): { subject: string; html: string } {
+  const subject = "Witaj w Cateringu Śląskim 👋"
+  const content = `
+        <h1 style="margin:0 0 16px; font-size:24px; color:${COLORS.coal};">Dzień dobry, ${params.customerName}!</h1>
+        <p style="margin:0 0 12px;">Konto utworzone. Tutaj zobaczysz wszystkie swoje zamówienia, zapisane adresy, subskrypcje i punkty lojalności.</p>
+        <p style="margin:24px 0;"><a href="${params.loginUrl}" style="background:${COLORS.signal}; color:#fff; padding:14px 24px; text-decoration:none; display:inline-block; font-weight:600;">Przejdź do konta</a></p>
+        <p style="margin:24px 0 0; color:${COLORS.graphite}; font-size:13px;">Pytania? Napisz na <a href="mailto:zamowienia@cateringslaski.pl" style="color:${COLORS.signal};">zamowienia@cateringslaski.pl</a> albo zadzwoń: <a href="tel:+48793001900" style="color:${COLORS.signal};">+48 793 001 900</a>.</p>`
+  return { subject, html: wrap(subject, "Konto gotowe.", content) }
+}

@@ -1,12 +1,22 @@
 import { Metadata } from "next"
+import { buildMetadata } from "@/lib/seo/metadata"
+
+export async function generateMetadata() {
+  return buildMetadata({
+    path: "/o-nas",
+    defaults: {
+      title: 'O Cateringu Śląskim — kuchnia z domowych receptur',
+      description: 'Catering Śląski — gotujemy mocno i prosto. Receptury od Hildy, dostawcy z Górnego Śląska, 187 ocen 4.9/5. Poznaj historię i ludzi, którzy gotują.',
+      canonical: "/o-nas",
+      keywords: ['catering Śląsk historia', 'kuchnia śląska', 'Catering Śląski o nas'],
+    },
+  })
+}
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, MapPin, Users, ChefHat, Award } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "O nas — Catering od 2019, Górny Śląsk",
-  description: "Catering Śląski to 7 lat domowej kuchni babci Hildy, 280+ obsłużonych firm, 1240+ rodzin. Trzy pokolenia, jedna pasja.",
-}
+
 
 const NUMBERS = [
   { value: "238", label: "Rodzin obsłużonych w 2025" },

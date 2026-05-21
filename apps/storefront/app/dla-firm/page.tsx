@@ -1,12 +1,22 @@
 import { Metadata } from "next"
+import { buildMetadata } from "@/lib/seo/metadata"
+
+export async function generateMetadata() {
+  return buildMetadata({
+    path: "/dla-firm",
+    defaults: {
+      title: 'Catering eventowy dla firm — konferencje, integracje, spotkania',
+      description: 'Dla zespołów, eventów, konferencji i spotkań partnerskich. Pełna obsługa: brief → menu → dostawa → utylizacja. Faktury VAT, payment terms 14 dni.',
+      canonical: "/dla-firm",
+      keywords: ['catering konferencyjny', 'catering eventowy Śląsk', 'B2B catering'],
+    },
+  })
+}
 import Link from "next/link"
 import { ArrowRight, Building2, Calendar, FileText, Shield, Sparkles, TrendingUp, Phone } from "lucide-react"
 import { EventBriefForm } from "@/components/configurator/EventBriefForm"
 
-export const metadata: Metadata = {
-  title: "Catering dla firm — wesela, komunie, eventy firmowe",
-  description: "Konfigurator B2B: opisz event, dostaniesz dopasowane menu z wyceną w 24h. Faktura VAT, NIP, dostawa Śląsk.",
-}
+
 
 const FEATURES = [
   { icon: FileText, title: "Faktura VAT",     desc: "NIP, przelew 14 dni, B2B onboarding bez papierów" },

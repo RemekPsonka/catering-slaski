@@ -6,10 +6,20 @@ import { DeadlineCountdown } from "@/components/menu/DeadlineCountdown"
 import { CategoryTabs } from "@/components/menu/CategoryTabs"
 import { FilterSidebar } from "@/components/menu/FilterSidebar"
 import { listProducts, formatPrice, priceFromProduct, type Product } from "@/lib/products"
+import { buildMetadata } from "@/lib/seo/metadata"
+import { buildBreadcrumbJsonLd, buildItemListJsonLd } from "@/lib/seo/schemas"
 
-export const metadata = {
-  title: "Menu — wszystkie pozycje",
-  description: "200+ pozycji w 8 kategoriach. Filtruj, dodawaj do koszyka, my doręczamy.",
+export async function generateMetadata() {
+  return buildMetadata({
+    path: "/menu",
+    defaults: {
+      title: "Menu — boxy, lunch, dania śląskie",
+      description:
+        "Pełna oferta Catering Śląski: 200+ pozycji w 8 kategoriach. Boxy na imprezy, lunch firmowy, dania śląskie. Zamów do 16:00 — dostawa jutro.",
+      canonical: "/menu",
+      keywords: ["catering Śląsk", "menu", "boxy koktajlowe", "lunch firmowy", "rolada śląska"],
+    },
+  })
 }
 
 // Placeholder products used when Medusa isn't reachable yet (dev / preview).

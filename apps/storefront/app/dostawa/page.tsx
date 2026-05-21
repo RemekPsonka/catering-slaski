@@ -1,11 +1,21 @@
 import { Metadata } from "next"
+import { buildMetadata } from "@/lib/seo/metadata"
+
+export async function generateMetadata() {
+  return buildMetadata({
+    path: "/dostawa",
+    defaults: {
+      title: 'Strefy dostawy i terminy — Górny Śląsk',
+      description: 'Sprawdź czy dowozimy do Twojego miasta. Strefa 1 do 25 km od centrum Katowic — dostawa od +29 zł. Cutoff 16:00 = dostawa jutro.',
+      canonical: "/dostawa",
+      keywords: ['strefy dostawy', 'catering dostawa Katowice', 'delivery Śląsk'],
+    },
+  })
+}
 import Link from "next/link"
 import { MapPin, Clock, Truck, AlertCircle } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Dostawa — strefy, ceny, terminy",
-  description: "Cały Górny Śląsk + okolice. Strefy dostawy, ceny, godziny, deadline zamówień.",
-}
+
 
 const ZONES = [
   {

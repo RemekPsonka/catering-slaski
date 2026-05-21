@@ -4,6 +4,10 @@ import Link from "next/link"
 import { ArrowLeft, Truck, Clock, CreditCard, Sparkles } from "lucide-react"
 import { AddToCart } from "@/components/product/AddToCart"
 import { getProductByHandle, formatPrice, priceFromProduct } from "@/lib/products"
+import { buildMetadata } from "@/lib/seo/metadata"
+import { buildProductJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo/schemas"
+import { TrackProductView } from "@/components/analytics/TrackProductView"
+
 
 type Params = Promise<{ slug: string }>
 
@@ -78,16 +82,23 @@ async function getProduct(slug: string) {
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params
   const product = await getProduct(slug)
-  if (!product) return { title: "Produkt nie znaleziony" }
-  return {
-    title: product.name,
-    description: product.description,
-    openGraph: {
-      title: product.name,
-      description: product.description,
-      images: [product.images[0]],
-    },
+  if (!product) {
+    return buildMetadata({
+      path: `/produkt/${slug}`,
+      defaults: { title: "Produkt nie znaleziony", description: "Sprawdź pełne menu", noindex: true },
+    })
   }
+  const priceFmt = formatPrice(product.price_cents)
+  return buildMetadata({
+    path: `/produkt/${slug}`,
+    defaults: {
+      title: `${product.name} — ${priceFmt}`,
+      description: product.description?.slice(0, 158) ?? `${product.name} z domowych receptur. Catering Śląski.`,
+      image: product.images?.[0],
+      canonical: `/produkt/${slug}`,
+      keywords: ["catering", "Śląsk", product.name, ...(product.tags ?? [])],
+    },
+  })
 }
 
 const TAG_LABELS: Record<string, { label: string; cls: string }> = {
@@ -102,8 +113,40 @@ export default async function ProductPage({ params }: { params: Params }) {
   const product = await getProduct(slug)
   if (!product) notFound()
 
+  const productJsonLd = buildProductJsonLd({
+    id: product.handle,
+    handle: product.handle,
+    title: product.name,
+    description: product.description,
+    thumbnail: product.images?.[0],
+    price_cents: product.price_cents,
+    rating_avg: product.rating,
+    rating_count: product.reviews,
+    is_vegetarian: product.tags?.includes("veg-option"),
+    is_gluten_free: product.tags?.includes("gf-option"),
+  })
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Strona główna", url: "/" },
+    { name: "Menu", url: "/menu" },
+    { name: product.name, url: `/produkt/${product.handle}` },
+  ])
+
   return (
     <article className="bg-paper-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <TrackProductView
+        productId={product.handle}
+        title={product.name}
+        priceCents={product.price_cents}
+        category={(product as any).category ?? null}
+      />
       <nav className="max-w-7xl mx-auto px-6 lg:px-10 pt-6 text-sm text-coal-900/60">
         <Link href="/menu" className="hover:text-signal-500 inline-flex items-center gap-1">
           <ArrowLeft size={14} /> Powrót do menu

@@ -1,10 +1,20 @@
 import { Metadata } from "next"
+import { buildMetadata } from "@/lib/seo/metadata"
+
+export async function generateMetadata() {
+  return buildMetadata({
+    path: "/konfigurator",
+    defaults: {
+      title: 'Konfigurator menu AI — odpowiedź w 15 sekund',
+      description: 'Powiedz nam typ eventu, liczbę gości i budżet — nasz AI ułoży dopasowane menu z mocnymi przekąskami i daniami śląskimi. Bezpłatnie, bez logowania.',
+      canonical: "/konfigurator",
+      keywords: ['konfigurator catering', 'AI menu', 'catering Śląsk online'],
+    },
+  })
+}
 import { AIGenerator } from "@/components/configurator/AIGenerator"
 
-export const metadata: Metadata = {
-  title: "AI Generator menu eventowego",
-  description: "Wpisz brief — w 15 sekund dostaniesz dopasowane menu z wyceną. Pierwsze takie narzędzie w polskim cateringu.",
-}
+
 
 export default function KonfiguratorPage() {
   return (

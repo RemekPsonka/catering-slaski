@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ShoppingCart, Heart, Minus, Plus, Check } from "lucide-react"
 import { useCart } from "@/lib/cart-store"
+import { track } from "@/lib/analytics"
 
 type Product = {
   slug: string
@@ -31,6 +32,20 @@ export function AddToCart({ product }: { product: Product }) {
       price_cents: product.price_cents,
       qty,
       image: product.images[0],
+    })
+    track({
+      event: "add_to_cart",
+      currency: "PLN",
+      value: (product.price_cents * qty) / 100,
+      items: [
+        {
+          item_id: product.slug,
+          item_name: product.name,
+          item_brand: "Catering Śląski",
+          price: product.price_cents / 100,
+          quantity: qty,
+        },
+      ],
     })
     setAdded(true)
     setTimeout(() => setAdded(false), 2200)

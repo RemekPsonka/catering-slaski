@@ -1,11 +1,21 @@
 import { Metadata } from "next"
+import { buildMetadata } from "@/lib/seo/metadata"
+
+export async function generateMetadata() {
+  return buildMetadata({
+    path: "/lunch",
+    defaults: {
+      title: 'Lunch firmowy — codzienna dostawa do biura',
+      description: 'Stałe dostawy lunchu firmowego w Katowicach, Gliwicach i okolicy. Menu rotacyjne, faktura na firmę, jeden e-mail = jeden tydzień.',
+      canonical: "/lunch",
+      keywords: ['lunch firmowy', 'catering biuro', 'lunch box Śląsk'],
+    },
+  })
+}
 import Link from "next/link"
 import { ArrowRight, Check, Truck, Calendar, Wallet, Sparkles, Clock } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Lunch dnia · subskrypcja",
-  description: "Codzienny lunch box do biura — od 35 zł/dzień, rabat -15% przy subskrypcji 5×/tydz. Dostawa rano, własny menu rotation.",
-}
+
 
 const PLANS = [
   {
