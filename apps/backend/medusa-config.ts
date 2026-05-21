@@ -26,12 +26,11 @@ export default defineConfig({
     backendUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
   },
   modules: [
-    // TEMPORARILY DISABLED for diagnostic
-    // { resolve: "./src/modules/delivery-zones" },
+    { resolve: "./src/modules/delivery-zones" },
     { resolve: "./src/modules/time-slots" },
-    // { resolve: "./src/modules/catering-attributes" },
-    // { resolve: "./src/modules/subscriptions" },
-    // { resolve: "./src/modules/loyalty" },
-    // { resolve: "./src/modules/external-webhooks" },
+    { resolve: "./src/modules/catering-attributes" },
+    { resolve: "./src/modules/subscriptions" },
+    { resolve: "./src/modules/loyalty" },
+    { resolve: "./src/modules/external-webhooks" },
   ],
 })
