@@ -24,14 +24,14 @@
     "clean": "rm -rf dist .medusa node_modules"
   },
   "dependencies": {
-    "@medusajs/admin-sdk": "2.4.0",
-    "@medusajs/framework": "2.4.0",
-    "@medusajs/medusa": "2.4.0",
-    "@medusajs/cli": "2.4.0",
-    "@medusajs/dashboard": "2.4.0",
-    "@medusajs/payment-stripe": "2.4.0",
-    "@medusajs/notification-local": "2.4.0",
-    "@medusajs/notification-sendgrid": "2.4.0",
+    "@medusajs/admin-sdk": "2.9.0",
+    "@medusajs/framework": "2.9.0",
+    "@medusajs/medusa": "2.9.0",
+    "@medusajs/cli": "2.9.0",
+    "@medusajs/dashboard": "2.9.0",
+    "@medusajs/payment-stripe": "2.9.0",
+    "@medusajs/notification-local": "2.9.0",
+    "@medusajs/notification-sendgrid": "2.9.0",
     "@mikro-orm/core": "5.9.7",
     "@mikro-orm/knex": "5.9.7",
     "@mikro-orm/postgresql": "5.9.7",
@@ -51,7 +51,7 @@
     "tsx": "^4.19.2"
   },
   "devDependencies": {
-    "@medusajs/test-utils": "2.4.0",
+    "@medusajs/test-utils": "2.9.0",
     "@types/node": "^22.10.0",
     "@types/react": "^18.3.18",
     "typescript": "^5.6.3",
