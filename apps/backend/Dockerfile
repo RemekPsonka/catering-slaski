@@ -47,4 +47,8 @@ RUN mkdir -p /app/static && chown medusa:nodejs /app/static
 USER medusa
 EXPOSE 9000
 
-CMD ["pnpm", "start"]
+# Copy startup script with auto-migration
+COPY --from=builder --chown=medusa:nodejs /app/apps/backend/start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]

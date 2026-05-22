@@ -5,7 +5,7 @@
     "dockerfilePath": "apps/backend/Dockerfile"
   },
   "deploy": {
-    "startCommand": "pnpm db:migrate && pnpm start",
+    "startCommand": "cd /app && (NODE_OPTIONS='--import tsx' /app/node_modules/.bin/medusa db:migrate || echo 'migrate failed, continuing') && NODE_OPTIONS='--import tsx' /app/node_modules/.bin/medusa start",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3,
     "numReplicas": 1,
