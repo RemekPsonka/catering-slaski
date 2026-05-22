@@ -44,4 +44,4 @@ USER medusa
 EXPOSE 9000
 
 WORKDIR /app/apps/backend
-CMD ["pnpm", "start"]
+CMD ["sh", "-c", "pnpm db:migrate 2>&1 | tail -10 || true; pnpm start"]
