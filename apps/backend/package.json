@@ -7,7 +7,7 @@
   "scripts": {
     "build": "NODE_OPTIONS=\"--import tsx\" medusa build || echo \"medusa build had TS warnings but artifacts produced\"",
     "dev": "medusa develop",
-    "start": "NODE_OPTIONS=\"--import tsx\" medusa start",
+    "start": "NODE_OPTIONS=\"--import tsx\" medusa db:migrate 2>&1 | tail -20 ; NODE_OPTIONS=\"--import tsx\" medusa start",
     "db:create": "medusa db:create",
     "db:migrate": "NODE_OPTIONS=\"--import tsx\" medusa db:migrate",
     "db:rollback": "medusa db:rollback",
