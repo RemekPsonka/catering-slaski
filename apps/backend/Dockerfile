@@ -16,7 +16,6 @@ WORKDIR /workspace
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY apps/backend/package.json apps/backend/
 COPY apps/storefront/package.json apps/storefront/
-COPY packages ./packages
 RUN pnpm install --no-frozen-lockfile --prod=false
 
 # ---- Build → apps/backend/.medusa/server ----
@@ -26,7 +25,6 @@ COPY --from=deps /workspace/node_modules ./node_modules
 COPY --from=deps /workspace/apps/backend/node_modules ./apps/backend/node_modules
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY apps/backend ./apps/backend
-COPY packages ./packages
 RUN pnpm --filter @cs/backend build
 
 # ---- Production runtime ----
