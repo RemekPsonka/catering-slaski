@@ -42,5 +42,11 @@
     "**/*.test.ts",
     "disabled",
     "disabled/**/*"
-  ]
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
