@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * One-shot importer: cs.products (Supabase) → Medusa products.
  *

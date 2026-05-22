@@ -43,30 +43,5 @@ export default defineConfig({
     { resolve: "./src/modules/subscriptions" },
     { resolve: "./src/modules/loyalty" },
     { resolve: "./src/modules/external-webhooks" },
-    { resolve: "./src/modules/delivery-methods" },
-    { resolve: "./src/modules/product-availability" },
-    { resolve: "./src/modules/newsletter" },
-    { resolve: "./src/modules/dietary-profile" },
-    { resolve: "./src/modules/b2b-accounts" },
-    { resolve: "./src/modules/production" },
-    { resolve: "./src/modules/seo-meta" },
-    { resolve: "./src/modules/resend-notification" },
-    {
-      resolve: "@medusajs/medusa/notification",
-      options: {
-        providers: [
-          {
-            resolve: "./src/modules/resend-notification",
-            id: "resend",
-            options: {
-              channels: ["email"],
-              api_key: process.env.RESEND_API_KEY,
-              from: process.env.RESEND_FROM || "onboarding@resend.dev",
-              reply_to: process.env.RESEND_REPLY_TO || "zamowienia@cateringslaski.pl",
-            },
-          },
-        ],
-      },
-    },
   ],
 })

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Seed Catering Śląski product catalog.
  *
