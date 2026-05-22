@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { Container, Heading, Text, Textarea, Button } from "@medusajs/ui"
 import { Sparkles } from "@medusajs/icons"

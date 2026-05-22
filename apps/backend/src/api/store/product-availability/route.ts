@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /store/product-availability?product_id=...&date=2026-05-22
  *

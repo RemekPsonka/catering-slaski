@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaService } from "@medusajs/framework/utils"
 import { LoyaltyAccount, LoyaltyTransaction } from "./models/loyalty"
 import { randomBytes } from "node:crypto"

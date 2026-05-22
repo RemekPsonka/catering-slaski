@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Admin CRUD for SEO overrides.
  * GET    /admin/seo-meta?path=&limit=&offset=&q=

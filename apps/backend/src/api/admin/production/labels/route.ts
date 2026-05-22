@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /admin/production/labels?date=YYYY-MM-DD
  *

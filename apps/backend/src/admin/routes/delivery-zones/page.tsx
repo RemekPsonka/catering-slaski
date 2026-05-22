@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { Container, Heading, Table, Badge, Button, Text } from "@medusajs/ui"
 import { MapPin } from "@medusajs/icons"

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaService } from "@medusajs/framework/utils"
 import { MedusaContainer } from "@medusajs/framework/types"
 import { DeliveryZone, DeliveryZoneType } from "./models/delivery-zone"

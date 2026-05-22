@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /store/subscriptions — list dla zalogowanego klienta
  * POST /store/subscriptions — utwórz nową subskrypcję

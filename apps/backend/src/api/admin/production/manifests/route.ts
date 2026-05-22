@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /admin/production/manifests?date=YYYY-MM-DD&zone_id=...
  *

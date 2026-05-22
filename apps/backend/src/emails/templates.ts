@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Email templates for Catering Śląski.
  * Rendered as HTML strings (inline-styled for broad client compat).

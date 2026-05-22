@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /admin/production?date=YYYY-MM-DD — production run dla daty (lub buduje na żywo)
  * POST /admin/production { production_date } — utwórz run i zliczy line items

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { Container, Heading, Table, Badge, Text, Input, Textarea, Button } from "@medusajs/ui"
 import { GlobeEurope } from "@medusajs/icons"

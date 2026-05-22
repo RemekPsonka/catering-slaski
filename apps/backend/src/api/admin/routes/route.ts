@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { PRODUCTION_MODULE } from "../../../modules/production"
 

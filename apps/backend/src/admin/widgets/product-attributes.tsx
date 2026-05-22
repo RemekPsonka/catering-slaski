@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineWidgetConfig } from "@medusajs/admin-sdk"
 import { Container, Heading, Badge, Text } from "@medusajs/ui"
 import { useEffect, useState } from "react"

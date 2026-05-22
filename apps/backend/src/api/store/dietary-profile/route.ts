@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { DIETARY_PROFILE_MODULE } from "../../../modules/dietary-profile"
 

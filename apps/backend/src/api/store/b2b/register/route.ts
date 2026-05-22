@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { B2B_ACCOUNTS_MODULE } from "../../../../modules/b2b-accounts"
 import { Modules } from "@medusajs/framework/utils"

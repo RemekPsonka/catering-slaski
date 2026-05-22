@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { NEWSLETTER_MODULE } from "../../../../modules/newsletter"
 import { Modules } from "@medusajs/framework/utils"

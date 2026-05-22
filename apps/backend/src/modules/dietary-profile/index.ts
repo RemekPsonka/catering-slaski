@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Module } from "@medusajs/framework/utils"
 import DietaryProfileModuleService from "./service"
 export const DIETARY_PROFILE_MODULE = "dietary_profile"

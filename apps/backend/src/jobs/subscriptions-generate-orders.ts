@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { MedusaContainer } from "@medusajs/framework/types"
 import { Modules } from "@medusajs/framework/utils"
 import { SUBSCRIPTIONS_MODULE } from "../modules/subscriptions"

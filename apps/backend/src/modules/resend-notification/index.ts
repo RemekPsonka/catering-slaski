@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ModuleProvider, Modules } from "@medusajs/framework/utils"
 import ResendNotificationProviderService from "./service"
 

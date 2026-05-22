@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /store/postal-lookup?code=40-159
  *

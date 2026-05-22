@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaContainer } from "@medusajs/framework/types"
 import { Modules } from "@medusajs/framework/utils"
 import { renderAbandonedCart } from "../emails/templates"

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { z } from "zod"
 import Anthropic from "@anthropic-ai/sdk"

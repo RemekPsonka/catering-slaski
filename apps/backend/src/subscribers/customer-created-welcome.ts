@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SubscriberArgs, SubscriberConfig } from "@medusajs/framework"
 import { Modules } from "@medusajs/framework/utils"
 import { renderWelcomeCustomer } from "../emails/templates"

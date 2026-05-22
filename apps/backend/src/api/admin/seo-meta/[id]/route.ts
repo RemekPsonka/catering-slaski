@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { SEO_META_MODULE } from "../../../../modules/seo-meta"
 

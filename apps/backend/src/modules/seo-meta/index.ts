@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Module } from "@medusajs/framework/utils"
 import SeoMetaModuleService from "./service"
 

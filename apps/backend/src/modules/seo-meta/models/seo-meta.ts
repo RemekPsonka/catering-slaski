@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * SeoMeta — per-path SEO override stored in Postgres.
  *

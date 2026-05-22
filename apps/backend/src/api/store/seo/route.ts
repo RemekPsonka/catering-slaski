@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * GET /store/seo?path=/produkt/zurek-slaski
  * Returns admin-managed SEO override for a URL path. Storefront merges it

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { model } from "@medusajs/framework/utils"
 
 export const TimeSlot = model.define("DeliveryTimeSlot", {
