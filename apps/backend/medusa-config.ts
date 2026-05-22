@@ -48,6 +48,8 @@ export default defineConfig({
     { resolve: "./src/modules/dietary-profile" },
     { resolve: "./src/modules/delivery-methods" },
     { resolve: "./src/modules/product-availability" },
+    { resolve: "./src/modules/b2b-accounts" },
+    { resolve: "./src/modules/production" },
     {
       resolve: "@medusajs/medusa/notification",
       options: {
