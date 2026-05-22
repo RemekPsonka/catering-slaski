@@ -1,7 +1,7 @@
 # ============================================
 # Catering Śląski — Medusa Backend Dockerfile
-# Per Medusa 2.x docs: medusa build → .medusa/server
-# Production runs from .medusa/server, with pnpm install in that dir.
+# Production runtime serves from .medusa/server (per Medusa 2.x docs)
+# but uses our source package.json which has start + predeploy scripts.
 # https://docs.medusajs.com/learn/deployment/general
 # ============================================
 FROM node:20-alpine AS base
@@ -10,7 +10,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
-# ---- Dependencies for build (monorepo-aware) ----
+# ---- Dependencies (monorepo-aware) ----
 FROM base AS deps
 WORKDIR /workspace
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
@@ -19,7 +19,7 @@ COPY apps/storefront/package.json apps/storefront/
 COPY packages ./packages
 RUN pnpm install --no-frozen-lockfile --prod=false
 
-# ---- Build: produkuje apps/backend/.medusa/server ----
+# ---- Build → apps/backend/.medusa/server ----
 FROM base AS builder
 WORKDIR /workspace
 COPY --from=deps /workspace/node_modules ./node_modules
@@ -30,7 +30,6 @@ COPY packages ./packages
 RUN pnpm --filter @cs/backend build
 
 # ---- Production runtime ----
-# Per docs: cd .medusa/server && pnpm install && pnpm predeploy && pnpm start
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
@@ -40,16 +39,23 @@ ENV DISABLE_MEDUSA_ADMIN=false
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 medusa
 
-# Copy ONLY the built .medusa/server output. This is what production needs.
+# Copy the built .medusa/server output
 COPY --from=builder --chown=medusa:nodejs /workspace/apps/backend/.medusa/server ./
-# Install production deps in this directory (per Medusa docs).
+# Override generated package.json with source (preserves predeploy + start scripts + all deps)
+COPY --from=builder --chown=medusa:nodejs /workspace/apps/backend/package.json ./package.json
+COPY --from=builder --chown=medusa:nodejs /workspace/pnpm-workspace.yaml ./pnpm-workspace.yaml
+# Copy source as fallback (Medusa scanner uses cwd/src for API routes)
+COPY --from=builder --chown=medusa:nodejs /workspace/apps/backend/src ./src
+COPY --from=builder --chown=medusa:nodejs /workspace/apps/backend/medusa-config.ts ./medusa-config.ts
+
+# Install production deps in this dir
 USER root
-RUN pnpm install --prod --no-frozen-lockfile && chown -R medusa:nodejs /app
+RUN pnpm install --prod --no-frozen-lockfile --ignore-workspace && chown -R medusa:nodejs /app
 USER medusa
 
 RUN mkdir -p /app/static 2>/dev/null || true
 
 EXPOSE 9000
 
-# Per Medusa docs: predeploy (migrations + link sync) then start
+# Per Medusa docs: predeploy (db:migrate + sync links) then start
 CMD ["sh", "-c", "pnpm run predeploy && pnpm run start"]
