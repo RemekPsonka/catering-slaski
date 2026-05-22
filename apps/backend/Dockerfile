@@ -1,6 +1,7 @@
 # ============================================
 # Catering Śląski — Medusa Backend Dockerfile
-# Multi-stage build, monorepo-aware (build context = repo root)
+# Simplified — copy whole apps/backend, run via tsx (works regardless
+# of whether medusa build produced .medusa/ or dist/)
 # ============================================
 FROM node:20-alpine AS base
 RUN apk add --no-cache libc6-compat python3 make g++
@@ -16,7 +17,7 @@ COPY apps/backend/package.json apps/backend/
 COPY apps/storefront/package.json apps/storefront/
 RUN pnpm install --no-frozen-lockfile --prod=false
 
-# ---- Build ----
+# ---- Build (best-effort: produces .medusa or dist depending on Medusa internals) ----
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -30,19 +31,17 @@ FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV MEDUSA_WORKER_MODE=shared
+ENV DISABLE_MEDUSA_ADMIN=false
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 medusa
 
-# Copy built backend (workspace deps included)
-COPY --from=builder --chown=medusa:nodejs /app/apps/backend/.medusa ./.medusa
-COPY --from=builder --chown=medusa:nodejs /app/apps/backend/node_modules ./node_modules
-COPY --from=builder --chown=medusa:nodejs /app/apps/backend/package.json ./package.json
-COPY --from=builder --chown=medusa:nodejs /app/apps/backend/medusa-config.ts ./medusa-config.ts
-COPY --from=builder --chown=medusa:nodejs /app/apps/backend/src ./src
+# Copy everything from builder — source, deps, optional build artifacts
+COPY --from=builder --chown=medusa:nodejs /app /app
 
 RUN mkdir -p /app/static && chown medusa:nodejs /app/static
 USER medusa
 EXPOSE 9000
 
+WORKDIR /app/apps/backend
 CMD ["pnpm", "start"]
