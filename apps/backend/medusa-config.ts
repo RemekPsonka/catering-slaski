@@ -44,5 +44,8 @@ export default defineConfig({
     { resolve: "./src/modules/loyalty" },
     { resolve: "./src/modules/external-webhooks" },
     { resolve: "./src/modules/seo-meta" },
+    { resolve: "./src/modules/newsletter" },
+    { resolve: "./src/modules/dietary-profile" },
+    { resolve: "./src/modules/delivery-methods" },
   ],
 })
