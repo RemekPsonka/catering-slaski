@@ -21,8 +21,9 @@ export default defineConfig({
     workerMode: (process.env.MEDUSA_WORKER_MODE as "shared" | "server" | "worker") || "shared",
   },
   admin: {
-    disable: true,
+    disable: process.env.DISABLE_MEDUSA_ADMIN === "true" || process.env.DISABLE_ADMIN === "true",
     backendUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
+    path: "/app",
   },
   modules: [
     {
