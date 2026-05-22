@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Module } from "@medusajs/framework/utils"
 import CateringAttributesService from "./service"
 

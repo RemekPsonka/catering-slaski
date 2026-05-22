@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Module } from "@medusajs/framework/utils"
 import LoyaltyService from "./service"
 
