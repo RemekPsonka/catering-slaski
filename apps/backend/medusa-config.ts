@@ -43,5 +43,6 @@ export default defineConfig({
     { resolve: "./src/modules/subscriptions" },
     { resolve: "./src/modules/loyalty" },
     { resolve: "./src/modules/external-webhooks" },
+    { resolve: "./src/modules/seo-meta" },
   ],
 })
