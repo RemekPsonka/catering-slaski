@@ -21,20 +21,18 @@ export default defineConfig({
     workerMode: (process.env.MEDUSA_WORKER_MODE as "shared" | "server" | "worker") || "shared",
   },
   admin: {
+    disable: true,
     backendUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
   },
   modules: [
     {
-      resolve: "@medusajs/medusa/event-bus-redis",
-      options: { redisUrl: process.env.REDIS_URL },
+      resolve: "@medusajs/medusa/event-bus-local",
     },
     {
-      resolve: "@medusajs/medusa/cache-redis",
-      options: { redisUrl: process.env.REDIS_URL, ttl: 30 },
+      resolve: "@medusajs/medusa/cache-inmemory",
     },
     {
-      resolve: "@medusajs/medusa/workflow-engine-redis",
-      options: { redis: { url: process.env.REDIS_URL } },
+      resolve: "@medusajs/medusa/workflow-engine-inmemory",
     },
     { resolve: "./src/modules/delivery-zones" },
     { resolve: "./src/modules/time-slots" },
