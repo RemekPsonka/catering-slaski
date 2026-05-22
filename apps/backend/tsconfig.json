@@ -39,6 +39,8 @@
     "node_modules",
     "dist",
     ".medusa",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "disabled",
+    "disabled/**/*"
   ]
 }
