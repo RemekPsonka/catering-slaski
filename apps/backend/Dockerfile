@@ -30,6 +30,10 @@ RUN cd apps/backend && \
     echo "=== find public/admin ===" ; find . -maxdepth 6 -type d -name "admin" 2>/dev/null | head -10 ; \
     exit 0
 
+# Add static root landing into dist/public/ (served before /app SPA matches /).
+COPY apps/backend/public/index.html /tmp/landing.html
+RUN mkdir -p /app/apps/backend/dist/public && cp /tmp/landing.html /app/apps/backend/dist/public/index.html || true
+
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
