@@ -2,7 +2,7 @@
   "name": "catering-slaski",
   "version": "1.0.0",
   "private": true,
-  "description": "Catering Śląski — sklep zamówieniowy + integracje z systemami operacyjnymi",
+  "description": "Catering \u015al\u0105ski \u2014 sklep zam\u00f3wieniowy + integracje z systemami operacyjnymi",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -24,13 +24,15 @@
   "devDependencies": {
     "turbo": "^2.5.0",
     "prettier": "^3.5.0",
-    "typescript": "^5.6.3",
+    "typescript": "5.6.3",
     "@types/node": "^22.10.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.0"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,md}": ["prettier --write"]
+    "*.{ts,tsx,js,jsx,json,md}": [
+      "prettier --write"
+    ]
   },
   "engines": {
     "node": ">=20.0.0",
