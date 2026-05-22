@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { MedusaContainer } from "@medusajs/framework/types"
 
 /**

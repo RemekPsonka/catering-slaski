@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { MedusaService } from "@medusajs/framework/utils"
 import { ProductAttribute } from "./models/product-attribute"
 

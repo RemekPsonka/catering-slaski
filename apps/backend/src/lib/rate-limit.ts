@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Sliding-window rate limiter.
  *

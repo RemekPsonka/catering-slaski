@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { defineMiddlewares } from "@medusajs/framework/http"
 
 /**

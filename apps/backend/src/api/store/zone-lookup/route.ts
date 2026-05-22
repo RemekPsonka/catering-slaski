@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { z } from "zod"
 import { DELIVERY_ZONES_MODULE } from "../../../modules/delivery-zones"

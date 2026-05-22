@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { SubscriberArgs, SubscriberConfig } from "@medusajs/framework"
 import { Modules } from "@medusajs/framework/utils"
 import { renderOrderConfirmation } from "../emails/templates"

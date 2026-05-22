@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework"
 import { z } from "zod"
 import { rateLimit, getClientIp } from "../../../lib/rate-limit"
