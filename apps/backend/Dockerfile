@@ -44,11 +44,26 @@ USER medusa
 EXPOSE 8080 9000
 
 WORKDIR /app/apps/backend
-# Always run from project root — medusa start needs medusa-config.{ts,js} in cwd.
-# Admin built by 'medusa build' lives in .medusa/admin/ — medusa start picks it up automatically.
+# Medusa 2.15.3 build outputs:
+#   .medusa/medusa-config.js  — compiled config
+#   .medusa/index.html        — admin entry (vite template)
+#   dist/public/admin/        — admin SPA bundle (where medusa start looks: cwd + 'public/admin/index.html')
+# So cwd must contain BOTH medusa-config AND public/admin/index.html.
+# Fix: copy compiled config + tsx-resolvable src into dist/, run from dist/.
 CMD ["sh", "-c", "\
-    echo '>>> ls apps/backend:' && ls -la /app/apps/backend ; \
-    echo '>>> ls apps/backend/.medusa:' && ls -laR /app/apps/backend/.medusa 2>&1 | head -50 ; \
-    echo '>>> ls apps/backend/dist:' && ls -la /app/apps/backend/dist 2>&1 | head -20 ; \
-    cd /app/apps/backend && NODE_OPTIONS='--import tsx' /app/apps/backend/node_modules/.bin/medusa start \
+    set -e ; \
+    cd /app/apps/backend ; \
+    echo '>>> ls -la .medusa:' && ls -la .medusa 2>&1 | head -20 ; \
+    echo '>>> ls -la dist:' && ls -la dist 2>&1 | head -20 ; \
+    echo '>>> ls -la dist/public:' && ls -la dist/public 2>&1 | head -10 ; \
+    # Stage: copy compiled medusa-config and types into dist/ so cwd=dist works \
+    cp -n .medusa/medusa-config.js dist/medusa-config.js 2>/dev/null || true ; \
+    cp -n .medusa/medusa-config.js.map dist/medusa-config.js.map 2>/dev/null || true ; \
+    # Link src so tsx loader can find route files referenced in compiled config \
+    ln -sfn /app/apps/backend/src dist/src 2>/dev/null || true ; \
+    ln -sfn /app/apps/backend/node_modules dist/node_modules 2>/dev/null || true ; \
+    ln -sfn /app/apps/backend/package.json dist/package.json 2>/dev/null || true ; \
+    echo '>>> ls -la dist after staging:' && ls -la dist 2>&1 | head -20 ; \
+    # Start from dist/ — public/admin/index.html will resolve \
+    cd /app/apps/backend/dist && NODE_OPTIONS='--import tsx' /app/apps/backend/node_modules/.bin/medusa start \
 "]
