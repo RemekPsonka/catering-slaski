@@ -44,20 +44,11 @@ USER medusa
 EXPOSE 8080 9000
 
 WORKDIR /app/apps/backend
-# Run from .medusa/server (Medusa 2.x official) if exists; that's where admin lives at public/admin
+# Always run from project root — medusa start needs medusa-config.{ts,js} in cwd.
+# Admin built by 'medusa build' lives in .medusa/admin/ — medusa start picks it up automatically.
 CMD ["sh", "-c", "\
-    echo '>>> contents apps/backend:' && ls -la /app/apps/backend ; \
-    if [ -d /app/apps/backend/.medusa/server ]; then \
-      echo '>>> using .medusa/server' ; \
-      cd /app/apps/backend/.medusa/server ; \
-      NODE_OPTIONS='--import tsx' /app/apps/backend/node_modules/.bin/medusa start ; \
-    elif [ -d /app/apps/backend/dist ]; then \
-      echo '>>> using dist' ; \
-      cd /app/apps/backend/dist ; \
-      NODE_OPTIONS='--import tsx' /app/apps/backend/node_modules/.bin/medusa start ; \
-    else \
-      echo '>>> using src via tsx' ; \
-      cd /app/apps/backend ; \
-      NODE_OPTIONS='--import tsx' /app/apps/backend/node_modules/.bin/medusa start ; \
-    fi \
+    echo '>>> ls apps/backend:' && ls -la /app/apps/backend ; \
+    echo '>>> ls apps/backend/.medusa:' && ls -laR /app/apps/backend/.medusa 2>&1 | head -50 ; \
+    echo '>>> ls apps/backend/dist:' && ls -la /app/apps/backend/dist 2>&1 | head -20 ; \
+    cd /app/apps/backend && NODE_OPTIONS='--import tsx' /app/apps/backend/node_modules/.bin/medusa start \
 "]
