@@ -50,7 +50,10 @@
     "date-fns-tz": "^3.2.0",
     "tsx": "^4.19.2",
     "awilix": "^8.0.1",
-    "@medusajs/draft-order": "2.15.3"
+    "@medusajs/draft-order": "2.15.3",
+    "@medusajs/admin-shared": "2.15.3",
+    "@medusajs/admin-vite-plugin": "2.15.3",
+    "@medusajs/admin-bundler": "2.15.3"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.15.3",
