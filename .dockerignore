@@ -1,0 +1,50 @@
+# Node
+**/node_modules
+**/.pnpm-store
+**/.npm
+
+# Build artifacts
+**/.medusa
+**/.next
+**/dist
+**/build
+**/.turbo
+
+# Logs
+**/*.log
+**/npm-debug.log*
+
+# Env (set by Railway; don't bake into image)
+.env
+.env.local
+.env.*.local
+**/*.env
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# Editor
+.vscode
+.idea
+**/*.swp
+**/.DS_Store
+
+# Tests / coverage
+**/coverage
+**/.nyc_output
+**/test-results
+**/test/
+**/__tests__/
+
+# Storefront-specific (we don't need it in backend build context but Dockerfile copies whole apps/)
+apps/storefront/.next
+apps/storefront/out
+apps/storefront/build
+
+# Misc
+*.html
+*.html.bak
+README.md
+**/*.md
