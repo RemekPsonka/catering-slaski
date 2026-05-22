@@ -83,7 +83,11 @@ export default class ExternalWebhooksService extends MedusaService({}) {
       ]
     )
 
-    // Enqueue job
+    // Enqueue job (only if queue is initialized — requires REDIS_URL)
+    if (!this.queue_) {
+      console.warn(`[external-webhooks] queue disabled — webhook ${input.event_id} not enqueued (set REDIS_URL to enable retry queue)`)
+      return { delivery_id: deliveryId, enqueued: false }
+    }
     await this.queue_!.add(
       `${input.destination}:${input.event_type}`,
       {
@@ -278,7 +282,11 @@ export default class ExternalWebhooksService extends MedusaService({}) {
   }
 
   private initQueue_(): void {
-    const redisUrl = process.env.REDIS_URL || "redis://localhost:6379"
+    if (!process.env.REDIS_URL) {
+      console.warn("[external-webhooks] REDIS_URL not set — queue+worker disabled (webhooks will be sent inline, no retry queue)")
+      return
+    }
+    const redisUrl = process.env.REDIS_URL
 
     this.queue_ = new Queue(QUEUE_NAME, {
       connection: { url: redisUrl } as any,
