@@ -48,3 +48,35 @@ export const DeliveryZone = model.define("DeliveryZone", {
   is_active: model.boolean().default(true),
   display_color: model.text().default("#E54B17"),
 })
+
+export type DeliveryZoneType = {
+  id: string
+  name: string
+  slug: string
+  zone_type: "local" | "regional" | "national"
+  delivery_method:
+    | "own_fleet"
+    | "courier_dpd"
+    | "courier_inpost"
+    | "pickup_only"
+    | null
+  supported_methods: string[] | null
+  postal_codes: string[] | null
+  delivery_days: number[] | null
+  operating_hours: Record<string, { open: string; close: string }> | null
+  base_delivery_fee_cents: number
+  free_delivery_threshold_cents: number | null
+  min_order_cents: number
+  lead_time_days: number
+  cutoff_hour: number
+  cutoff_minute: number
+  allowed_product_categories: string[] | null
+  max_transport_hours: number | null
+  requires_thermal_packaging: boolean
+  priority: number
+  capture_lead_when_out_of_range: boolean
+  is_active: boolean
+  display_color: string
+  created_at: Date
+  updated_at: Date
+}

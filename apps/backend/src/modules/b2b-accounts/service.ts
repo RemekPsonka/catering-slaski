@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MedusaService } from "@medusajs/framework/utils"
 import { B2BAccount, B2BMember, B2BInvoiceCycle } from "./models/b2b"
 

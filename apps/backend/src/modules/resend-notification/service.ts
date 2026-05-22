@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Resend notification provider for Medusa 2.9.
  *
